@@ -4,7 +4,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :ip
       t.string :facebook_uid
       t.string :username
-      t.int :point
+      t.integer :point
       t.string :color
       t.string :banner
 
