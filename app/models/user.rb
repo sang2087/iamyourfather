@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   attr_accessible :banner, :color, :facebook_uid, :ip, :point, :username, :ancestry, :node_cnt
-	has_ancestry
+	has_ancestry 
 	def self.make_gexf
 		users = User.all
 		builder = Nokogiri::XML::Builder.new(:encoding => 'UTF-8') do |xml|

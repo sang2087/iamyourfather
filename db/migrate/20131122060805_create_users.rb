@@ -5,7 +5,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :facebook_uid
       t.string :username,				:default => "baby"
       t.integer :point,					:default => 0
-      t.string :color,					:default => "ff/ff/ff"
+      t.string :color,					:default => "255/255/255"
       t.string :banner,					:default => "hello world"
 			t.integer :node_cnt,			:default => 1
 
