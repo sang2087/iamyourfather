@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
 						users.each do |user|
 							unless(user.parent_id.nil?)
 								cnt += 1
-								xml.edge('id' => "#{cnt}", 'source' => "#{user.id}", 'target' => "#{user.parent_id}")
+								xml.edge('id' => "#{cnt}", 'source' => "#{user.parent_id}", 'target' => "#{user.id}")
 							end
 						end
 					end
