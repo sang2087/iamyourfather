@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
 					xml.nodes do 
 						users.each do |user|
 							xml.node('id' => "#{user.id}", 'label' => "#{user.username}") do
-								xml['viz'].size('value' => user.node_cnt)
+								xml['viz'].size('value' => Math.log2(user.node_cnt + 1))
 								xml['viz'].color('r' => User.color_r(user.color), 'g' => User.color_g(user.color), 'b' => User.color_b(user.color))
 							end
 						end

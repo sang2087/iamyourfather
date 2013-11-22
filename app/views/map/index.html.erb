@@ -56,7 +56,7 @@
 
 		$(function(){
 			groups = <%=@groups%>;
-			console.log(groups);
+			//console.log(groups);
 			$("#dialog").hide();
 
 
@@ -145,25 +145,24 @@
 		function init() {
 			// Instanciate sigma.js and customize rendering :
 			var sigInst = sigma.init(document.getElementById('sigma-example')).drawingProperties({
-				defaultLabelColor: '#000',
+				defaultLabelColor: '#fff',
 				defaultLabelSize: 14,
 				defaultLabelBGColor: '#fff',
 				defaultLabelHoverColor: '#000',
-				labelThreshold: 10,
+				labelThreshold: 6,
 				defaultEdgeType: 'curve'
 				}).graphProperties({
-				minNodeSize: 0.5,
-				maxNodeSize: 10,
+				minNodeSize: 1,
+				maxNodeSize: 7,
 				minEdgeSize: 1,
 				maxEdgeSize: 1
 				}).mouseProperties({
-				maxRatio: 4
+				maxRatio: 20
 				});
 
 			// Parse a GEXF encoded file to fill the graph
 			// (requires "sigma.parseGexf.js" to be included)
 			sigInst.parseGexf('map/data.gexf');
-			console.log(sigInst);
 
 			// Bind events :
 			sigInst.bind('overnodes',function(event){
@@ -186,13 +185,13 @@
 					if(nodes.indexOf(parseInt(e.source))>=0 || nodes.indexOf(parseInt(e.target))>=0){
 						neighbors[e.source] = 1;
 						neighbors[e.target] = 1;
-						console.log(e.source)
+						//console.log(e.source)
 					}
 				}).iterNodes(function(n){
 					if(!neighbors[n.id] && n.id != nodes ){
 					//Edit by susang
 						n.hidden = 0;
-						n.color = change_alpha(n.color, "0.1")
+						n.color = change_alpha(n.color, "0.2")
 					}else{
 						n.hidden = 0;
 					}
@@ -251,6 +250,7 @@
 		-moz-border-radius: 4px;
 		-webkit-border-radius: 4px;
 		background: #222;
+		background-image: url('/img/background.png');
 		height: 600px;
 	}
 	.sigma-expand {

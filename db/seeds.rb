@@ -1,6 +1,6 @@
 puts "start seed"
-ROOT_SIZE = 5
-SIZE = 30
+ROOT_SIZE = 10
+SIZE = 3000
 1.upto(ROOT_SIZE) do |i|
 	User.create(:ip => "0.0.0.0",
 							:username => "The God#{i}",
