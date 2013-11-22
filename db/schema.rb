@@ -39,13 +39,13 @@ ActiveRecord::Schema.define(:version => 20131122062319) do
   create_table "users", :force => true do |t|
     t.string   "ip"
     t.string   "facebook_uid"
-    t.string   "username"
-    t.integer  "point"
-    t.string   "color"
-    t.string   "banner"
-    t.integer  "node_cnt"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.string   "username",     :default => "baby"
+    t.integer  "point",        :default => 0
+    t.string   "color",        :default => "ff/ff/ff"
+    t.string   "banner",       :default => "hello world"
+    t.integer  "node_cnt",     :default => 1
+    t.datetime "created_at",                              :null => false
+    t.datetime "updated_at",                              :null => false
     t.string   "ancestry"
   end
 
