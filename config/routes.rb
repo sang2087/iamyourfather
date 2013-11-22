@@ -1,4 +1,12 @@
 Iamyourfather::Application.routes.draw do
+  get "map/index"
+
+  get "map/seize"
+
+  get "map/independence"
+
+  get "map/betray"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
