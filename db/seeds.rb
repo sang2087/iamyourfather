@@ -5,3 +5,11 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+#
+
+User.create(:ip => "0.0.0.0",
+						:username => "The God",
+						:point => 0,
+						:color => "ff/ff/ff",
+						:banner => "I am the God",
+						:node_cnt => 1)

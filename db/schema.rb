@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(:version => 20131122062319) do
     t.integer  "point"
     t.string   "color"
     t.string   "banner"
+    t.integer  "node_cnt"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
     t.string   "ancestry"
