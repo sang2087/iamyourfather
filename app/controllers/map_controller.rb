@@ -24,10 +24,10 @@ class MapController < ApplicationController
   end
 
 	def data
-		data = { :sample => "test" }
-		respond_to do |format|
-			format.gexf { render :gexf => data }
-		end
+		data = User.make_gexf
+		puts data
+
+		render :xml => data 
 	end
 
   def seize
