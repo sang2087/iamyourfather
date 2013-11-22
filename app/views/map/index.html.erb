@@ -10,9 +10,9 @@
 			<h1>username</h1>
 			<button>Facebook Login</button>
 			<h1>Point</h1>
-			<button>Independence</button>
-			<button>Betray</button>
-			<button>Seize</button>
+			<button id="independance">Independance</button>
+			<button id="betray">Betray</button>
+			<button id="seize">Seize</button>
 			<h1>friend list</h1>
 			<ul>
 				<li>asdfas</li>
@@ -30,31 +30,84 @@
 			<div class="span2">
 				<a href="#" onclick='$("#dialog").hide()'>X</a><br>
 			</div>
-
 		</div>
 		<div class="row-fluid">
 			<div class="span6">
 				<img id="dialog_image" src="">
 			</div>
 			<div class="span6">
-				<p>This is the default dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
+				<h1><span id="dialog_banner">Banner</span></h1>
+				<h1><span id="dialog_point">Point</span></h1>
 			</div>
 		</div>
+		<div id="dialog_button" class="row-fluid">
+		</div>
+
 	</div>
 
 	<script type="text/javascript">
-		var nodes = null
-		var groups = null
+		var node_id = null;
+		var nodes = null;
+		var groups = null;
+		var function_type = null; //type : null, betray, seize
 		$(function(){
 			groups = <%=@groups%>;
-			console.log(groups)
+			console.log(groups);
 
 			//node click event
 			$("#sigma-example-parent").bind("mouseup",function(){
 				if(nodes != null){
+				if(type == "betray"){
+					$.ajax({
+						url: "/map/user.json",
+						type: "POST",
+						data: {
+							user_id: node_id // if user_id == 0 then get session user
+						},
+						success: function(user) {
+							$("#dialog_name").text(user.username);
+							$("#dialog_banner").text(user.banner);
+							$("#dialog_image").attr("src",user.picture);
+						}
+					});
+
+					html = '<button onclick="dialog_yes("indepandance")">Yes</button>' +
+								 '<button onclick="dialog_no("indepandance")">No</button>';
+					$("#dialog_button_area").html(html)
 					$("#dialog").show();
+					
+						$("#dialog").show();
+					}
 				}
 			});
+			$("#independance").click(function(){
+				$.ajax({
+					url: "/map/user.json",
+					type: "POST",
+					data: {
+						user_id: 0 // if user_id == 0 then get session user
+					},
+					success: function(user) {
+						$("#dialog_title").text(user.username);
+						$("#dialog_name").text(user.username);
+						$("#dialog_banner").text(user.banner);
+						$("#dialog_point").text(user.point);
+						$("#dialog_image").attr("src",user.picture);
+					}
+				});
+
+				html = '<button onclick="dialog_yes("indepandance")">Yes</button>' +
+							 '<button onclick="dialog_no("indepandance")">No</button>';
+				$("#dialog_button").html(html)
+				$("#dialog").show();
+				
+			});
+
+			$("#betray").click(function(){
+				function_type = "betray";
+				alert("select node")
+			});
+
 		});
 		function init() {
 			// Instanciate sigma.js and customize rendering :

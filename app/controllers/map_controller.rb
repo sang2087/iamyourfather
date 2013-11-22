@@ -1,5 +1,6 @@
 class MapController < ApplicationController
   def index
+		session[:user_id] = 10
 		name = params[:id] || "1" # 1 is the God
 		# need facebook login check
 		father = User.find(name)
@@ -40,5 +41,13 @@ class MapController < ApplicationController
 
 	def session_destory
 		session[:user_id] = nil
+	end
+	def get_user
+		if(params[:user_id] == "0")
+			user = User.find(session[:user_id])
+		else
+			user = User.find(params[:user_id])
+		end
+		render :json => user 
 	end
 end
