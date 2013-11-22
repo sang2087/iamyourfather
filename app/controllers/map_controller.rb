@@ -20,6 +20,7 @@ class MapController < ApplicationController
 				end
 			end
 		end
+		@user = User.find(session[:user_id])
 		@user_id = session[:user_id]
 		@groups = User.get_groups || "null"
 		# return gexf
