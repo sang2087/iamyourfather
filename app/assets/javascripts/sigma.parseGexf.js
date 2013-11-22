@@ -70,7 +70,7 @@ sigma.publicPrototype.parseGexf = function(gexfPath) {
       
       //viz
       var size = 1;
-      var x = 200 * (0.5 - Math.random());
+      var x = 300 * (0.5 - Math.random());
       var y = 200 * (0.5 - Math.random());
       var color;
 
