@@ -30,12 +30,13 @@ class User < ActiveRecord::Base
 		builder.to_xml
 	end
 	def self.get_groups
-		roots = User.where("ancestry" => nil)
+		roots = User.roots
 		roots_id = Array.new
 
 		roots.each do |root|
 			roots_id.push(root.id)
 		end
+
 		groups = Array.new
 		roots_id.each do
 			groups.push Array.new
@@ -49,6 +50,24 @@ class User < ActiveRecord::Base
 
 		groups
 	end
+
+	def betray youruser_id
+		youruser = User.find(youruser_id)
+		self.parent = youruser
+		self.save
+	end
+
+	def seize youruser_id
+		youruser = User.find(youruser_id)
+		youruser.parent = self
+		youruser.save
+	end
+
+	def independance
+		self.parent = nil
+		self.save
+	end
+
 private
 	def self.color_r(color)
 		color.split("/")[0]
