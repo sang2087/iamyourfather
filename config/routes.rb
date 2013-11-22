@@ -8,6 +8,7 @@ Iamyourfather::Application.routes.draw do
   get "map/betray"
 
   match "map/data.gexf" => "map#data"
+  match "map/data.json" => "map#groups"
 
   root :to => 'map#index'
 

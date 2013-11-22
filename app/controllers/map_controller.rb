@@ -20,13 +20,12 @@ class MapController < ApplicationController
 			end
 		end
 		@user_id = session[:user_id]
+		@groups = User.get_groups || "null"
 		# return gexf
   end
 
 	def data
 		data = User.make_gexf
-		puts data
-
 		render :xml => data 
 	end
 

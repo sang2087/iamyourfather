@@ -29,7 +29,26 @@ class User < ActiveRecord::Base
 
 		builder.to_xml
 	end
-	
+	def self.get_groups
+		roots = User.where("ancestry" => nil)
+		roots_id = Array.new
+
+		roots.each do |root|
+			roots_id.push(root.id)
+		end
+		groups = Array.new
+		roots_id.each do
+			groups.push Array.new
+		end
+
+		users = User.all
+		users.each do |user|
+			index = roots_id.rindex(user.root_id)
+			groups[index].push(user.id)  
+		end
+
+		groups
+	end
 private
 	def self.color_r(color)
 		color.split("/")[0]
