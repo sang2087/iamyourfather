@@ -70,8 +70,8 @@ sigma.publicPrototype.parseGexf = function(gexfPath) {
       
       //viz
       var size = 1;
-      var x = 100 - 200*Math.random();
-      var y = 100 - 200*Math.random();
+      var x = 200 * (0.5 - Math.random());
+      var y = 200 * (0.5 - Math.random());
       var color;
 
       var poorBrowserXmlNsSupport = (nodeNode.getElementsByTagNameNS == null);
@@ -148,11 +148,13 @@ sigma.publicPrototype.parseGexf = function(gexfPath) {
         attributes: []
       };
 			//updateNode position by Charles
+			/*
 			var replaceNode = sigmaInstance.getNodes(edge.targetID);
 			var parentNode = sigmaInstance.getNodes(edge.sourceID)
 			replaceNode.x = parentNode.x + 100 * (0.5 - Math.random());
 			replaceNode.y = parentNode.y + 100 * (0.5 - Math.random());
 			sigmaInstance.updateNode(edge.targetID, replaceNode);
+			*/
 			//end
 
       var weight = edgeNode.getAttribute('weight');
