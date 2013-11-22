@@ -1,3 +1,11 @@
+point log type
+1. 그냥 링크로 들어올 때
+2. 페북으로 들어올 때
+3. 독립(independance)
+4. 이적(betray)
+5. 강탈(seize)
+6. 초대 메시지 보내기
+
 == Welcome to Rails
 
 Rails is a web-application framework that includes everything needed to create

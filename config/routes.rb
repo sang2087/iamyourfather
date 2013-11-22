@@ -3,7 +3,7 @@ Iamyourfather::Application.routes.draw do
 
   get "map/seize"
 
-  get "map/independence"
+  get "map/independance"
 
   get "map/betray"
 

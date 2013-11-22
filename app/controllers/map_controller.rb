@@ -30,13 +30,19 @@ class MapController < ApplicationController
 		render :xml => data 
 	end
 
+	def independance
+		user = User.find(session[:user_id])
+		user.independance
+  end
+
   def seize
+		user = User.find(session[:user_id])
+		user.seize params[:user_id]
   end
 
-  def independence
-  end
-
-  def betray
+	def betray
+		user = User.find(session[:user_id])
+		user.betray params[:user_id]
   end
 
 	def session_destory

@@ -36,13 +36,13 @@
 				<img id="dialog_image" src="">
 			</div>
 			<div class="span6">
+				<h1><span id="dialog_username">Username</span></h1>
 				<h1><span id="dialog_banner">Banner</span></h1>
 				<h1><span id="dialog_point">Point</span></h1>
 			</div>
 		</div>
 		<div id="dialog_button" class="row-fluid">
 		</div>
-
 	</div>
 
 	<script type="text/javascript">
@@ -50,36 +50,65 @@
 		var nodes = null;
 		var groups = null;
 		var function_type = null; //type : null, betray, seize
+
+		const BETRAY = 1;
+		const SEIZE = 2;
+
 		$(function(){
 			groups = <%=@groups%>;
 			console.log(groups);
+			$("#dialog").hide();
+
 
 			//node click event
 			$("#sigma-example-parent").bind("mouseup",function(){
 				if(nodes != null){
-				if(type == "betray"){
-					$.ajax({
-						url: "/map/user.json",
-						type: "POST",
-						data: {
-							user_id: node_id // if user_id == 0 then get session user
-						},
-						success: function(user) {
-							$("#dialog_name").text(user.username);
-							$("#dialog_banner").text(user.banner);
-							$("#dialog_image").attr("src",user.picture);
-						}
-					});
+					if(function_type == BETRAY){
+						$.ajax({
+							url: "/map/user.json",
+							type: "POST",
+							data: {
+								user_id: node_id // if user_id == 0 then get session user
+							},
+							success: function(user) {
+								$("#dialog_title").text("Betray");
+								$("#dialog_name").text(user.username);
+								$("#dialog_banner").text(user.banner);
+								$("#dialog_point").text(user.point);
+								$("#dialog_image").attr("src",user.picture);
+							}
+						});
 
-					html = '<button onclick="dialog_yes("indepandance")">Yes</button>' +
-								 '<button onclick="dialog_no("indepandance")">No</button>';
-					$("#dialog_button_area").html(html)
-					$("#dialog").show();
-					
+						html = '<h3>Do you want move to this node?</h3>' +
+									 '<button onclick="dialog_yes("betray")">Yes</button>' +
+									 '<button onclick="dialog_no("betray")">No</button>';
+						$("#dialog_button").html(html)
+						$("#dialog").show();
+					}else if(function_type == SEIZE){
+						$.ajax({
+							url: "/map/user.json",
+							type: "POST",
+							data: {
+								user_id: node_id // if user_id == 0 then get session user
+							},
+							success: function(user) {
+								$("#dialog_title").text("Seize");
+								$("#dialog_name").text(user.username);
+								$("#dialog_banner").text(user.banner);
+								$("#dialog_point").text(user.point);
+								$("#dialog_image").attr("src",user.picture);
+							}
+						});
+
+						html = '<h3>Do you want seize this node?</h3>' +
+									 '<button onclick="dialog_yes("seize")">Yes</button>' +
+									 '<button onclick="dialog_no("seize")">No</button>';
+						$("#dialog_button").html(html)
 						$("#dialog").show();
 					}
 				}
 			});
+
 			$("#independance").click(function(){
 				$.ajax({
 					url: "/map/user.json",
@@ -88,7 +117,7 @@
 						user_id: 0 // if user_id == 0 then get session user
 					},
 					success: function(user) {
-						$("#dialog_title").text(user.username);
+						$("#dialog_title").text("Independance");
 						$("#dialog_name").text(user.username);
 						$("#dialog_banner").text(user.banner);
 						$("#dialog_point").text(user.point);
@@ -96,15 +125,19 @@
 					}
 				});
 
-				html = '<button onclick="dialog_yes("indepandance")">Yes</button>' +
+				html = '<h3>Do you want independance?</h3>' +
+							 '<button onclick="dialog_yes("indepandance")">Yes</button>' +
 							 '<button onclick="dialog_no("indepandance")">No</button>';
 				$("#dialog_button").html(html)
 				$("#dialog").show();
-				
 			});
 
 			$("#betray").click(function(){
-				function_type = "betray";
+				function_type = BETRAY;
+				alert("select node")
+			});
+			$("#seize").click(function(){
+				function_type = SEIZE;
 				alert("select node")
 			});
 
@@ -130,7 +163,7 @@
 			// Parse a GEXF encoded file to fill the graph
 			// (requires "sigma.parseGexf.js" to be included)
 			sigInst.parseGexf('map/data.gexf');
-			console.log(sigInst.getEdgesCount());
+			console.log(sigInst);
 
 			// Bind events :
 			sigInst.bind('overnodes',function(event){
@@ -190,7 +223,24 @@
 			return str
 
 	}
+	function dialog_yes(function_type){
+		$.ajax({
+			url: "/map/"+function_type,
+			type: "POST",
+			data: {
+				user_id: node_id // if user_id == 0 then get session user
+			},
+			success: function(data) {
+				alert(function_type +" complete");
+				location.reload(true);
 
+			}
+		});
+	}
+
+	function dialog_no(function_type){
+		$("#dialog").hide();
+	}
 </script>
 
 <style type="text/css">
