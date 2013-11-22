@@ -1,110 +1,130 @@
-	<div class="container-reponsive">
-		<div class="span12 sigma-parent" id="sigma-example-parent">
-			<div class="sigma-expand" id="sigma-example"></div>
+<div class="container-responsive">
+	<div class="row">
+		<div class="col-xs-12 col-md-8">
+			<div class="sigma-parent" id="sigma-example-parent">
+				<div class="sigma-expand" id="sigma-example"></div>
+			</div>
+		</div>
+		<div class="col-xs-6 col-md-4" id="status" style="background:#eee">
+			<h1>Status</h1>
+			<h1>username</h1>
+			<button>Facebook Login</button>
+			<h1>Point</h1>
+			<button>Independence</button>
+			<button>Betray</button>
+			<button>Seize</button>
+			<h1>friend list</h1>
+			<ul>
+				<li>asdfas</li>
+				<li>sadf</li>
+				<li>asfdasd</li>
+				<li>-more-</li>
+			</ul>
 		</div>
 	</div>
-	<script src="js/sigma.parseGexf.js"></script>
-	<script type="text/javascript">
-		var nodes = null
-		$(function(){
-				//node click event
-				$("#sigma-example-parent").bind("mouseup",function(){
-					if(nodes != null){
-							alert(nodes)
-					}
+</div>
+<script src="/js/sigma.parseGexf.js"></script>
+<script type="text/javascript">
+	var nodes = null
+	$(function(){
+			//node click event
+			$("#sigma-example-parent").bind("mouseup",function(){
+				if(nodes != null){
+				alert(nodes)
+				}
 				});
-		});
-		function init() {
-			// Instanciate sigma.js and customize rendering :
-			var sigInst = sigma.init(document.getElementById('sigma-example')).drawingProperties({
+			});
+function init() {
+	// Instanciate sigma.js and customize rendering :
+	var sigInst = sigma.init(document.getElementById('sigma-example')).drawingProperties({
 				defaultLabelColor: '#000',
 				defaultLabelSize: 14,
 				defaultLabelBGColor: '#fff',
 				defaultLabelHoverColor: '#000',
 				labelThreshold: 10,
 				defaultEdgeType: 'curve'
-			}).graphProperties({
+				}).graphProperties({
 				minNodeSize: 0.5,
 				maxNodeSize: 10,
 				minEdgeSize: 1,
 				maxEdgeSize: 1
-			}).mouseProperties({
+				}).mouseProperties({
 				maxRatio: 4
-			});
+				});
 
-			// Parse a GEXF encoded file to fill the graph
-			// (requires "sigma.parseGexf.js" to be included)
-			sigInst.parseGexf('map/data.gexf');
-			// Bind events :
-			sigInst.bind('overnodes',function(event){
-				var neighbors = {};
-				nodes = event.content;
+// Parse a GEXF encoded file to fill the graph
+// (requires "sigma.parseGexf.js" to be included)
+sigInst.parseGexf('map/data.gexf');
+// Bind events :
+sigInst.bind('overnodes',function(event){
+		var neighbors = {};
+		nodes = event.content;
 
-				sigInst.iterEdges(function(e){
-					if(nodes.indexOf(e.source)>=0 || nodes.indexOf(e.target)>=0){
-						neighbors[e.source] = 1;
-						neighbors[e.target] = 1;
-					}
-				}).iterNodes(function(n){
-					if(!neighbors[n.id] && n.id != nodes ){
-					//Edit by susang
-						n.hidden = 0;
-						n.color = change_alpha(n.color, "0.1")
-					}else{
-						n.hidden = 0;
-					}
+		sigInst.iterEdges(function(e){
+			if(nodes.indexOf(e.source)>=0 || nodes.indexOf(e.target)>=0){
+			neighbors[e.source] = 1;
+			neighbors[e.target] = 1;
+			}
+			}).iterNodes(function(n){
+				if(!neighbors[n.id] && n.id != nodes ){
+				//Edit by susang
+				n.hidden = 0;
+				n.color = change_alpha(n.color, "0.1")
+				}else{
+				n.hidden = 0;
+				}
 				}).draw(2,2,2);
-			}).bind('outnodes',function(){
-				sigInst.iterEdges(function(e){
-					e.hidden = 0;
+		}).bind('outnodes',function(){
+			sigInst.iterEdges(function(e){
+				e.hidden = 0;
 				}).iterNodes(function(n){
 					//Edit by susang
 					n.hidden = 0;
 					n.color = change_alpha(n.color, "1.0")
-				}).draw(2,2,2);
-				nodes = null
+					}).draw(2,2,2);
+			nodes = null
 			})
 
-			// Draw the graph :
-			sigInst.draw();
-			
-		}
+// Draw the graph :
+sigInst.draw();
 
-		if (document.addEventListener) {
-			document.addEventListener("DOMContentLoaded", init, false);
-		} else {
-			window.onload = init;
-		}
-		//chage rbga alpha
-		function change_alpha(color_string, a_value){
-			var c = color_string.toString()
-			var str = c.substr(0, c.length-5) + "," + a_value + ")"
-			return str
+}
 
-		}
-	</script>
+if (document.addEventListener) {
+	document.addEventListener("DOMContentLoaded", init, false);
+} else {
+	window.onload = init;
+}
+//chage rbga alpha
+function change_alpha(color_string, a_value){
+	var c = color_string.toString()
+		var str = c.substr(0, c.length-5) + "," + a_value + ")"
+		return str
 
-	<style type="text/css">
-		/* sigma.js context : */
-		.sigma-parent {
-			position: relative;
-			border-radius: 4px;
-			-moz-border-radius: 4px;
-			-webkit-border-radius: 4px;
-			background: #222;
-			height: 1000px;
-			width: 100%;
-		}
-		.sigma-expand {
-			position: absolute;
-			width: 100%;
-			height: 100%;
-			top: 0;
-			left: 0;
-		}
-		.buttons-container{
-			padding-bottom: 8px;
-			padding-top: 12px;
-		}
-	</style>
+}
+</script>
+
+<style type="text/css">
+	/* sigma.js context : */
+	.sigma-parent {
+		position: relative;
+		border-radius: 4px;
+		-moz-border-radius: 4px;
+		-webkit-border-radius: 4px;
+		background: #111;
+		height: 600px;
+		/*/width: 100%;*/
+	}
+	.sigma-expand {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+	}
+	.buttons-container{
+		padding-bottom: 8px;
+		padding-top: 12px;
+	}
+</style>
 
