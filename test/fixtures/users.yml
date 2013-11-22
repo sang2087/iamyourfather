@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  ip: MyString
+  facebook_uid: MyString
+  username: MyString
+  point: 
+  color: MyString
+  banner: MyString
+
+two:
+  ip: MyString
+  facebook_uid: MyString
+  username: MyString
+  point: 
+  color: MyString
+  banner: MyString
