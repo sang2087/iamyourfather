@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131122062319) do
+ActiveRecord::Schema.define(:version => 20131122191832) do
+
+  create_table "base_data", :force => true do |t|
+    t.string   "type",                        :null => false
+    t.integer  "code",        :default => 0
+    t.integer  "point",       :default => 0
+    t.integer  "node_cnt",    :default => 0
+    t.string   "description", :default => ""
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+  end
 
   create_table "facebooks", :force => true do |t|
     t.string   "uid"
