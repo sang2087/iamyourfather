@@ -2,7 +2,8 @@ class User < ActiveRecord::Base
   attr_accessible :banner, :color, :facebook_uid, :ip, :point, :username, :ancestry, :node_cnt
 	has_ancestry 
 	def self.make_gexf
-		users = User.all
+		users = User.find(:all, :order => "ancestry")
+		puts users.inspect
 		builder = Nokogiri::XML::Builder.new(:encoding => 'UTF-8') do |xml|
 			xml.gexf('xmlns:viz' => 'http:///www.gexf.net/1.1draft/viz', 'version' => '1.1', 'xmlns' => 'http://www.gexf.net/1.1draft') do
 				xml.graph('defaultedgetype' => 'directed', 'idtype' => 'string', 'type' => 'static') do
