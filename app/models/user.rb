@@ -55,18 +55,48 @@ class User < ActiveRecord::Base
 		youruser = User.find(youruser_id)
 		self.parent = youruser
 		self.save
+		n_cnt = self.node_cnt
+		self.ancestors.each do |ancestor|
+			ancestor.node_cnt += n_cnt
+			ancestor.save!
+		end
+		self.color = self.root.color
+		self.save
+
+		self.descendants.each do |descentdant|
+			descentdant.color = self.color
+			descentdant.save!
+		end
+
 	end
 
 	def seize youruser_id
 		youruser = User.find(youruser_id)
 		youruser.parent = self
 		youruser.save
+		youruser.node_cnt
+
+		self.node_cnt += youruser.node_cnt
+		self.save!
+
+		self.descendants.each do |descentdant|
+			descentdant.color = self.color
+			descentdant.save!
+		end
+
 	end
 
 	def independance
 		self.parent = nil
+		self.color = "#{rand(256)}/#{rand(256)}/#{rand(256)}",
 		self.save
+
+		self.descendants.each do |descentdant|
+			descentdant.color = self.color
+			descentdant.save!
+		end
 	end
+
 
 private
 	def self.color_r(color)

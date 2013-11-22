@@ -36,7 +36,7 @@
 				<img id="dialog_image" src="">
 			</div>
 			<div class="span6">
-				<h1><span id="dialog_username">Username</span></h1>
+				<h1><span id="dialog_name">Username</span></h1>
 				<h1><span id="dialog_banner">Banner</span></h1>
 				<h1><span id="dialog_point">Point</span></h1>
 			</div>
@@ -80,8 +80,8 @@
 						});
 
 						html = '<h3>Do you want move to this node?</h3>' +
-									 '<button onclick="dialog_yes("betray")">Yes</button>' +
-									 '<button onclick="dialog_no("betray")">No</button>';
+									 '<button onclick=\'dialog_yes("betray")\'>Yes</button>' +
+									 '<button onclick=\'dialog_no("betray")\'>No</button>';
 						$("#dialog_button").html(html)
 						$("#dialog").show();
 					}else if(function_type == SEIZE){
@@ -101,8 +101,8 @@
 						});
 
 						html = '<h3>Do you want seize this node?</h3>' +
-									 '<button onclick="dialog_yes("seize")">Yes</button>' +
-									 '<button onclick="dialog_no("seize")">No</button>';
+									 '<button onclick=\'dialog_yes("seize")\'>Yes</button>' +
+									 '<button onclick=\'dialog_no("seize")\'>No</button>';
 						$("#dialog_button").html(html)
 						$("#dialog").show();
 					}
@@ -126,8 +126,8 @@
 				});
 
 				html = '<h3>Do you want independance?</h3>' +
-							 '<button onclick="dialog_yes("indepandance")">Yes</button>' +
-							 '<button onclick="dialog_no("indepandance")">No</button>';
+							 '<button onclick=\'dialog_yes("independance")\'>Yes</button>' +
+							 '<button onclick=\'dialog_no("independance")\'>No</button>';
 				$("#dialog_button").html(html)
 				$("#dialog").show();
 			});
@@ -142,6 +142,7 @@
 			});
 
 		});
+
 		function init() {
 			// Instanciate sigma.js and customize rendering :
 			var sigInst = sigma.init(document.getElementById('sigma-example')).drawingProperties({
@@ -157,7 +158,7 @@
 				minEdgeSize: 1,
 				maxEdgeSize: 1
 				}).mouseProperties({
-				maxRatio: 4
+				maxRatio: 20
 				});
 
 			// Parse a GEXF encoded file to fill the graph
@@ -216,13 +217,16 @@
 		} else {
 			window.onload = init;
 		}
+	
 	//chage rbga alpha
+
 	function change_alpha(color_string, a_value){
 		var c = color_string.toString()
 			var str = c.substr(0, c.length-5) + "," + a_value + ")"
 			return str
 
 	}
+
 	function dialog_yes(function_type){
 		$.ajax({
 			url: "/map/"+function_type,

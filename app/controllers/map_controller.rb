@@ -33,16 +33,22 @@ class MapController < ApplicationController
 	def independance
 		user = User.find(session[:user_id])
 		user.independance
+
+		render :text => "success"
   end
 
   def seize
 		user = User.find(session[:user_id])
 		user.seize params[:user_id]
+
+		render :text => "success"
   end
 
 	def betray
 		user = User.find(session[:user_id])
 		user.betray params[:user_id]
+
+		render :text => "success"
   end
 
 	def session_destory

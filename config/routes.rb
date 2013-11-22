@@ -1,11 +1,11 @@
 Iamyourfather::Application.routes.draw do
   get "map/index"
 
-  get "map/seize"
+  post "map/seize"
 
-  get "map/independance"
+  post "map/independance"
 
-  get "map/betray"
+  post "map/betray"
 
 	get "map/session_destory"
 
