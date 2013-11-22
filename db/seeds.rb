@@ -17,18 +17,16 @@ end
 
 
 11.upto(1010) do |i|
-	begin
-		r = rand(i) + 1
-		if(i != r)
-			user = User.find(i)
-			user.parent = User.find(r)
-			user.color = user.root.color
-			user.save!
-		end
-	rescue
-		puts "rescue"
-		user = User.find(i)
-		user.parent = User.find(rand(10) + 1)
+	r = rand(i) + 1
+	user = User.find(i)
+	if(i != r)
+		user.parent = User.find(r)
+		user.save!
+		user.color = user.root.color
+		user.save!
+	else
+		user.parent = User.find(1)
+		user.save!
 		user.color = user.root.color
 		user.save!
 	end
@@ -36,6 +34,6 @@ end
 puts "counting..."
 User.all.each do |u|
 	u.node_cnt = u.descendant_ids.count + 1
-	u.save
+	u.save!
 end
 puts "That's all!"
