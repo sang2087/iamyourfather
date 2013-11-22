@@ -130,6 +130,7 @@
 			// Parse a GEXF encoded file to fill the graph
 			// (requires "sigma.parseGexf.js" to be included)
 			sigInst.parseGexf('map/data.gexf');
+			console.log(sigInst);
 
 			// Bind events :
 			sigInst.bind('overnodes',function(event){
