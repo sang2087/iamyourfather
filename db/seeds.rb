@@ -1,5 +1,7 @@
 puts "start seed"
-1.upto(10) do |i|
+ROOT_SIZE = 5
+SIZE = 30
+1.upto(ROOT_SIZE) do |i|
 	User.create(:ip => "0.0.0.0",
 							:username => "The God#{i}",
 							:point => 0,
@@ -7,7 +9,7 @@ puts "start seed"
 							:banner => "I am the God#{i}",
 							:node_cnt => 1)
 end
-1.upto(1000) do |i|
+1.upto(SIZE) do |i|
 	User.create(:ip => "0.0.0.0",
 							:username => "man #{i}",
 							:point => 0,
@@ -15,8 +17,7 @@ end
 							:node_cnt => 1 )
 end
 
-
-11.upto(1010) do |i|
+(ROOT_SIZE + 1).upto(ROOT_SIZE + SIZE) do |i|
 	r = rand(i) + 1
 	user = User.find(i)
 	if(i != r)
@@ -25,7 +26,7 @@ end
 		user.color = user.root.color
 		user.save!
 	else
-		user.parent = User.find(1)
+		user.parent = User.find(rand(ROOT_SIZE) + 1)
 		user.save!
 		user.color = user.root.color
 		user.save!
