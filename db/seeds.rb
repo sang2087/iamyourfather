@@ -41,6 +41,7 @@ puts "base data end"
 
 ROOT_SIZE = 5
 SIZE = 30
+
 1.upto(ROOT_SIZE) do |i|
 	User.create(:ip => "0.0.0.0",
 							:username => "The God#{i}",
@@ -57,20 +58,17 @@ end
 							:node_cnt => 1 )
 end
 
-
-(ROOT_SIZE+1).upto(ROOT_SIZE + SIZE) do |i|
-	begin
-		r = rand(i) + 1
-		if(i != r)
-			user = User.find(i)
-			user.parent = User.find(r)
-			user.color = user.root.color
-			user.save!
-		end
-	rescue
-		puts "rescue"
-		user = User.find(i)
+(ROOT_SIZE + 1).upto(ROOT_SIZE + SIZE) do |i|
+	r = rand(i) + 1
+	user = User.find(i)
+	if(i != r)
+		user.parent = User.find(r)
+		user.save!
+		user.color = user.root.color
+		user.save!
+	else
 		user.parent = User.find(rand(ROOT_SIZE) + 1)
+		user.save!
 		user.color = user.root.color
 		user.save!
 	end
@@ -79,7 +77,7 @@ end
 puts "counting..."
 User.all.each do |u|
 	u.node_cnt = u.descendant_ids.count + 1
-	u.save
+	u.save!
 end
 puts "That's all!"
 
