@@ -38,4 +38,8 @@ class MapController < ApplicationController
 
   def betray
   end
+
+	def session_destory
+		session[:user_id] = nil
+	end
 end
