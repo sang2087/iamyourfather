@@ -1,15 +1,27 @@
 class User < ActiveRecord::Base
   attr_accessible :banner, :color, :facebook_uid, :ip, :point, :username, :ancestry, :node_cnt
 	has_ancestry 
-	def self.make_gexf
+	def self.make_gexf user_id
 		users = User.find(:all, :order => "ancestry")
 		puts users.inspect
 		builder = Nokogiri::XML::Builder.new(:encoding => 'UTF-8') do |xml|
 			xml.gexf('xmlns:viz' => 'http:///www.gexf.net/1.1draft/viz', 'version' => '1.1', 'xmlns' => 'http://www.gexf.net/1.1draft') do
 				xml.graph('defaultedgetype' => 'directed', 'idtype' => 'string', 'type' => 'static') do
+					xml.attributes("class" => "node", "mode" => "static") do
+						xml.attribute("id" => "sign", "title" => "Sign", "type" => "string")
+					end
 					xml.nodes do 
 						users.each do |user|
 							xml.node('id' => "#{user.id}", 'label' => "#{user.username}") do
+								xml.attvalues do 
+									#puts "!!#{user.id} #{user_id}"
+									if(user.id == user_id.to_i)
+									#puts "!!!"
+										xml.attvalue('for' => "sign","value" => "me")
+									else
+										xml.attvalue('for' => "sign","value" => "")
+									end
+								end
 								xml['viz'].size('value' => Math.log2(user.node_cnt + 1))
 								xml['viz'].color('r' => User.color_r(user.color), 'g' => User.color_g(user.color), 'b' => User.color_b(user.color))
 							end

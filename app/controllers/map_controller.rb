@@ -26,7 +26,7 @@ class MapController < ApplicationController
   end
 
 	def data
-		data = User.make_gexf
+		data = User.make_gexf session[:user_id]
 		render :xml => data 
 	end
 

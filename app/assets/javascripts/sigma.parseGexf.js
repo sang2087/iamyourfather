@@ -147,16 +147,6 @@ sigma.publicPrototype.parseGexf = function(gexfPath) {
         label:      label,
         attributes: []
       };
-			//updateNode position by Charles
-			/*
-			var replaceNode = sigmaInstance.getNodes(edge.targetID);
-			var parentNode = sigmaInstance.getNodes(edge.sourceID)
-			replaceNode.x = parentNode.x + 100 * (0.5 - Math.random());
-			replaceNode.y = parentNode.y + 100 * (0.5 - Math.random());
-			sigmaInstance.updateNode(edge.targetID, replaceNode);
-			*/
-			//end
-
       var weight = edgeNode.getAttribute('weight');
       if(weight!=undefined){
         edge['weight'] = weight;
