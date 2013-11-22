@@ -9,4 +9,5 @@ class AddAncestryToUser < ActiveRecord::Migration
 
 	def down
 		remove_index :users, :ancestry
+	end
 end
