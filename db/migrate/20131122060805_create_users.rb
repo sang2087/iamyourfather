@@ -7,6 +7,7 @@ class CreateUsers < ActiveRecord::Migration
       t.integer :point
       t.string :color
       t.string :banner
+			t.integer :node_cnt
 
       t.timestamps
     end

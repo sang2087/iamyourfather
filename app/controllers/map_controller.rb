@@ -9,7 +9,8 @@ class MapController < ApplicationController
   end
 
 	def data
-		data = { :sample => "test" }
+		data = User.make_gexf
+
 		respond_to do |format|
 			format.gexf { render :gexf => data }
 		end

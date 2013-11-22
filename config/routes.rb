@@ -7,6 +7,7 @@ Iamyourfather::Application.routes.draw do
 
   get "map/betray"
 
+
   root :to => 'map#index'
 
 	match ':id' => 'map#index'

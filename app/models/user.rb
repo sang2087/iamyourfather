@@ -26,7 +26,8 @@ class User < ActiveRecord::Base
 				end
 			end
 		end
-		puts builder.to_xml
+
+		builder.to_xml
 	end
 	
 private
