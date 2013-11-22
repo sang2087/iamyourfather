@@ -1,4 +1,44 @@
 puts "start seed"
+puts "base data start"
+BaseData.create(:type => "PointLog",
+								:code => 1,
+								:point => 10,
+								:description => "no facebook link in")
+
+BaseData.create(:type => "PointLog",
+								:code => 2,
+								:point => 10,
+								:description => "facebook link in")
+
+BaseData.create(:type => "PointLog",
+								:code => 3,
+								:point => 300,
+								:node_cnt => 15,
+								:description => "independance")
+
+BaseData.create(:type => "PointLog",
+								:code => 4,
+								:point => -10, #mulify your node_cnt
+								:node_cnt => 5,
+								:description => "betray")
+
+BaseData.create(:type => "PointLog",
+								:code => 5,
+								:point => -100, #mulify your node_cnt
+								:node_cnt => 50,
+								:description => "seize")
+
+BaseData.create(:type => "PointLog",
+								:code => 6,
+								:point => 5,
+								:description => "invitation message")
+
+BaseData.create(:type => "PointLog",
+								:code => 7,
+								:point => 1,
+								:description => "login 10 min-term")
+puts "base data end"
+
 ROOT_SIZE = 5
 SIZE = 30
 1.upto(ROOT_SIZE) do |i|
@@ -35,9 +75,11 @@ end
 		user.save!
 	end
 end
+
 puts "counting..."
 User.all.each do |u|
 	u.node_cnt = u.descendant_ids.count + 1
 	u.save
 end
 puts "That's all!"
+
