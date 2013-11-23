@@ -1,12 +1,21 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.13'
-gem 'ancestry'
-gem 'gexf'
 gem 'therubyracer'
+#tree
+gem 'ancestry'
+
+#graph
+gem 'gexf'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
+
+#facebook
+gem 'omniauth-facebook', '1.4.0'
+gem 'fb_graph'
+gem 'xmpp4r_facebook'
+
 
 gem 'sqlite3'
 

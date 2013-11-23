@@ -7,23 +7,34 @@ class User < ActiveRecord::Base
 	has_ancestry 
 	has_one :facebook
   
-  def self.from_omniauth(auth)
-    where(auth.slice(:uid)).first_or_initialize.tap do |user|
-			puts "auth#{auth.inspect}"
+  def from_omniauth(auth)
+		facebook_uid = auth.uid
 
-      facebook = user.facebook.new
-			facebook.uid = auth.uid
-			facebook.name = auth.info.name
-			facebook.gender = auth.info.gender
-			facebook.locale = auth.info.locale
-      facebook.oauth_token = auth.credentials.token
-      facebook.oauth_expires_at = Time.at(auth.credentials.expires_at)
-			facebook.save!
+		user = self
 
-			user.facebook_uid = auth.uid
-			user.username = auth.info.name
-      user.save!
-    end
+		if user.facebook_uid.nil?
+			user_with_facebook = User.find_by_facebook_uid(facebook_uid)
+			if user_with_facebook.nil?
+				#FRIST FACEBOOK CONNECT
+				user.facebook_uid = auth.uid
+				user.username = auth.info.name
+				user.save!
+
+				facebook = Facebook.new
+				facebook.user_id = user.id
+				facebook.uid = auth.uid
+				facebook.name = auth.info.name
+				facebook.gender = auth.info.gender
+				facebook.locale = auth.info.locale
+				facebook.oauth_token = auth.credentials.token
+				facebook.oauth_expires_at = Time.at(auth.credentials.expires_at)
+				facebook.save!
+			else
+				user = user_with_facebook
+			end
+		end
+
+		user
   end
 
 	def self.make_gexf user_id

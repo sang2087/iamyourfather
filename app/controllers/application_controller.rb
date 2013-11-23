@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-	before_filter :set_i18n_locale
+	before_filter :set_i18n_locale, :check_facebook_login
 
 	def set_i18n_locale
 		if I18n.available_locales.include?(extract_locale_from_accept_language_header.to_sym)
@@ -14,6 +14,17 @@ class ApplicationController < ActionController::Base
 	end
 	def default_url_option
 		{ locale:I18n.locale}
+	end
+	def check_facebook_login
+		facebook_login = false
+		logger.info "!!!!!!!#{session[:user_id]}"
+		unless session[:user_id].nil?
+			#TODO check token expired time
+			unless User.find(session[:user_id]).facebook_uid.nil?
+				facebook_login = true
+			end
+		end
+		@facebook_login = facebook_login
 	end
 
 private

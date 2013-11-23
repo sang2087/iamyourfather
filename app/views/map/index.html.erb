@@ -19,11 +19,10 @@
 				<div class="panel-heading">Dashboard</div>
 				<div class="panel-body">
 
+					<h2>I am <%=@user.username-%></h2>
 					<%if @facebook_login%>
-						<h2>I am <%=@user.username-%></h2>
 						<%=link_to "Sign out", signout_path, id: "sign_out", class:"btn" %>
 					<%else%>
-						<h2>I am <%=@user.username-%></h2>
 						<%= link_to "Facebook Login", "/auth/facebook", id: "sign_in", class:"btn" %>
 					<%end%>
 					<h2>Point : <%=@user.point-%></h2>

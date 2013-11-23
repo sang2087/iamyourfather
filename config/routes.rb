@@ -8,7 +8,6 @@ Iamyourfather::Application.routes.draw do
 
 	root :to => 'map#index'
 
-
 	match 'auth/:provider/callback', to: 'sessions#create'
 	match 'auth/failure', to: redirect('/')
 	match 'signout', to: "sessions#destroy", as: 'signout'
@@ -19,5 +18,4 @@ Iamyourfather::Application.routes.draw do
   match "map/data.json" => "map#groups"
   match "map/user.json" => "map#get_user"
 
-	match "app/locale" => 'application#get_i18n_locale'
 end
