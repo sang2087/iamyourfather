@@ -24,4 +24,7 @@ production:
   database: iamyourfather
   username: iamyourfather
   password: iamyourfather
-  host: mysql://127.0.0.1:3306
+  socket: /var/lib/mysql/mysql.sock
+  pool: 5
+  timeout: 5000
+
