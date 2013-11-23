@@ -3,6 +3,7 @@ class CreateUsers < ActiveRecord::Migration
     create_table :users do |t|
       t.string :ip,							:defalut => "0.0.0.0"
       t.string :facebook_uid
+			t.integer :facebook_id
       t.string :username,				:default => "baby"
       t.integer :point,					:default => 0
       t.string :color,					:default => "255/255/255"

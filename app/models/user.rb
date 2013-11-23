@@ -1,6 +1,31 @@
 class User < ActiveRecord::Base
   attr_accessible :banner, :color, :facebook_uid, :ip, :point, :username, :ancestry, :node_cnt
+
+	APP_ID = '562260310492321'
+  APP_SECRET = '9b209a9e006a2244f69419ee5a2b2355'
+
 	has_ancestry 
+	has_one :facebook
+  
+  def self.from_omniauth(auth)
+    where(auth.slice(:uid)).first_or_initialize.tap do |user|
+			puts "auth#{auth.inspect}"
+
+      facebook = user.facebook.new
+			facebook.uid = auth.uid
+			facebook.name = auth.info.name
+			facebook.gender = auth.info.gender
+			facebook.locale = auth.info.locale
+      facebook.oauth_token = auth.credentials.token
+      facebook.oauth_expires_at = Time.at(auth.credentials.expires_at)
+			facebook.save!
+
+			user.facebook_uid = auth.uid
+			user.username = auth.info.name
+      user.save!
+    end
+  end
+
 	def self.make_gexf user_id
 		users = User.find(:all, :order => "ancestry")
 		puts users.inspect

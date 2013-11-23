@@ -25,16 +25,14 @@ ActiveRecord::Schema.define(:version => 20131122191832) do
 
   create_table "facebooks", :force => true do |t|
     t.string   "uid"
+    t.string   "user_id"
     t.string   "name"
-    t.string   "first_name"
-    t.string   "middle_name"
-    t.string   "last_name"
-    t.string   "link"
-    t.string   "username"
     t.string   "gender"
     t.string   "locale"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.string   "oauth_token"
+    t.string   "oauth_expires_at"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
   create_table "point_logs", :force => true do |t|
@@ -49,6 +47,7 @@ ActiveRecord::Schema.define(:version => 20131122191832) do
   create_table "users", :force => true do |t|
     t.string   "ip"
     t.string   "facebook_uid"
+    t.integer  "facebook_id"
     t.string   "username",     :default => "baby"
     t.integer  "point",        :default => 0
     t.string   "color",        :default => "255/255/255"

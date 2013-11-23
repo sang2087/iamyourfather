@@ -1,6 +1,5 @@
 Iamyourfather::Application.routes.draw do
 	
-	match ':id' => 'map#index'
 	get "map/index"
 	post "map/seize"
 	post "map/independance"
@@ -8,6 +7,13 @@ Iamyourfather::Application.routes.draw do
 	get "map/session_destory"
 
 	root :to => 'map#index'
+
+
+	match 'auth/:provider/callback', to: 'sessions#create'
+	match 'auth/failure', to: redirect('/')
+	match 'signout', to: "sessions#destroy", as: 'signout'
+
+	match ':id' => 'map#index'
 
 	match "map/data.gexf" => "map#data"
   match "map/data.json" => "map#groups"

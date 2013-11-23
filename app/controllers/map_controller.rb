@@ -52,9 +52,6 @@ class MapController < ApplicationController
 		render :text => "success"
   end
 
-	def session_destory
-		session[:user_id] = nil
-	end
 	def get_user
 		if(params[:user_id] == "0")
 			user = User.find(session[:user_id])
