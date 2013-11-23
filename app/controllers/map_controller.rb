@@ -63,4 +63,14 @@ class MapController < ApplicationController
 		end
 		render :json => user 
 	end
+
+	def get_i18n_locale
+		render :text => extract_locale_from_accept_language_header
+	end
+
+private
+	def extract_locale_from_accept_language_header
+			request.env['HTTP_ACCEPT_LANGUAGE'].scan(/^[a-z]{2}/).first
+	end
+
 end
