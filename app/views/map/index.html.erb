@@ -1,4 +1,9 @@
-<embed src="/media/sounds/boing_spring.mp3" autostart="true" width="1" height="1" id="LegacySound" enablejavascript="true">
+<script src="/audiojs/audio.min.js"></script>
+<script>
+	audiojs.events.ready(function() {
+		var as = audiojs.createAll();
+	});
+</script>
 <div class="container-responsive">
 	<div class="page-header">
 		<h1>:: I am your father <small><%= t('.hello') %>expand your family!</small></h1>
@@ -328,5 +333,9 @@ function dialog_no(function_type){
 		height: 300px;
 		background-color:blue;
 	}
+	.audiojs{
+		display:none;
+	}
 </style>
+<audio src="/sound/starwars.mp3" preload="auto" autoplay="autoplay" loop="loop" style="width:0" />
 
