@@ -86,6 +86,12 @@ class User < ActiveRecord::Base
 
 	def self.make_gexf user_id
 		users = User.find(:all, :order => "ancestry")
+		user = User.find(user_id)
+		unless user.get_facebook.nil?
+			friends_hash = User.find(user_id).get_facebook.check_friends
+		end
+		puts"friends_hash#{friends_hash}"
+		
 		builder = Nokogiri::XML::Builder.new(:encoding => 'UTF-8') do |xml|
 			xml.gexf('xmlns:viz' => 'http:///www.gexf.net/1.1draft/viz', 'version' => '1.1', 'xmlns' => 'http://www.gexf.net/1.1draft') do
 				xml.graph('defaultedgetype' => 'directed', 'idtype' => 'string', 'type' => 'static') do
@@ -98,6 +104,8 @@ class User < ActiveRecord::Base
 								xml.attvalues do 
 									if(user.id == user_id.to_i)
 										xml.attvalue('for' => "sign","value" => "me")
+									elsif(!friends_hash["#{user.id}"].nil?)
+										xml.attvalue('for' => "sign","value" => "friend")
 									else
 										xml.attvalue('for' => "sign","value" => "")
 									end

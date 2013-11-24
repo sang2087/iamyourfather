@@ -72,7 +72,7 @@ class PointLog < ActiveRecord::Base
 	def self.post_wall user
 		code = 8
 		bd = BaseData.where(:mytype => "PointLog", :code => code).first
-		PointLog.change_point(user, your.id, code, bd.point)
+		PointLog.change_point(user, nil, code, bd.point)
 	end
 
 	def self.change_point user, your_id, code, point
@@ -126,7 +126,7 @@ class PointLog < ActiveRecord::Base
 		[ret, limit_point, limit_node_cnt]
 
 	end
-	def PointLog.deduct_point(code, node_cnt)
+	def self.deduct_point(code, node_cnt)
 		ret_point = 0
 
 		bd = BaseData.where(:mytype => "PointLog", :code => code).first

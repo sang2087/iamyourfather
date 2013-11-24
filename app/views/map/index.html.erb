@@ -89,6 +89,7 @@
 	var friends_cnt = 0
 	var friends_cnt_per_page = 5
 	var limit_page = 0;
+	var sigInst = null;
 
 	$(function(){
 		groups = <%=@groups%>;
@@ -101,8 +102,8 @@
 		<%=render :partial => 'map/friends'%>
 		
 		<%=render :partial => 'map/node_click_event'%>
-		sigInst.draw();
 
+		init()
 	});
 
 	<%=render :partial => 'map/sigma_js'%>

@@ -40,10 +40,12 @@ class SendDataController < ApplicationController
 	def get_i18n_locale
 		render :text => extract_locale_from_accept_language_header
 	end
+	
 	def send_invitation
 		@user.send_invitation(params[:uid])
 		render :text => "success"
 	end
+
 	def facebook_post
 		text = ""
 		unless @user.facebook_uid.nil?

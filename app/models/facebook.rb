@@ -40,6 +40,38 @@ URL = "http://local.youthhogoo.com/"
     return friends.sort_by{|friend| friend["name"]}
   end
 
+  def check_friends
+		begin
+    friends = FbGraph::Query.new(
+        "SELECT uid, name, pic FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = me())"
+    ).fetch(:access_token => self.oauth_token)
+		rescue Exception => e  
+			return []
+			logger.info("ERROR facebook connection")
+			logger.info(e.message)
+			logger.info(e.backtrace.inspect)
+		end
+
+		friends_hash = Hash.new
+		0.upto(friends.length-1) do |i|
+			friends_hash[friends[i]["uid"]] = i
+		end
+		ret_hash = Hash.new
+
+		facebooks = Facebook.where("uid IS NOT NULL")
+		puts "facebook#{facebooks.inspect}"
+		facebooks.each do |facebook|
+			index = friends_hash[facebook.uid.to_i]
+			unless index.nil?
+				puts "FID#{facebook.user_id}"
+				ret_hash[facebook.user_id] = true
+			end
+		end
+		
+    return ret_hash
+  end
+
+
   def post_wall user
     fb_user = FbGraph::User.me(self.oauth_token)
 		name = "I-AM-YOUR-FATHER"
