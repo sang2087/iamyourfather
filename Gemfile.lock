@@ -70,6 +70,7 @@ GEM
     mime-types (1.25)
     multi_json (1.8.1)
     multipart-post (1.2.0)
+    mysql2 (0.3.14)
     nokogiri (1.5.10)
     oauth2 (0.8.1)
       faraday (~> 0.8)
@@ -154,6 +155,7 @@ DEPENDENCIES
   fb_graph
   gexf
   jquery-rails
+  mysql2
   omniauth-facebook (= 1.4.0)
   rails (= 3.2.13)
   sass-rails (~> 3.2.3)
