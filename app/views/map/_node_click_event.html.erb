@@ -1,7 +1,7 @@
 //<script>
 $("#sigma-example-parent").bind("mouseup",function(){
 	if(nodes != null){
-		if(function_type == BETRAY){
+		if(function_type == NORMAL){
 			$.ajax({
 				url: "/data/user.json",
 				type: "POST",
@@ -11,11 +11,27 @@ $("#sigma-example-parent").bind("mouseup",function(){
 				},
 				success: function(data) {
 					user = data.user
-					set_dialog_html("Betray", data.is_function_possible, data.limit_point, data.limit_node_cnt)
+					set_dialog_html("Information", user, data.is_function_possible, data.limit_point, data.limit_node_cnt)
+				}
+			});
+
+		}else if(function_type == BETRAY){
+			function_type = NORMAL;
+			$.ajax({
+				url: "/data/user.json",
+				type: "POST",
+				data: {
+					user_id: node_id, // if user_id == 0 then get session user
+					code : 4
+				},
+				success: function(data) {
+					user = data.user
+					set_dialog_html("Betray", user, data.is_function_possible, data.limit_point, data.limit_node_cnt)
 				}
 			});
 
 		}else if(function_type == SEIZE){
+			function_type = NORMAL;
 			$.ajax({
 				url: "/data/user.json",
 				type: "POST",
@@ -25,7 +41,7 @@ $("#sigma-example-parent").bind("mouseup",function(){
 				},
 				success: function(data) {
 					user = data.user
-					set_dialog_html("Seize", data.is_function_possible, data.limit_point, data.limit_node_cnt)
+					set_dialog_html("Seize", user, data.is_function_possible, data.limit_point, data.limit_node_cnt)
 				}
 			});
 		}
@@ -42,19 +58,21 @@ $("#independance").click(function(){
 		},
 		success: function(data) {
 			user = data.user
-			set_dialog_html("Independance", data.is_function_possible, data.limit_point, data.limit_node_cnt)
+			set_dialog_html("Independance", user, data.is_function_possible, data.limit_point, data.limit_node_cnt)
 		}
 	});
 
 });
-function set_dialog_html(function_type, is_possible, limit_point, limit_node_cnt){
+function set_dialog_html(function_type, user, is_possible, limit_point, limit_node_cnt){
+	$("#dialog_title").text(function_type);
+	$("#dialog_name").text(user.username);
+	$("#dialog_banner").text(user.banner);
+	$("#dialog_point").text(user.point);
+	$("#dialog_image").attr("src",user.picture);
+	var html 
+	if(function_type == "Information"){
 
-		$("#dialog_title").text(function_type);
-		$("#dialog_name").text(user.username);
-		$("#dialog_banner").text(user.banner);
-		$("#dialog_point").text(user.point);
-		$("#dialog_image").attr("src",user.picture);
-		var html 
+	}else{
 		if(is_possible){
 			html += '<h3>Do you want independance?</h3>' 
 						+	'<h4>' + function_type + ' condition :<br>'
@@ -70,7 +88,9 @@ function set_dialog_html(function_type, is_possible, limit_point, limit_node_cnt
 		}
 		$("#dialog_button").html(html)
 		$("#dialog").show();
+	}
 }
+
 
 $("#betray").click(function(){
 		function_type = BETRAY;

@@ -1,5 +1,5 @@
 class Facebook < ActiveRecord::Base
-	URL = "http://local.youthhogoo.com/"
+URL = "http://local.youthhogoo.com/"
 
 	APP_ID = '215886731905255'
  	APP_SECRET =	'96c1ecb73693ad1ce0f6d0c754450c75'
@@ -62,11 +62,11 @@ class Facebook < ActiveRecord::Base
   end
 	#TODO sidekiq
 	def send_invitation user, uid
-    from_oauth_token=self.oauth_token
+    from_oauth_token = self.oauth_token
 
     id = "-#{self.uid}@chat.facebook.com"
     to = "-#{uid}@chat.facebook.com"
-		logger.info "send message to #{to}"
+		logger.info "SEND message to #{to}"
 
 		client = Jabber::Client.new Jabber::JID.new(id)
 		client.connect
@@ -75,6 +75,8 @@ class Facebook < ActiveRecord::Base
 		send_message = Jabber::Message.new to, body
 		client.send send_message
 		client.close
+
+		logger.info "SENDED message to #{to}"
 	end
 
 end

@@ -35,7 +35,7 @@ class MapController < ApplicationController
 		@is_point_get_login = session[:login_point]
 		puts "@is_point_get_login #{@is_point_get_login}"
 		session[:login_point] = false
-		@login_point = BaseData.where(:type=>"PointLog", :code=>7).first.point
+		@login_point = BaseData.where(:mytype=>"PointLog", :code=>7).first.point
 
   end
 
