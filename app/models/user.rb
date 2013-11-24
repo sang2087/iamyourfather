@@ -48,6 +48,7 @@ class User < ActiveRecord::Base
 		user.save!
 
 		if first_facebook_connect
+			user.link_in
 			user.facebook_post_wall
 		end
 
@@ -55,17 +56,22 @@ class User < ActiveRecord::Base
   end
 
 	def get_facebook 
-		Facebook.find(self.facebook_id)
+		unless self.facebook_id.nil?
+			Facebook.find(self.facebook_id)
+		else
+			return nil
+		end
 	end
 
 	def facebook_post_wall
 		self.get_facebook.post_wall(self)
-		PostLog.post_wall self
+		PointLog.post_wall self
 	end
 
 	def send_invitation uid
 		puts "send invi user model"
 		self.get_facebook.send_invitation self, uid
+		PointLog.invitation self
 	end
 
 	def link_in 

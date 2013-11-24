@@ -1,12 +1,12 @@
 class PointLog < ActiveRecord::Base
-  attr_accessible :point, :type, :user_id, :your_id
+  attr_accessible :point, :mytype, :user_id, :your_id
 	belongs_to :user
 
 	def self.link_without_fb user
 		code = 1
 		parent_id = user.parent_id
 		unless parent_id.nil?
-			bd = BaseData.where(:type => "PointLog", :code => code).first
+			bd = BaseData.where(:mytype => "PointLog", :code => code).first
 			PointLog.change_point(user, user.parent_id, code, bd.point)
 		end
 	end
@@ -15,7 +15,7 @@ class PointLog < ActiveRecord::Base
 		code = 2
 		parent_id = user.parent_id
 		unless parent_id.nil?
-			bd = BaseData.where(:type => "PointLog", :code => code).first
+			bd = BaseData.where(:mytype => "PointLog", :code => code).first
 			PointLog.change_point(user, user.parent_id, code, bd.point)
 		end
 	end
@@ -55,34 +55,37 @@ class PointLog < ActiveRecord::Base
 		end
 	end
 	
-	def self.invitation user, your
+	def self.invitation user
+		puts "invitation"
 		code = 6
-		bd = BaseData.where(:type => "PointLog", :code => code).first
-		PointLog.change_point(user, your.id, code, bd.point)
-
+		bd = BaseData.where(:mytype => "PointLog", :code => code).first
+		PointLog.change_point(user, nil, code, bd.point)
 	end
 
 	def self.login user
 		code = 7
-		bd = BaseData.where(:type => "PointLog", :code => code).first
+		bd = BaseData.where(:mytype => "PointLog", :code => code).first
 
 		PointLog.change_point(user, user.id, code, bd.point)
 
 	end
 	def self.post_wall user
 		code = 8
-		bd = BaseData.where(:type => "PointLog", :code => code).first
+		bd = BaseData.where(:mytype => "PointLog", :code => code).first
 		PointLog.change_point(user, your.id, code, bd.point)
 	end
 
 	def self.change_point user, your_id, code, point
 		puts "point #{user} #{your_id} #{code} #{point}!"
 		pl = user.point_logs.new
-		pl.type = code
+		pl.mytype = code
 		pl.user_id = user.id
-		pl.your_id = your_id
-		pl.point = point
 
+		if(code != 8)
+			pl.your_id = your_id
+		end
+
+		pl.point = point
 		user.point += point
 
 		ret = ActiveRecord::Base.transaction do
@@ -95,7 +98,7 @@ class PointLog < ActiveRecord::Base
 	def self.is_function_possible? user, your, code
 		code = code.to_i
 		puts "function CODE#{code.to_i}"
-		bd = BaseData.where(:type => "PointLog", :code => code).first
+		bd = BaseData.where(:mytype => "PointLog", :code => code).first
 		
 		ret = false
 		case code
@@ -126,7 +129,7 @@ class PointLog < ActiveRecord::Base
 	def PointLog.deduct_point(code, node_cnt)
 		ret_point = 0
 
-		bd = BaseData.where(:type => "PointLog", :code => code).first
+		bd = BaseData.where(:mytype => "PointLog", :code => code).first
 		case code.to_i
 		when 3
 			ret_point = bd.point

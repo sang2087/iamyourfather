@@ -1,44 +1,44 @@
 puts "start seed"
 puts "base data start"
-BaseData.create(:type => "PointLog",
+BaseData.create(:mytype => "PointLog",
 								:code => 1,
 								:point => 5,
 								:description => "no facebook link in")
 
-BaseData.create(:type => "PointLog",
+BaseData.create(:mytype => "PointLog",
 								:code => 2,
 								:point => 30,
 								:description => "facebook link in")
 
-BaseData.create(:type => "PointLog",
+BaseData.create(:mytype => "PointLog",
 								:code => 3,
 								:point => -300,
 								:node_cnt => 15,
 								:description => "independance")
 
-BaseData.create(:type => "PointLog",
+BaseData.create(:mytype => "PointLog",
 								:code => 4,
 								:point => -10, #mulify your node_cnt
 								:node_cnt => 5,
 								:description => "betray")
 
-BaseData.create(:type => "PointLog",
+BaseData.create(:mytype => "PointLog",
 								:code => 5,
 								:point => -100, #mulify your node_cnt
 								:node_cnt => 50,
 								:description => "seize")
 
-BaseData.create(:type => "PointLog",
+BaseData.create(:mytype => "PointLog",
 								:code => 6,
 								:point => 5,
 								:description => "invitation message")
 
-BaseData.create(:type => "PointLog",
+BaseData.create(:mytype => "PointLog",
 								:code => 7,
 								:point => 10,
 								:description => "login 10 min-term")
 
-BaseData.create(:type => "PointLog",
+BaseData.create(:mytype => "PointLog",
 								:code => 8,
 								:point => 100,
 								:description => "Share Feed")

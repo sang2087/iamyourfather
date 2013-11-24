@@ -1,3 +1,3 @@
 class BaseData < ActiveRecord::Base
-  attr_accessible :type, :code, :point, :node_cnt, :description
+  attr_accessible :mytype, :code, :point, :node_cnt, :description
 end
