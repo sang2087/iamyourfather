@@ -4,8 +4,7 @@ class SendDataController < ApplicationController
 		render :xml => data 
 	end
 	def friends_list
-		user = User.find(session[:user_id])
-		friends = user.get_facebook.friends_list
+		friends = @user.get_facebook.friends_list
 		render :json => friends 
 	end
 	def get_user
@@ -32,15 +31,20 @@ class SendDataController < ApplicationController
 		render :text => extract_locale_from_accept_language_header
 	end
 	def send_invitation
-		User.find(session[:user_id]).send_invitation(params[:uid])
+		@user.send_invitation(params[:uid])
 
 		render :text => extract_locale_from_accept_language_header
+	end
+	def facebook_post
+		@user.facebook_post_wall
+		render :text => "success"
 	end
 
 private
 	def extract_locale_from_accept_language_header
 			request.env['HTTP_ACCEPT_LANGUAGE'].scan(/^[a-z]{2}/).first
 	end
+
 
 
 end

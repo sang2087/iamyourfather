@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 	def set_i18n_locale
 		if I18n.available_locales.include?(extract_locale_from_accept_language_header.to_sym)
 			I18n.locale = extract_locale_from_accept_language_header
-			puts("!!!!#{I18n.locale}")
+			puts("locale#{I18n.locale}")
 		end
 	end
 

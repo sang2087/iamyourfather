@@ -20,5 +20,6 @@ Iamyourfather::Application.routes.draw do
   match "data/user.json" => "send_data#get_user"
   match "data/friends.json" => "send_data#friends_list"
   match "data/send_invitation" => "send_data#send_invitation"
+	match "/data/facebook_post" => "send_data#facebook_post"
 
 end

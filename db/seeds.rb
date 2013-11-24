@@ -35,7 +35,11 @@ BaseData.create(:type => "PointLog",
 
 BaseData.create(:type => "PointLog",
 								:code => 7,
-								:point => 1,
+								:point => 10,
+								:description => "login 10 min-term")
+BaseData.create(:type => "PointLog",
+								:code => 8,
+								:point => 100,
 								:description => "login 10 min-term")
 puts "base data end"
 

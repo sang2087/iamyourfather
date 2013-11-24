@@ -60,11 +60,22 @@ class User < ActiveRecord::Base
 
 	def facebook_post_wall
 		self.get_facebook.post_wall(self)
+		PostLog.post_wall self
 	end
 
 	def send_invitation uid
 		puts "send invi user model"
 		self.get_facebook.send_invitation self, uid
+	end
+
+	def link_in 
+		if self.facebook_uid.nil?
+			# 그냥 로그인
+			PointLog.link_without_fb self
+		else
+			# 페북 로그인
+			PointLog.link_with_fb self	
+		end
 	end
 
 	def self.make_gexf user_id

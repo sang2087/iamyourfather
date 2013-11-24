@@ -5,7 +5,6 @@ class MapController < ApplicationController
 		# need facebook login check
 		father = User.find(name)
 
-
 		if session[:user_id].nil? # session(cookie) check
 			newbie = User.new(:ip => request.remote_addr,
 												:username => "Baby", # need to random in sample
@@ -22,6 +21,7 @@ class MapController < ApplicationController
 				end
 			end
 
+			newbie.link_in 
 			@user = newbie
 		end
 

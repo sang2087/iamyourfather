@@ -1,17 +1,22 @@
 class PointLog < ActiveRecord::Base
   attr_accessible :point, :type, :user_id, :your_id
 	belongs_to :user
-	def self.link_in_without_fb user, your
+	def self.link_without_fb user
 		code = 1
-		bd = BaseData.where(:type => "PointLog", :code => code).first
-		PointLog.change_point(user, your.id, code, bd.point)
-
+		parent_id = user.parent_id
+		unless parent_id.nil?
+			bd = BaseData.where(:type => "PointLog", :code => code).first
+			PointLog.change_point(user, user.parent_id, code, bd.point)
+		end
 	end
 
-	def self.link_in_with_fb user, your
+	def self.link_with_fb user
 		code = 2
-		bd = BaseData.where(:type => "PointLog", :code => code).first
-		PointLog.change_point(user, your.id, code, bd.point)
+		parent_id = user.parent_id
+		unless parent_id.nil?
+			bd = BaseData.where(:type => "PointLog", :code => code).first
+			PointLog.change_point(user, user.parent_id, code, bd.point)
+		end
 	end
 
 	def self.independance user
@@ -62,6 +67,11 @@ class PointLog < ActiveRecord::Base
 
 		PointLog.change_point(user, user.id, code, bd.point)
 
+	end
+	def self.post_wall user
+		code = 8
+		bd = BaseData.where(:type => "PointLog", :code => code).first
+		PointLog.change_point(user, your.id, code, bd.point)
 	end
 
 	def self.change_point user, your_id, code, point
