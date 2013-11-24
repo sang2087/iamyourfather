@@ -67,7 +67,7 @@ function set_dialog_html(function_type, user, is_possible, limit_point, limit_no
 	$("#dialog_title").text(function_type);
 	$("#dialog_name").text(user.username);
 	$("#dialog_banner").text(user.banner);
-	$("#dialog_point").text("<%= t :mark %>" + user.point);
+	$("#dialog_point").text("<%= t :mark %>" + user.point +"<%= t :unit %>");
 	$("#dialog_image").attr("src",user.picture);
 	var html 
 	if(function_type == "Information"){
@@ -76,14 +76,14 @@ function set_dialog_html(function_type, user, is_possible, limit_point, limit_no
 		if(is_possible){
 			html += '<h3>Do you want independance?</h3>' 
 						+	'<p>' + function_type + ' condition :<br>'
-						+ 'Point > '+ limit_point +'(Point will be deducted.)<br>'
+						+ 'Money > '+ limit_point +'(Point will be deducted.)<br>'
 						+ 'Children Count > '+ limit_node_cnt +'</p>'
 						+ '<button onclick=\'dialog_yes("' + function_type.toLowerCase() + '")\'>Yes</button>'
 						+ '<button onclick=\'dialog_no("'+ function_type.toLowerCase() + '")\'>No</button>';
 		}else{
 			html = '<h3>You CANNOT ' + function_type + '!</h3>'
 						+ '<p>' + function_type + ' condition :<br>'
-						+ 'Point > '+ limit_point +'<br>'
+						+ 'Money > '+ limit_point +'<br>'
 						+ 'Children Count > '+ limit_node_cnt +'</p>';
 		}
 	}
@@ -95,11 +95,11 @@ function set_dialog_html(function_type, user, is_possible, limit_point, limit_no
 
 $("#betray").click(function(){
 		function_type = BETRAY;
-		alert("select node")
+		alert("Select your new father in universe.\n\r당신이 따를 사람을 화면에서 선택하세요.")
 		});
 $("#seize").click(function(){
 		function_type = SEIZE;
-		alert("select node")
+		alert("Select people you want to make sons in universe.\n\r당신의 자식으로 삼을 그룹의 조상을 화면에서 선택하세요.")
 });
 
 
