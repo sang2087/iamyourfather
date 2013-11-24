@@ -46,11 +46,11 @@
 				}
 				}).iterNodes(function(n){
 					if(!neighbors[n.id] && n.id != nodes ){
-					//Edit by susang
-					n.hidden = 0;
-					n.color = change_alpha(n.color, "0.2")
+						//Edit by susang
+						n.hidden = 0;
+						n.color = change_alpha(n.color, "0.2")
 					}else{
-					n.hidden = 0;
+						n.hidden = 0;
 					}
 				}).draw(2,2,2);
 			}).bind('outnodes',function(){
@@ -66,6 +66,7 @@
 			// Draw the graph :
 			sigInst.draw();
 		}
+
 
 		if (document.addEventListener) {
 			document.addEventListener("DOMContentLoaded", init, false);
