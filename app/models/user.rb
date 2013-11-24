@@ -175,7 +175,6 @@ class User < ActiveRecord::Base
 		end
 	end
 
-
 private
 	def self.color_r(color)
 		color.split("/")[0]

@@ -4,13 +4,15 @@ Iamyourfather::Application.routes.draw do
 	post "map/seize"
 	post "map/independance"
 	post "map/betray"
+	get "sessions/destroy"
 
 	root :to => 'map#index'
 
 	match 'auth/facebook/callback', to: 'sessions#create'
 	match 'auth/facebook_messenger/callback', to: 'sessions#create_messenger'
 	match 'auth/failure', to: redirect('/')
-	match 'signout', to: "sessions#destroy", as: 'signout'
+	match 'signout', to: "sessions#signout", as: 'signout'
+
 
 	match ':id' => 'map#index'
 

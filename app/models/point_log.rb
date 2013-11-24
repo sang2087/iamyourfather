@@ -52,14 +52,22 @@ class PointLog < ActiveRecord::Base
 
 	end
 
-private
-	def edit_point user, your_id, code, point
+	def self.login user
+		code = 7
+		bd = BaseData.where(:type => "PointLog", :code => code).first
+
+		PointLog.edit_points(user, user.id, code, bd.point)
+
+	end
+
+	def self.edit_points user, your_id, code, point
 		pl = user.point_logs.new
 		pl.type = code
 		pl.user_id = user.id
 		pl.your_id = your_id
+		pl.point = point
 
-		user.point += bd.point
+		user.point += point
 
 		ret = ActiveRecord::Base.transaction do
 			pl.save!
@@ -68,5 +76,29 @@ private
 
 		ret
 	end
+	def self.is_function_possible? user, code
+		puts "function CODE#{code.to_i}"
+		bd = BaseData.where(:type => "PointLog", :code => code).first
+		
+		ret = false
+		case code.to_i
+		when 3
+			if (user.point + bd.point > 0 and user.node_cnt > bd.node_cnt)
+				ret = true
+			end
+		when 4
+			if (user.point + (bd.point * user.node_cnt) > 0 and user.node_cnt > bd.node_cnt)
+				ret = true
+			end
+		when 5
+			if (user.point + (bd.point * user.node_cnt) > 0 and user.node_cnt > bd.node_cnt)
+				ret = true
+			end
+		end
+
+		ret
+	end
+
+
 
 end

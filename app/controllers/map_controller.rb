@@ -1,8 +1,11 @@
 class MapController < ApplicationController
   def index
+		puts "@user map #{@user}"
 		name = params[:id] || "1" # 1 is the God
 		# need facebook login check
 		father = User.find(name)
+
+
 		if session[:user_id].nil? # session(cookie) check
 			newbie = User.new(:ip => request.remote_addr,
 												:username => "Baby", # need to random in sample
@@ -18,31 +21,36 @@ class MapController < ApplicationController
 					a.save
 				end
 			end
+
+			@user = newbie
 		end
-		user = User.find(session[:user_id])
-		@user = user
+
 		@user_id = session[:user_id]
 		@groups = User.get_groups || "null"
-		# return gexf
+
+		#this is Login Point
+
+		@is_point_get_login = session[:login_point]
+		puts "@is_point_get_login #{@is_point_get_login}"
+		session[:login_point] = false
+		@login_point = BaseData.where(:type=>"PointLog", :code=>7).first.point
+
   end
 
 	def independance
-		user = User.find(session[:user_id])
-		user.independance
+		@user.independance
 
 		render :text => "success"
   end
 
   def seize
-		user = User.find(session[:user_id])
-		user.seize params[:user_id]
+		@user.seize params[:user_id]
 
 		render :text => "success"
   end
 
 	def betray
-		user = User.find(session[:user_id])
-		user.betray params[:user_id]
+		@user.betray params[:user_id]
 
 		render :text => "success"
   end

@@ -5,43 +5,33 @@ $("#sigma-example-parent").bind("mouseup",function(){
 				url: "/data/user.json",
 				type: "POST",
 				data: {
-					user_id: node_id // if user_id == 0 then get session user
+					user_id: node_id, // if user_id == 0 then get session user
+					code : 4
 				},
-				success: function(user) {
-					$("#dialog_title").text("Betray");
-					$("#dialog_name").text(user.username);
-					$("#dialog_banner").text(user.banner);
-					$("#dialog_point").text(user.point);
-					$("#dialog_image").attr("src",user.picture);
+				success: function(data) {
+					user = data.user
+					if(data.is_function_possible){
+						set_dialog_html("Independance")
+					}
 				}
 			});
 
-			html = '<h3>Do you want move to this node?</h3>' +
-						'<button onclick=\'dialog_yes("betray")\'>Yes</button>' +
-						'<button onclick=\'dialog_no("betray")\'>No</button>';
-			$("#dialog_button").html(html)
-			$("#dialog").show();
 		}else if(function_type == SEIZE){
 			$.ajax({
 				url: "/data/user.json",
 				type: "POST",
 				data: {
-					user_id: node_id // if user_id == 0 then get session user
+					user_id: node_id, // if user_id == 0 then get session user
+					code : 5
 				},
-				success: function(user) {
-					$("#dialog_title").text("Seize");
-					$("#dialog_name").text(user.username);
-					$("#dialog_banner").text(user.banner);
-					$("#dialog_point").text(user.point);
-					$("#dialog_image").attr("src",user.picture);
+				success: function(data) {
+					user = data.user
+					if(data.is_function_possible){
+						set_dialog_html("Independance")
+					}
+
 				}
 			});
-
-			html = '<h3>Do you want seize this node?</h3>' +
-						'<button onclick=\'dialog_yes("seize")\'>Yes</button>' +
-						'<button onclick=\'dialog_no("seize")\'>No</button>';
-			$("#dialog_button").html(html)
-			$("#dialog").show();
 		}
 	}
 });
@@ -51,23 +41,38 @@ $("#independance").click(function(){
 		url: "/data/user.json",
 		type: "POST",
 		data: {
-			user_id: 0 // if user_id == 0 then get session user
+			user_id: 0, // if user_id == 0 then get session user
+			code : 3
 		},
-		success: function(user) {
-			$("#dialog_title").text("Independance");
-			$("#dialog_name").text(user.username);
-			$("#dialog_banner").text(user.banner);
-			$("#dialog_point").text(user.point);
-			$("#dialog_image").attr("src",user.picture);
+		success: function(data) {
+			user = data.user
+			if(data.is_function_possible){
+				set_dialog_html("Independance")
+			}
 		}
 	});
 
-	html = '<h3>Do you want independance?</h3>' +
-			'<button onclick=\'dialog_yes("independance")\'>Yes</button>' +
-			'<button onclick=\'dialog_no("independance")\'>No</button>';
-	$("#dialog_button").html(html)
-	$("#dialog").show();
 });
+function set_dialog_html(function_type, is_possible){
+
+		$("#dialog_title").text(function_type);
+		$("#dialog_name").text(user.username);
+		$("#dialog_banner").text(user.banner);
+		$("#dialog_point").text(user.point);
+		$("#dialog_image").attr("src",user.picture);
+		var html 
+		if(is_possible){
+			html = '<h3>Do you want independance?</h3>' +
+				'<button onclick=\'dialog_yes("independance")\'>Yes</button>' +
+				'<button onclick=\'dialog_no("independance")\'>No</button>';
+		}else{
+		html = '<h3>You canNOT</h3>' +
+		}
+			
+
+		$("#dialog_button").html(html)
+		$("#dialog").show();
+}
 
 $("#betray").click(function(){
 		function_type = BETRAY;

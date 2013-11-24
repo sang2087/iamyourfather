@@ -15,10 +15,12 @@ class ApplicationController < ActionController::Base
 	def default_url_option
 		{ locale:I18n.locale}
 	end
+
 	def check_facebook_login
 		facebook_login = false
 		logger.info "!!!!!!!#{session[:user_id]}"
 		unless session[:user_id].nil?
+			@user = User.find(session[:user_id])
 			#TODO check token expired time
 			begin
 				unless User.find(session[:user_id]).facebook_uid.nil?

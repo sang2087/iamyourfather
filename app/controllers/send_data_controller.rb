@@ -15,7 +15,14 @@ class SendDataController < ApplicationController
 		else
 			user = User.find(params[:user_id])
 		end
-		render :json => user 
+
+		is_function_possible = PointLog.is_function_possible? User.find(session[:user_id]), params[:code]
+
+		data={
+			:user => user,
+			:is_function_possible => is_function_possible
+		}
+		render :json => data
 	end
 
 	def get_i18n_locale

@@ -97,6 +97,10 @@
 		groups = <%=@groups%>;
 		//console.log(groups);
 		$("#dialog").hide();
+		<%if @is_point_get_login%>
+			alert("You get Login Point <%=@login_point%>")
+		<%end%>
+
 		<%=render :partial => 'map/friends'%>
 		
 		<%=render :partial => 'map/node_click_event'%>
