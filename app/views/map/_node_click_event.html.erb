@@ -66,7 +66,8 @@ function set_dialog_html(function_type, is_possible){
 				'<button onclick=\'dialog_yes("independance")\'>Yes</button>' +
 				'<button onclick=\'dialog_no("independance")\'>No</button>';
 		}else{
-		html = '<h3>You canNOT</h3>' +
+			html = '<h3>You CANNOT ' + function_type + '!</h3>'
+					 + '<h3>Because You CANNOT ' + function_type + '!</h3>';
 		}
 			
 
