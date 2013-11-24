@@ -23,7 +23,8 @@ class SendDataController < ApplicationController
 		is_function_possible = false
 		limit_point = 0
 		limit_node_cnt = 0
-		if (3..5).include? params[:code]
+
+		if (3..5).include? params[:code].to_i
 			is_function_possible, limit_point, limit_node_cnt = PointLog.is_function_possible?(session_user, user, params[:code])
 		end
 
