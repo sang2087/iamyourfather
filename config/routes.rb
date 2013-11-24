@@ -7,7 +7,8 @@ Iamyourfather::Application.routes.draw do
 
 	root :to => 'map#index'
 
-	match 'auth/:provider/callback', to: 'sessions#create'
+	match 'auth/facebook/callback', to: 'sessions#create'
+	match 'auth/facebook_messenger/callback', to: 'sessions#create_messenger'
 	match 'auth/failure', to: redirect('/')
 	match 'signout', to: "sessions#destroy", as: 'signout'
 
@@ -16,5 +17,6 @@ Iamyourfather::Application.routes.draw do
 	match "data/data.gexf" => "send_data#data"
   match "data/user.json" => "send_data#get_user"
   match "data/friends.json" => "send_data#friends_list"
+  match "data/send_invitation" => "send_data#send_invitation"
 
 end

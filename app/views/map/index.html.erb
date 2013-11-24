@@ -214,20 +214,22 @@
 			html += "<tr>\n"
 				+ "<td><img src='" + friends_list[i]["pic"] + "' class='friend_pic'></td>\n"
 				+ "<td><a href='" + friends_list[i]["uid"] + "'>" + friends_list[i]["name"] + "</td>\n"
-			if(friends_list[i]["joined"] == true)
+			if(friends_list[i]["joined"] == true){
 				html += "<td>" + friends_list[i]["point"] + "</td>\n"
 				//TODO change this
 							//+ "<td>Joined</td>\n";
-							+ "<td><button onclick=\"invite_message('" + friends_list[i]["uid"] +"'\")'>Invite</button></td>\n";
-			else
+					+ '<td><a href="/auth/facebook" onclick="invitation(' + friends_list[i]["uid"] + ')" class="btn">Invite</a>'
+			}else{
 				html += "<td>-</td>\n"
-							+ "<td><button onclick=\"invite_message('" + friends_list[i]["uid"] +"'\")'>Invite</button></td>\n";
+					+ '<td><a href="/auth/facebook" onclick="invitation('+friends_list[i]["uid"] + ')" class="btn">Invite</a>'
+			}
 
 			html += "</tr>\n"
 		}
 
 		$("#friends_list").html(html);
 	}
+
 	function friends_pagination(page_num){
 
 		var limit = 5
@@ -247,14 +249,17 @@
 		$("#friends_pagination").html(html);
 		friends_page(start);
 	}
-	function invite_message(uid){
+
+	function invitation(uid){
+		alert(uid)
 		$.ajax({
-			url: "/data/send_invi_message",
+			url: "/data/send_invitation",
 			type: "POST",
 			data: {
 				uid: uid
 			},
 			success: function(friends) {
+				alert(data)
 			}
 		});
 	}

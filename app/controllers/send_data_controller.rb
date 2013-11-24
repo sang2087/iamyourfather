@@ -21,6 +21,11 @@ class SendDataController < ApplicationController
 	def get_i18n_locale
 		render :text => extract_locale_from_accept_language_header
 	end
+	def send_invitation
+		User.find(session[:user_id]).send_invitation(params[:uid])
+
+		render :text => extract_locale_from_accept_language_header
+	end
 
 private
 	def extract_locale_from_accept_language_header

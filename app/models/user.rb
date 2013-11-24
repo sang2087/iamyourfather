@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   APP_SECRET = '9b209a9e006a2244f69419ee5a2b2355'
 
 	has_ancestry 
+	has_many :point_logs
   
   def from_omniauth(auth)
 		facebook_uid = auth.uid
@@ -18,15 +19,15 @@ class User < ActiveRecord::Base
 				#FRIST FACEBOOK CONNECT
 				#TODO post wall
 				first_facebook_connect = true
-				user.facebook_uid = auth.uid
-				user.username = auth.info.name
-				user.save!
+
 
 				facebook = Facebook.new
 				facebook.user_id = user.id
 				facebook.save!
 
 				user.facebook_id = facebook.id
+				user.facebook_uid = auth.uid
+				user.username = auth.info.name
 				user.save!
 
 			else
@@ -55,15 +56,20 @@ class User < ActiveRecord::Base
   end
 
 	def get_facebook 
-		return Facebook.find(self.facebook_id)
+		Facebook.find(self.facebook_id)
 	end
+
 	def facebook_post_wall
 		self.get_facebook.post_wall(self)
 	end
 
+	def send_invitation uid
+		puts "send invi user model"
+		self.get_facebook.send_invitation self, uid
+	end
+
 	def self.make_gexf user_id
 		users = User.find(:all, :order => "ancestry")
-		puts users.inspect
 		builder = Nokogiri::XML::Builder.new(:encoding => 'UTF-8') do |xml|
 			xml.gexf('xmlns:viz' => 'http:///www.gexf.net/1.1draft/viz', 'version' => '1.1', 'xmlns' => 'http://www.gexf.net/1.1draft') do
 				xml.graph('defaultedgetype' => 'directed', 'idtype' => 'string', 'type' => 'static') do

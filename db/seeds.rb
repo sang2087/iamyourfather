@@ -2,17 +2,17 @@ puts "start seed"
 puts "base data start"
 BaseData.create(:type => "PointLog",
 								:code => 1,
-								:point => 10,
+								:point => 5,
 								:description => "no facebook link in")
 
 BaseData.create(:type => "PointLog",
 								:code => 2,
-								:point => 10,
+								:point => 30,
 								:description => "facebook link in")
 
 BaseData.create(:type => "PointLog",
 								:code => 3,
-								:point => 300,
+								:point => -300,
 								:node_cnt => 15,
 								:description => "independance")
 

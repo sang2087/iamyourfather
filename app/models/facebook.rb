@@ -1,5 +1,8 @@
 class Facebook < ActiveRecord::Base
 	URL = "http://local.youthhogoo.com/"
+
+	APP_ID = '215886731905255'
+ 	APP_SECRET =	'96c1ecb73693ad1ce0f6d0c754450c75'
   attr_accessible :gender, :link, :locale, :name, :uid
 	def get_user 
 		return User.find(self.user_id)
@@ -25,12 +28,6 @@ class Facebook < ActiveRecord::Base
 				friends[index]["point"] = point
 			end
 		end
-=begin
-		puts "!!!!!!!FRIENDS!!!!!!!!!!"
-		friends.each do |friend|
-			puts friends.inspect
-		end
-=end
 		
     return friends.sort_by{|friend| friend["name"]}
   end
@@ -55,4 +52,21 @@ class Facebook < ActiveRecord::Base
 			logger.info(e.backtrace.inspect)
 		end
   end
+	#TODO sidekiq
+	def send_invitation user, uid
+    from_oauth_token=self.oauth_token
+
+    id = "-#{self.uid}@chat.facebook.com"
+    to = "-#{uid}@chat.facebook.com"
+		logger.info "send message to #{to}"
+
+		client = Jabber::Client.new Jabber::JID.new(id)
+		client.connect
+		client.auth_sasl(Jabber::SASL::XFacebookPlatform.new(client, APP_ID, from_oauth_token, APP_SECRET), nil)
+		body = "I wanna make family. Come here.\n#{URL}#{user.id}"
+		send_message = Jabber::Message.new to, body
+		client.send send_message
+		client.close
+	end
+
 end
