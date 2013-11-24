@@ -26,8 +26,8 @@ body { padding:20px }
 			</div>
 		</div>
 		<div class="col-xs-12 col-sm-4 col-md-4 col-lg-3" id="dashboard">
-			<div class="panel panel-<%=%w[info warning success danger primary].sample-%>" style="display:block;min-height:720px;">
-				<div class="panel-heading">Dashboard</div>
+			<div class="panel panel-<%=%w[info warning success danger].sample-%>" style="display:block;min-height:720px;">
+				<div class="panel-heading">Dashboard - <%=t :language %> : <a href="/?lang=ko">Kor</a> / <a href="/?lang=en">Eng</a></div>
 				<div class="panel-body">
 
 					<h2><%=t :iam %>: <%=@user.username-%></h2>
@@ -46,19 +46,21 @@ body { padding:20px }
 						<div class="fb-share-button" data-href="http://local.youthhogoo.com/<%=@user_id%>" data-width="100" data-type="button_count"></div>
 					<%end%>
 					<hr>
-					<h2><%=t :money %> : <%=t :mark %><%=@user.point*1000-%><%= t :unit %></h2>
-					<button id="independance">Independance</button>
-					<button id="betray">Betray</button>
-					<button id="seize">Seize</button>
+					<h2><%=t :money %> : <%=t :mark %><%=@user.point-%><%= t :unit %></h2>
+					<div class="list-group">
+						<a href="#" class="list-group-item" id="independance"><%=t :iinfo %></a>
+						<a href="#" class="list-group-item" id="betray"><%=t :binfo %></a>
+						<a href="#" class="list-group-item" id="seize"><%=t :sinfo %></a>
+					</div>
 					<hr>
 					<h3><%=t :fblist %></h3>
 					<table class="table table-striped">
 						<thead>
 							<tr>
 								<th>#</th>
-								<th>Friend Name</th>
-								<th>Point</th>
-								<th>State</th>
+								<th><%=t :name %></th>
+								<th><%=t :money %></th>
+								<th><%=t :state %></th>
 							</tr>
 						</thead>
 						<tbody id="friends_list">
@@ -73,36 +75,38 @@ body { padding:20px }
 		</div>
 	</div>
 	<div id="dialog">
-		<div class="row-fluid">
-			<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-				<span id="dialog_title">title</span>
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick='$("#dialog").hide()'>&times;</button>
+					<h4 class="modal-title" id="dialog_title">title</h4>	
+				</div>
+				<div class="modal-body">
+					<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+						<img id="dialog_image" src="">
+					</div>
+					<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+						<table>
+							<tr>
+								<th>Name :</th>
+								<th><span id="dialog_name">Username</span></th>
+							</tr>
+							<tr>
+								<th>Banner :</th>
+								<th><span id="dialog_banner">Banner</span></th>
+							</tr>
+							<tr>
+								<th>Money :</th>
+								<th><span id="dialog_point">Point</span></th>
+							</tr>
+							</table>
+							<hr>
+						</div>
+						<div id="dialog_button" class="row-fluid">
+						</div>
+					</div>
+				</div>
 			</div>
-			<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-				<a href="#" onclick='$("#dialog").hide()'>X</a><br>
-			</div>
-		</div>
-		<div class="row-fluid">
-			<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-				<img id="dialog_image" src="">
-			</div>
-			<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-				<table>
-					<tr>
-						<th>name :</th>
-						<th><span id="dialog_name">Username</span></th>
-					</tr>
-					<tr>
-						<th>Banner :</th>
-						<th><span id="dialog_banner">Banner</span></th>
-					</tr>
-					<tr>
-						<th>Money :</th>
-						<th><span id="dialog_point">Point</span></th>
-					</tr>
-				</table>
-			</div>
-		</div>
-		<div id="dialog_button" class="row-fluid">
 		</div>
 	</div>
 
@@ -256,9 +260,6 @@ body { padding:20px }
 		position: absolute;
 		left: 50px;
 		top: 50px;
-		width: 300px;
-		height: 300px;
-		background-color:blue;
 	}
 	.audiojs{
 		display:none;

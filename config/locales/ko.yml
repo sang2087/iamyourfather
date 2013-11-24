@@ -1,6 +1,3 @@
-# Sample localization file for English. Add more files in this directory for other locales.
-# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
-
 ko:
   title: 내가 니 애비다
   subtitle: 여러분의 조직을 늘려보세요!
@@ -10,3 +7,12 @@ ko:
   mark: ￦
   unit: 만원
   fblist: 친구리스트
+  independance: 독립
+  betray: 배신
+  seize: 납치
+  name: 이름
+  state: 상태
+  language: Language
+  iinfo: "독립 - 새로운 집안을 형성합니다"
+  binfo: "배신 - 다른 부모로 붙습니다"
+  sinfo: "납치 - 나의 자식으로 만듭니다"
