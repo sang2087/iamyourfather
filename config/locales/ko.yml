@@ -2,4 +2,4 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 ko:
-  hello: "안녕,세상"
+  hello: 안녕,세상
