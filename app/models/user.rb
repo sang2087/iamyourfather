@@ -198,7 +198,7 @@ class User < ActiveRecord::Base
 
 	def independance
 		self.parent = nil
-		self.color = "#{rand(256)}/#{rand(256)}/#{rand(256)}",
+		self.color = "#{100 + rand(156)}/#{100 + rand(156)}/#{100 + rand(156)}",
 		self.save
 
 		self.descendants.each do |descentdant|
