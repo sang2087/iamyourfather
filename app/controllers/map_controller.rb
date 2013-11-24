@@ -10,12 +10,14 @@ class MapController < ApplicationController
 			newbie = User.new(:ip => request.remote_addr,
 												:username => "Baby", # need to random in sample
 												:point => 0,
-												:color => "ff/00/00", # need to random in sample
+												:color => father.color,
 												:banner => "Hello, World!",
 												:node_cnt => 1) # need to random in sample
 			newbie.parent = father
 			if newbie.save
 				session[:user_id] = newbie.id
+				newbie.username = "Baby-#{newbie.id}"
+				newbie.save!
 				newbie.ancestors.each do |a|
 					a.node_cnt += 1
 					a.save

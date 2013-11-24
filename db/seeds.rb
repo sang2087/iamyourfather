@@ -46,7 +46,7 @@ SIZE = 30
 	User.create(:ip => "0.0.0.0",
 							:username => "The God#{i}",
 							:point => 0,
-							:color => "#{rand(256)}/#{rand(256)}/#{rand(256)}",
+							:color => "#{100 + rand(156)}/#{100 + rand(156)}/#{100 + rand(156)}",
 							:banner => "I am the God#{i}",
 							:node_cnt => 1)
 end
