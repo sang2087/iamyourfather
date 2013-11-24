@@ -20,8 +20,17 @@ class ApplicationController < ActionController::Base
 		logger.info "!!!!!!!#{session[:user_id]}"
 		unless session[:user_id].nil?
 			#TODO check token expired time
-			unless User.find(session[:user_id]).facebook_uid.nil?
-				facebook_login = true
+			begin
+				unless User.find(session[:user_id]).facebook_uid.nil?
+					facebook_login = true
+				end
+			rescue Exception => e
+				facebook_login = false
+				logger.info("ERROR !!! session[user_id] = #{session[:user_id]} cannot check facebook login")
+				logger.info(e.message)
+				logger.info(e.backtrace.inspect)
+				reset_session
+				redirect_to :signout
 			end
 		end
 		@facebook_login = facebook_login

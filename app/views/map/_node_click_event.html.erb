@@ -1,0 +1,81 @@
+$("#sigma-example-parent").bind("mouseup",function(){
+	if(nodes != null){
+		if(function_type == BETRAY){
+			$.ajax({
+				url: "/data/user.json",
+				type: "POST",
+				data: {
+					user_id: node_id // if user_id == 0 then get session user
+				},
+				success: function(user) {
+					$("#dialog_title").text("Betray");
+					$("#dialog_name").text(user.username);
+					$("#dialog_banner").text(user.banner);
+					$("#dialog_point").text(user.point);
+					$("#dialog_image").attr("src",user.picture);
+				}
+			});
+
+			html = '<h3>Do you want move to this node?</h3>' +
+						'<button onclick=\'dialog_yes("betray")\'>Yes</button>' +
+						'<button onclick=\'dialog_no("betray")\'>No</button>';
+			$("#dialog_button").html(html)
+			$("#dialog").show();
+		}else if(function_type == SEIZE){
+			$.ajax({
+				url: "/data/user.json",
+				type: "POST",
+				data: {
+					user_id: node_id // if user_id == 0 then get session user
+				},
+				success: function(user) {
+					$("#dialog_title").text("Seize");
+					$("#dialog_name").text(user.username);
+					$("#dialog_banner").text(user.banner);
+					$("#dialog_point").text(user.point);
+					$("#dialog_image").attr("src",user.picture);
+				}
+			});
+
+			html = '<h3>Do you want seize this node?</h3>' +
+						'<button onclick=\'dialog_yes("seize")\'>Yes</button>' +
+						'<button onclick=\'dialog_no("seize")\'>No</button>';
+			$("#dialog_button").html(html)
+			$("#dialog").show();
+		}
+	}
+});
+
+$("#independance").click(function(){
+	$.ajax({
+		url: "/data/user.json",
+		type: "POST",
+		data: {
+			user_id: 0 // if user_id == 0 then get session user
+		},
+		success: function(user) {
+			$("#dialog_title").text("Independance");
+			$("#dialog_name").text(user.username);
+			$("#dialog_banner").text(user.banner);
+			$("#dialog_point").text(user.point);
+			$("#dialog_image").attr("src",user.picture);
+		}
+	});
+
+	html = '<h3>Do you want independance?</h3>' +
+			'<button onclick=\'dialog_yes("independance")\'>Yes</button>' +
+			'<button onclick=\'dialog_no("independance")\'>No</button>';
+	$("#dialog_button").html(html)
+	$("#dialog").show();
+});
+
+$("#betray").click(function(){
+		function_type = BETRAY;
+		alert("select node")
+		});
+$("#seize").click(function(){
+		function_type = SEIZE;
+		alert("select node")
+});
+
+

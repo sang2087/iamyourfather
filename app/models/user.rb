@@ -11,11 +11,13 @@ class User < ActiveRecord::Base
 		user = self
 		puts "!AUTH!#{auth}"
 
-		if user.facebook_uid.nil?
-			user_with_facebook = User.find_by_facebook_uid(facebook_uid)
-			if user_with_facebook.nil?
+		first_facebook_connect = false
+		if user.facebook_uid.nil? #유저는 있으나 페북 연동 안됨.
+			user_with_facebook = User.find_by_facebook_uid(facebook_uid) #해당 facebook아이디가 있는지 확인
+			if user_with_facebook.nil? #해당 facebook id가진 사람 없음
 				#FRIST FACEBOOK CONNECT
 				#TODO post wall
+				first_facebook_connect = true
 				user.facebook_uid = auth.uid
 				user.username = auth.info.name
 				user.save!
@@ -27,11 +29,11 @@ class User < ActiveRecord::Base
 				user.facebook_id = facebook.id
 				user.save!
 
-				user.facebook_post_wall
 			else
 				user = user_with_facebook
 			end
 		end
+		
 		facebook = user.get_facebook
 		facebook.uid = auth.uid
 		facebook.name = auth.info.name
@@ -44,6 +46,10 @@ class User < ActiveRecord::Base
 		user.facebook_uid = auth.uid
 		user.username = auth.info.name
 		user.save!
+
+		if first_facebook_connect
+			user.facebook_post_wall
+		end
 
 		user
   end

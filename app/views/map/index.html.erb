@@ -6,7 +6,7 @@
 </script>
 <div class="container-responsive">
 	<div class="page-header">
-		<h1>:: I am your father <small><%= t('.hello') %>expand your family!</small></h1>
+		<h1>:: I am your father <small><%= t('.hello') %>!, expand your family!</small></h1>
 	</div>
 	<div class="row">
 		<div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
@@ -208,15 +208,22 @@
 		var end = friends_cnt_per_page * num ; 
 		var html =""
 		for(i=start;i<end;i++){
-			if(i > friends_cnt){
+			if(i >= friends_cnt){
 				break;
 			}
 			html += "<tr>\n"
 				+ "<td><img src='" + friends_list[i]["pic"] + "' class='friend_pic'></td>\n"
 				+ "<td><a href='" + friends_list[i]["uid"] + "'>" + friends_list[i]["name"] + "</td>\n"
-				+ "<td>" + friends_list[i]["point"] + "></td>\n"
-				+ "<td>" + friends_list[i]["status"] + "></td>\n"
-				+ "</tr>\n"
+			if(friends_list[i]["joined"] == true)
+				html += "<td>" + friends_list[i]["point"] + "</td>\n"
+				//TODO change this
+							//+ "<td>Joined</td>\n";
+							+ "<td><button onclick=\"invite_message('" + friends_list[i]["uid"] +"'\")'>Invite</button></td>\n";
+			else
+				html += "<td>-</td>\n"
+							+ "<td><button onclick=\"invite_message('" + friends_list[i]["uid"] +"'\")'>Invite</button></td>\n";
+
+			html += "</tr>\n"
 		}
 
 		$("#friends_list").html(html);
@@ -231,7 +238,7 @@
 
 		html += "<li><a href='#' onclick='friends_pagination("+(page_num-1)+")'>«</a></li>"
 		for(i=start;i<=end;i++){
-			if(end > cnt)
+			if(i >= cnt)
 				break;
 			html += "<li><a href='#' onclick='friends_page("+ i +");'>" + i + "</a></li>"
 		}
@@ -239,6 +246,17 @@
 		html += "<li><a href='#' onclick='friends_pagination("+(page_num+1)+")'>»</a></li>"
 		$("#friends_pagination").html(html);
 		friends_page(start);
+	}
+	function invite_message(uid){
+		$.ajax({
+			url: "/data/send_invi_message",
+			type: "POST",
+			data: {
+				uid: uid
+			},
+			success: function(friends) {
+			}
+		});
 	}
 
 </script>

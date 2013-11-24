@@ -1,0 +1,15 @@
+$.ajax({
+	url: "/data/friends.json",
+	type: "POST",
+	data: {
+		user_id: node_id // if user_id == 0 then get session user
+	},
+	success: function(friends) {
+		friends_list = friends
+		friends_cnt = friends_list.length
+		friends_pagination(1);
+	}
+});
+
+
+

@@ -1,6 +1,5 @@
 class MapController < ApplicationController
   def index
-		session[:user_id] = 10
 		name = params[:id] || "1" # 1 is the God
 		# need facebook login check
 		father = User.find(name)
