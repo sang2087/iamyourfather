@@ -77,15 +77,16 @@ URL = "http://local.youthhogoo.com/"
 		name = "I-AM-YOUR-FATHER"
 		message = "#{user.parent.username} is #{user.username}'s father.\nif you make your son click this link."
 		description = "I-AM-YOUR-FATHER.\nMake your son.\nEnjoy this funny social game"	
-		picture = ""
+		picture = "http://local.youthhogoo.com/img/thumb.png"
+
 		begin 
-    fb_user.feed!(
-      :message => message,
-			:picture => picture,
-      :link => URL + "#{user.id}",
-			:name => name,
-      :description => description
-    )
+			fb_user.feed!(
+				:message => message,
+				:picture => picture,
+				:link => URL + "#{user.id}",
+				:name => name,
+				:description => description
+			)
 		rescue Exception => e  
 			logger.info("ERROR !!! #{self.id} cannot feed")
 			logger.info(e.message)

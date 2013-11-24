@@ -104,7 +104,7 @@ class User < ActiveRecord::Base
 								xml.attvalues do 
 									if(user.id == user_id.to_i)
 										xml.attvalue('for' => "sign","value" => "me")
-									elsif(!friends_hash["#{user.id}"].nil?)
+									elsif(!friends_hash.nil? and !friends_hash["#{user.id}"].nil?)
 										xml.attvalue('for' => "sign","value" => "friend")
 									else
 										xml.attvalue('for' => "sign","value" => "")
