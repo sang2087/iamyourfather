@@ -14,7 +14,7 @@
 ActiveRecord::Schema.define(:version => 20131122191832) do
 
   create_table "base_data", :force => true do |t|
-    t.string   "type",                        :null => false
+    t.string   "mytype",                      :null => false
     t.integer  "code",        :default => 0
     t.integer  "point",       :default => 0
     t.integer  "node_cnt",    :default => 0
@@ -38,7 +38,8 @@ ActiveRecord::Schema.define(:version => 20131122191832) do
   create_table "point_logs", :force => true do |t|
     t.integer  "user_id"
     t.integer  "your_id"
-    t.integer  "type"
+    t.string   "mytype"
+    t.integer  "code"
     t.integer  "point"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false

@@ -3,7 +3,8 @@ class CreatePointLogs < ActiveRecord::Migration
     create_table :point_logs do |t|
       t.integer :user_id
       t.integer :your_id
-      t.integer :type
+      t.string  :mytype
+      t.integer :code
       t.integer :point
 
       t.timestamps

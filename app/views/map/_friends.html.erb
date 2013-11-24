@@ -7,7 +7,7 @@ $.ajax({
 	success: function(friends) {
 		
 		if(friends == -1){ // facebook connection error - auth_token
-			//alert("session_error : you have to login again")
+			alert("session_error : you have to login again")
 			document.location.href = "/auth/facebook";
 		}
 		friends_list = friends
