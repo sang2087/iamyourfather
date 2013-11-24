@@ -31,10 +31,8 @@ ActiveRecord::Schema.define(:version => 20131122191832) do
     t.string   "locale"
     t.string   "oauth_token"
     t.string   "oauth_expires_at"
-    t.string   "m_oauth_token"
-    t.string   "m_oauth_expires_at"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
   create_table "point_logs", :force => true do |t|

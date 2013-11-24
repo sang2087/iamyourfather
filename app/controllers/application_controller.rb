@@ -20,9 +20,9 @@ class ApplicationController < ActionController::Base
 		facebook_login = false
 		logger.info "!!!!!!!#{session[:user_id]}"
 		unless session[:user_id].nil?
-			@user = User.find(session[:user_id])
 			#TODO check token expired time
 			begin
+				@user = User.find(session[:user_id])
 				unless User.find(session[:user_id]).facebook_uid.nil?
 					facebook_login = true
 				end
