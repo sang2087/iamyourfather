@@ -16,11 +16,13 @@ class SendDataController < ApplicationController
 			user = User.find(params[:user_id])
 		end
 
-		is_function_possible = PointLog.is_function_possible? User.find(session[:user_id]), params[:code]
+		is_function_possible, limit_point, limit_node_cnt = PointLog.is_function_possible? User.find(session[:user_id]), params[:code]
 
 		data={
 			:user => user,
-			:is_function_possible => is_function_possible
+			:is_function_possible => is_function_possible,
+			:limit_point => limit_point,
+			:limit_node_cnt => limit_node_cnt
 		}
 		render :json => data
 	end

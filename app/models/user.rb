@@ -20,7 +20,6 @@ class User < ActiveRecord::Base
 				#TODO post wall
 				first_facebook_connect = true
 
-
 				facebook = Facebook.new
 				facebook.user_id = user.id
 				facebook.save!
@@ -145,6 +144,7 @@ class User < ActiveRecord::Base
 			descentdant.color = self.color
 			descentdant.save!
 		end
+		PointLog.seize self, betray
 
 	end
 
@@ -161,6 +161,7 @@ class User < ActiveRecord::Base
 			descentdant.color = self.color
 			descentdant.save!
 		end
+		PointLog.seize self, youruser
 
 	end
 
@@ -173,6 +174,8 @@ class User < ActiveRecord::Base
 			descentdant.color = self.color
 			descentdant.save!
 		end
+		PointLog.independance self
+
 	end
 
 private
