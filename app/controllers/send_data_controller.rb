@@ -8,20 +8,21 @@ class SendDataController < ApplicationController
 		friends = user.get_facebook.friends_list
 		render :json => friends 
 	end
-
 	def get_user
+
+		session_user = User.find(session[:user_id])
 		if(params[:user_id] == "0")
-			user = User.find(session[:user_id])
+			user = session_user
 		else
 			user = User.find(params[:user_id])
 		end
 
-		is_function_possible, limit_point, limit_node_cnt = PointLog.is_function_possible? User.find(session[:user_id]), params[:code]
+		is_function_possible, limit_point, limit_node_cnt = PointLog.is_function_possible?(session_user, user, params[:code])
 
 		data={
 			:user => user,
 			:is_function_possible => is_function_possible,
-			:limit_point => limit_point,
+			:limit_point => 0 - limit_point,
 			:limit_node_cnt => limit_node_cnt
 		}
 		render :json => data

@@ -129,10 +129,19 @@ class User < ActiveRecord::Base
 	end
 
 	def betray youruser_id
+		n_cnt = self.node_cnt
+
+		#원래 조상들 node_cnt 제거
+		self.ancestors.each do |ancestor|
+			ancestor.node_cnt -= n_cnt
+			ancestor.save!
+		end
+
 		youruser = User.find(youruser_id)
 		self.parent = youruser
 		self.save
-		n_cnt = self.node_cnt
+
+		#새 조상들 node_cnt 추가
 		self.ancestors.each do |ancestor|
 			ancestor.node_cnt += n_cnt
 			ancestor.save!
@@ -144,18 +153,29 @@ class User < ActiveRecord::Base
 			descentdant.color = self.color
 			descentdant.save!
 		end
-		PointLog.seize self, betray
 
+		PointLog.betray self, youruser
 	end
 
 	def seize youruser_id
+		
 		youruser = User.find(youruser_id)
+		n_cnt = youruser.node_cnt
+
+		#seize 당하는 원래 조상들 node_cnt 제거
+		youruser.ancestors.each do |ancestor|
+			ancestor.node_cnt -= n_cnt
+			ancestor.save!
+		end
+
 		youruser.parent = self
 		youruser.save
-		youruser.node_cnt
 
-		self.node_cnt += youruser.node_cnt
-		self.save!
+		#새 조상들 node_cnt 추가
+		youruser.ancestors.each do |ancestor|
+			ancestor.node_cnt += n_cnt
+			ancestor.save!
+		end
 
 		self.descendants.each do |descentdant|
 			descentdant.color = self.color
