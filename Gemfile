@@ -16,7 +16,6 @@ gem 'omniauth-facebook', '1.4.0'
 gem 'fb_graph'
 gem 'xmpp4r_facebook'
 
-
 gem 'sqlite3'
 
 # Gems used only for assets and not required

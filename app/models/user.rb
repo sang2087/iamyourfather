@@ -5,37 +5,55 @@ class User < ActiveRecord::Base
   APP_SECRET = '9b209a9e006a2244f69419ee5a2b2355'
 
 	has_ancestry 
-	has_one :facebook
   
   def from_omniauth(auth)
 		facebook_uid = auth.uid
-
 		user = self
+		puts "!AUTH!#{auth}"
 
 		if user.facebook_uid.nil?
 			user_with_facebook = User.find_by_facebook_uid(facebook_uid)
 			if user_with_facebook.nil?
 				#FRIST FACEBOOK CONNECT
+				#TODO post wall
 				user.facebook_uid = auth.uid
 				user.username = auth.info.name
 				user.save!
 
 				facebook = Facebook.new
 				facebook.user_id = user.id
-				facebook.uid = auth.uid
-				facebook.name = auth.info.name
-				facebook.gender = auth.info.gender
-				facebook.locale = auth.info.locale
-				facebook.oauth_token = auth.credentials.token
-				facebook.oauth_expires_at = Time.at(auth.credentials.expires_at)
 				facebook.save!
+
+				user.facebook_id = facebook.id
+				user.save!
+
+				user.facebook_post_wall
 			else
 				user = user_with_facebook
 			end
 		end
+		facebook = user.get_facebook
+		facebook.uid = auth.uid
+		facebook.name = auth.info.name
+		facebook.gender = auth.extra.raw_info.gender
+		facebook.locale = auth.extra.raw_info.locale
+		facebook.oauth_token = auth.credentials.token
+		facebook.oauth_expires_at = Time.at(auth.credentials.expires_at)
+		facebook.save!
+	
+		user.facebook_uid = auth.uid
+		user.username = auth.info.name
+		user.save!
 
 		user
   end
+
+	def get_facebook 
+		return Facebook.find(self.facebook_id)
+	end
+	def facebook_post_wall
+		self.get_facebook.post_wall(self)
+	end
 
 	def self.make_gexf user_id
 		users = User.find(:all, :order => "ancestry")
@@ -50,9 +68,7 @@ class User < ActiveRecord::Base
 						users.each do |user|
 							xml.node('id' => "#{user.id}", 'label' => "#{user.username}") do
 								xml.attvalues do 
-									#puts "!!#{user.id} #{user_id}"
 									if(user.id == user_id.to_i)
-									#puts "!!!"
 										xml.attvalue('for' => "sign","value" => "me")
 									else
 										xml.attvalue('for' => "sign","value" => "")
@@ -78,6 +94,7 @@ class User < ActiveRecord::Base
 
 		builder.to_xml
 	end
+
 	def self.get_groups
 		roots = User.roots
 		roots_id = Array.new

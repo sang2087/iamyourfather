@@ -4,7 +4,6 @@ Iamyourfather::Application.routes.draw do
 	post "map/seize"
 	post "map/independance"
 	post "map/betray"
-	get "map/session_destory"
 
 	root :to => 'map#index'
 
@@ -14,8 +13,8 @@ Iamyourfather::Application.routes.draw do
 
 	match ':id' => 'map#index'
 
-	match "map/data.gexf" => "map#data"
-  match "map/data.json" => "map#groups"
-  match "map/user.json" => "map#get_user"
+	match "data/data.gexf" => "send_data#data"
+  match "data/user.json" => "send_data#get_user"
+  match "data/friends.json" => "send_data#friends_list"
 
 end

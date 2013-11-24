@@ -20,16 +20,12 @@ class MapController < ApplicationController
 				end
 			end
 		end
-		@user = User.find(session[:user_id])
+		user = User.find(session[:user_id])
+		@user = user
 		@user_id = session[:user_id]
 		@groups = User.get_groups || "null"
 		# return gexf
   end
-
-	def data
-		data = User.make_gexf session[:user_id]
-		render :xml => data 
-	end
 
 	def independance
 		user = User.find(session[:user_id])
@@ -51,23 +47,5 @@ class MapController < ApplicationController
 
 		render :text => "success"
   end
-
-	def get_user
-		if(params[:user_id] == "0")
-			user = User.find(session[:user_id])
-		else
-			user = User.find(params[:user_id])
-		end
-		render :json => user 
-	end
-
-	def get_i18n_locale
-		render :text => extract_locale_from_accept_language_header
-	end
-
-private
-	def extract_locale_from_accept_language_header
-			request.env['HTTP_ACCEPT_LANGUAGE'].scan(/^[a-z]{2}/).first
-	end
 
 end
