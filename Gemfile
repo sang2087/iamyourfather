@@ -7,6 +7,7 @@ gem 'ancestry'
 
 #graph
 gem 'gexf'
+gem 'rubyvis'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

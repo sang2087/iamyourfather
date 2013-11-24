@@ -1,3 +1,5 @@
+require 'rubyvis'
+require 'json'
 class User < ActiveRecord::Base
   attr_accessible :banner, :color, :facebook_uid, :ip, :point, :username, :ancestry, :node_cnt
 
@@ -6,7 +8,50 @@ class User < ActiveRecord::Base
 
 	has_ancestry 
 	has_many :point_logs
-  
+	def self.node_tree
+		users = User.find(1).subtree
+		files= User.json_tree(users)
+		puts files
+
+		vis = Rubyvis::Panel.new()
+				.width(800)
+				.height(800)
+				.left(0)
+				.right(0)
+				.top(0)
+				.bottom(0)
+
+		tree = vis.add(Rubyvis::Layout::Tree).
+			nodes(Rubyvis.dom(files).root(1).nodes()).
+			orient('radial').
+			depth(85).
+			breadth(12)
+
+		#tree.link.add(Rubyvis::Line)
+
+		tree.node.add(Rubyvis::Dot).
+		fill_style(lambda {|n| n.first_child ? "#aec7e8" : "#ff7f0e"}).
+		title(lambda {|n| n.node_name})
+
+		#tree.node_label.add(Rubyvis::Label).
+		#visible(lambda {|n| n.first_child})
+
+
+		vis.render
+		puts vis.to_svg
+	end
+	def self.json_tree(nodes)
+		if nodes.length == 0
+			return 1
+		end
+		sub_node = Hash.new
+		nodes.each do |node|
+			puts node.inspect
+			sub_node[node["id"]] = json_tree(node.children)
+		end
+		return sub_node
+	end
+	  
   def from_omniauth(auth)
 		facebook_uid = auth.uid
 		user = self
