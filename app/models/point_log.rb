@@ -1,6 +1,7 @@
 class PointLog < ActiveRecord::Base
   attr_accessible :point, :type, :user_id, :your_id
 	belongs_to :user
+
 	def self.link_without_fb user
 		code = 1
 		parent_id = user.parent_id

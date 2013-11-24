@@ -4,7 +4,12 @@ class SendDataController < ApplicationController
 		render :xml => data 
 	end
 	def friends_list
-		friends = @user.get_facebook.friends_list
+		facebook = @user.get_facebook
+
+		friends = []
+		unless facebook.nil?
+			friends = @user.get_facebook.friends_list
+		end
 		render :json => friends 
 	end
 	def get_user

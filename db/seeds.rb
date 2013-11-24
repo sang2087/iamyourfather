@@ -37,10 +37,11 @@ BaseData.create(:type => "PointLog",
 								:code => 7,
 								:point => 10,
 								:description => "login 10 min-term")
+
 BaseData.create(:type => "PointLog",
 								:code => 8,
 								:point => 100,
-								:description => "login 10 min-term")
+								:description => "Share Feed")
 puts "base data end"
 
 ROOT_SIZE = 5
