@@ -21,10 +21,12 @@
 
 					<h2>I am <%=@user.username-%></h2>
 					<%if @facebook_login%>
-						<%=link_to "Sign out", signout_path, id: "sign_out", class:"btn" %>
+						<%= link_to "Sign out", signout_path, id: "sign_out", class:"btn" %>
 					<%else%>
 						<%= link_to "Facebook Login", "/auth/facebook", id: "sign_in", class:"btn" %>
 					<%end%>
+
+					<h4>If you make a son, share "http://local.youthhogoo.com/<%=@user_id-%>", or <a href="#" onclick="facebook_post();">facebook share</a>.</h4>
 					<h2>Point : <%=@user.point-%></h2>
 					<button id="independance">Independance</button>
 					<button id="betray">Betray</button>
@@ -268,6 +270,15 @@
 		});
 	}
 
+	function facebook_post(){
+		$.ajax({
+			url: "/data/facebook_post",
+			type: "POST",
+			success: function(data) {
+				alert("facebook share complete");
+			}
+		});
+	}
 </script>
 
 <style type="text/css">

@@ -20,7 +20,6 @@ class User < ActiveRecord::Base
 				#TODO post wall
 				first_facebook_connect = true
 
-
 				facebook = Facebook.new
 				facebook.user_id = user.id
 				facebook.save!
@@ -61,11 +60,22 @@ class User < ActiveRecord::Base
 
 	def facebook_post_wall
 		self.get_facebook.post_wall(self)
+		PostLog.post_wall self
 	end
 
 	def send_invitation uid
 		puts "send invi user model"
 		self.get_facebook.send_invitation self, uid
+	end
+
+	def link_in 
+		if self.facebook_uid.nil?
+			# 그냥 로그인
+			PointLog.link_without_fb self
+		else
+			# 페북 로그인
+			PointLog.link_with_fb self	
+		end
 	end
 
 	def self.make_gexf user_id
@@ -130,10 +140,19 @@ class User < ActiveRecord::Base
 	end
 
 	def betray youruser_id
+		n_cnt = self.node_cnt
+
+		#원래 조상들 node_cnt 제거
+		self.ancestors.each do |ancestor|
+			ancestor.node_cnt -= n_cnt
+			ancestor.save!
+		end
+
 		youruser = User.find(youruser_id)
 		self.parent = youruser
 		self.save
-		n_cnt = self.node_cnt
+
+		#새 조상들 node_cnt 추가
 		self.ancestors.each do |ancestor|
 			ancestor.node_cnt += n_cnt
 			ancestor.save!
@@ -146,21 +165,34 @@ class User < ActiveRecord::Base
 			descentdant.save!
 		end
 
+		PointLog.betray self, youruser
 	end
 
 	def seize youruser_id
+		
 		youruser = User.find(youruser_id)
+		n_cnt = youruser.node_cnt
+
+		#seize 당하는 원래 조상들 node_cnt 제거
+		youruser.ancestors.each do |ancestor|
+			ancestor.node_cnt -= n_cnt
+			ancestor.save!
+		end
+
 		youruser.parent = self
 		youruser.save
-		youruser.node_cnt
 
-		self.node_cnt += youruser.node_cnt
-		self.save!
+		#새 조상들 node_cnt 추가
+		youruser.ancestors.each do |ancestor|
+			ancestor.node_cnt += n_cnt
+			ancestor.save!
+		end
 
 		self.descendants.each do |descentdant|
 			descentdant.color = self.color
 			descentdant.save!
 		end
+		PointLog.seize self, youruser
 
 	end
 
@@ -173,6 +205,8 @@ class User < ActiveRecord::Base
 			descentdant.color = self.color
 			descentdant.save!
 		end
+		PointLog.independance self
+
 	end
 
 private

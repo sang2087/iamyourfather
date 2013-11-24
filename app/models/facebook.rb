@@ -9,9 +9,17 @@ class Facebook < ActiveRecord::Base
 	end
 
   def friends_list
+		begin
     friends = FbGraph::Query.new(
         "SELECT uid, name, pic FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = me())"
     ).fetch(:access_token => self.oauth_token)
+		rescue Exception => e  
+			return -1
+			logger.info("ERROR facebook connection")
+			logger.info(e.message)
+			logger.info(e.backtrace.inspect)
+		end
+
 		friends_hash = Hash.new
 		0.upto(friends.length-1) do |i|
 			friends_hash[friends[i]["uid"]] = i

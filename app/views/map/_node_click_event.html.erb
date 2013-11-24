@@ -1,3 +1,4 @@
+//<script>
 $("#sigma-example-parent").bind("mouseup",function(){
 	if(nodes != null){
 		if(function_type == BETRAY){
@@ -10,9 +11,7 @@ $("#sigma-example-parent").bind("mouseup",function(){
 				},
 				success: function(data) {
 					user = data.user
-					if(data.is_function_possible){
-						set_dialog_html("Independance")
-					}
+					set_dialog_html("Betray", data.is_function_possible, data.limit_point, data.limit_node_cnt)
 				}
 			});
 
@@ -26,10 +25,7 @@ $("#sigma-example-parent").bind("mouseup",function(){
 				},
 				success: function(data) {
 					user = data.user
-					if(data.is_function_possible){
-						set_dialog_html("Independance")
-					}
-
+					set_dialog_html("Seize", data.is_function_possible, data.limit_point, data.limit_node_cnt)
 				}
 			});
 		}
@@ -46,14 +42,12 @@ $("#independance").click(function(){
 		},
 		success: function(data) {
 			user = data.user
-			if(data.is_function_possible){
-				set_dialog_html("Independance")
-			}
+			set_dialog_html("Independance", data.is_function_possible, data.limit_point, data.limit_node_cnt)
 		}
 	});
 
 });
-function set_dialog_html(function_type, is_possible){
+function set_dialog_html(function_type, is_possible, limit_point, limit_node_cnt){
 
 		$("#dialog_title").text(function_type);
 		$("#dialog_name").text(user.username);
@@ -62,15 +56,18 @@ function set_dialog_html(function_type, is_possible){
 		$("#dialog_image").attr("src",user.picture);
 		var html 
 		if(is_possible){
-			html = '<h3>Do you want independance?</h3>' +
-				'<button onclick=\'dialog_yes("independance")\'>Yes</button>' +
-				'<button onclick=\'dialog_no("independance")\'>No</button>';
+			html += '<h3>Do you want independance?</h3>' 
+						+	'<h4>' + function_type + ' condition :<br>'
+						+ 'Point > '+ limit_point +'(Point will be deducted.)<br>'
+						+ 'Children Count > '+ limit_node_cnt +'</h4>'
+						+ '<button onclick=\'dialog_yes("' + function_type.toLowerCase() + '")\'>Yes</button>'
+						+ '<button onclick=\'dialog_no("'+ function_type.toLowerCase() + '")\'>No</button>';
 		}else{
 			html = '<h3>You CANNOT ' + function_type + '!</h3>'
-					 + '<h3>Because You CANNOT ' + function_type + '!</h3>';
+						+ '<h4>' + function_type + ' condition :<br>'
+						+ 'Point > '+ limit_point +'<br>'
+						+ 'Children Count > '+ limit_node_cnt +'</h4>';
 		}
-			
-
 		$("#dialog_button").html(html)
 		$("#dialog").show();
 }
