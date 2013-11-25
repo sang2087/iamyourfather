@@ -1,5 +1,5 @@
 class Facebook < ActiveRecord::Base
-URL = "http://local.youthhogoo.com/"
+	URL = "http://i-am-your-father.com/"
 
 	APP_ID = '215886731905255'
  	APP_SECRET =	'96c1ecb73693ad1ce0f6d0c754450c75'
@@ -77,7 +77,7 @@ URL = "http://local.youthhogoo.com/"
 		name = "I-AM-YOUR-FATHER"
 		message = "#{user.parent.username} is #{user.username}'s father.\nif you make your son click this link."
 		description = "I-AM-YOUR-FATHER.\nMake your son.\nEnjoy this funny social game"	
-		picture = "http://local.youthhogoo.com/img/thumb.png"
+		picture = URL +"img/thumb.png" 
 
 		begin 
 			fb_user.feed!(

@@ -39,11 +39,11 @@ body { padding:20px }
 					 <hr>
 
 					<p><%=t :shareinfo %></p>
-					<p><u>http://local.youthhogoo.com/<%=@user_id-%></u></p>
+					<p><u>http://i-am-your-father/<%=@user_id-%></u></p>
 					<%if @facebook_login%>
 						<a href="#" onclick="facebook_post();">share</a>
 					<%else%>
-						<div class="fb-share-button" data-href="http://local.youthhogoo.com/<%=@user_id%>" data-width="100" data-type="button_count"></div>
+						<div class="fb-share-button" data-href="http://i-am-your-father.com/<%=@user_id%>" data-width="100" data-type="button_count"></div>
 					<%end%>
 					<hr>
 					<h2><%=t :money %> : <%=t :mark %><%=@user.point-%><%= t :unit %></h2>
