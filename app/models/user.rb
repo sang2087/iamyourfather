@@ -17,6 +17,7 @@ class User < ActiveRecord::Base
 			root.rand_display_xy
 			self.set_tree_xy root
 		end
+		puts I18n.locale
 	end
 
 	def self.set_tree_xy root
