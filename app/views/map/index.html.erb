@@ -29,7 +29,6 @@
 			<div class="panel panel-<%=%w[info warning success danger].sample-%>" style="display:block;min-height:720px;">
 				<div class="panel-heading">Dashboard - <%=t :language %> : <a href="/?lang=ko">Kor</a> / <a href="/?lang=en">Eng</a></div>
 				<div class="panel-body">
-
 					<h2><%=t :iam %>: <%=@user.username-%></h2>
 					<%if @facebook_login%>
 						<%= link_to "Sign out", signout_path, id: "sign_out", class:"btn btn-primary btn-sm" %>
@@ -38,6 +37,7 @@
 					<%end%>
 					 <hr>
 
+					 <h3><%=t :child_count %> : <%=@user.node_cnt%></h3>
 					<p><%=t :shareinfo %></p>
 					<input type="text" value="http://i-am-your-father.com/<%=@user_id-%>" style="width:100%"/>
 					<%if @facebook_login%>
@@ -46,10 +46,16 @@
 						</button>
 						<!--<a href="#" onclick="facebook_post();"><img src="/img/fbshare.png" border=0 ></a>-->
 					<%else%>
-						<div class="fb-share-button" data-href="http://i-am-your-father.com/<%=@user_id%>" data-width="100" data-type="button_count"></div>
+						<div class="fb-share-button" data-href="http://i-am-your-father.com/<%=@user.id%>" data-width="100" data-type="button_count"></div>
 					<%end%>
+					<h3><%=t :your_father-%> : <a href="#" onclick="information_dialog(<%=@father.id%>);"><%=@father.username%></a></h3>
+			
 					<hr>
-					<h2><%=t :money %> : <%=t :mark %><%=@user.point-%><%= t :unit %></h2>
+					<h3><%=t :money %> : <%=t :mark %><%=@user.point-%><%= t :unit %></h3>
+					<h3><%=t :banner %> : <%=@user.banner%>
+						<button onclick="change_banner()" style="width:19%;font-size:13px"><%=t :edit%></button>
+					</h3>
+					<hr>
 					<div class="list-group">
 						<a href="#" class="list-group-item" id="independance"><center><%=t :iinfo %></center></a>
 						<a href="#" class="list-group-item" id="betray"><center><%=t :binfo %></center></a>
@@ -58,8 +64,8 @@
 					<hr>
 					<h3>
 						<%=t :fblist %>
-						<input type="text" id="friend_search" placeholder="search">
 					</h3>
+						<input type="text" id="friend_search" placeholder="search">
 					<table class="table table-striped">
 						<thead>
 							<tr>
@@ -273,7 +279,59 @@
 		$("#betray").removeClass("active");
 		$("#seize").removeClass("active");
 	}
-
+function information_dialog(node_id){
+	$.ajax({
+		url: "/data/user.json",
+		type: "POST",
+		data: {
+			user_id: node_id, // if user_id == 0 then get session user
+			code : 4
+		},
+		success: function(data) {
+			user = data.user
+			set_dialog_html("Information", user, data.is_function_possible, data.limit_point, data.limit_node_cnt)
+		}
+	});
+}
+function set_dialog_html(function_type, user, is_possible, limit_point, limit_node_cnt){
+	$("#dialog_title").text(ment_set(function_type));
+	$("#dialog_name").text(user.username);
+	$("#dialog_banner").text(user.banner);
+	$("#dialog_point").text("<%= t :mark %>" + user.point +"<%= t :unit %>");
+	$("#dialog_image").attr("src",user.picture);
+	var html 
+	if(function_type == "Information"){
+		html = ""
+		//html = "<button><%=t :binfo%></button><button><%=t :sinfo%></button>"
+	}else{
+		if(is_possible){
+			html += '<h3><%=t :want_ind%></h3>' 
+						+	'<p>' + ment_set(function_type) + ' <%=t :condition%> :<br>'
+						+ '<%=t :money%> > '+ limit_point +'(Point will be deducted.)<br>'
+						+ '<%=t :child_count%> > '+ limit_node_cnt +'</p>'
+						+ '<button onclick=\'dialog_yes("' + function_type.toLowerCase() + '")\'>Yes</button>'
+						+ '<button onclick=\'dialog_no("'+ function_type.toLowerCase() + '")\'>No</button>';
+		}else{
+		html = '<h3><%=t :you_cannot%> ' + ment_set(function_type) + '!</h3>'
+						+ '<p>' + ment_set(function_type) + ' <%=t :condition%> :<br>'
+						+ '<%=t :money%> > '+ limit_point +'<br>'
+						+ '<%=t :child_count%> > '+ limit_node_cnt +'</p>';
+		}
+	}
+	$("#dialog_button").html(html)
+	$("#dialog").show();
+}
+function ment_set(function_type){
+	console.log(function_type);
+	if(function_type == "Information")
+		return "<%= t :information%>"
+	else if(function_type == "Independance")
+		return "<%= t :independance%>"
+	else if(function_type == "Betray")
+		return "<%= t :betray%>"
+	else if(function_type == "Seize")
+		return "<%= t :seize%>"
+}
 </script>
 
 <style type="text/css">

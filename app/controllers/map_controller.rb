@@ -29,8 +29,8 @@ class MapController < ApplicationController
 			newbie.link_in 
 			@user = newbie
 		end
+		@father = @user.parent
 
-		@user_id = session[:user_id]
 		@groups = User.get_groups || "null"
 
 		#this is Login Point

@@ -13,6 +13,14 @@ en:
   name: Name
   state: State
   language: 언어
+  condition : condition
+  child_count : Children Count
+  want_ind: Do you want independance?
+  information: Information
+  you_cannot: You CANNOT
+  edit: Edit
+  your_father: Your Father 
+
   iinfo: "Independance - I wanna be Root"
   binfo: "Betray - move to other father"
   sinfo: "Seize - make my sons"
