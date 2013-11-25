@@ -1,8 +1,7 @@
+#encoding : utf-8
 class Facebook < ActiveRecord::Base
 	URL = "http://i-am-your-father.com/"
 
-	APP_ID = '215886731905255'
- 	APP_SECRET =	'96c1ecb73693ad1ce0f6d0c754450c75'
 #  attr_accessible :gender, :link, :locale, :name, :uid
 	def get_user 
 		return User.find(self.user_id)
@@ -75,7 +74,7 @@ class Facebook < ActiveRecord::Base
   def post_wall user
     fb_user = FbGraph::User.me(self.oauth_token)
 		name = "I-AM-YOUR-FATHER"
-		if I18n.locale == 'ko' do
+		if I18n.locale == 'ko' 
 			if user.depth.nil?
 				message = "제가 집안을 일으켰습니다.\n우리 집안에 참여하시려면 클릭하세요!"
 			else
@@ -108,6 +107,9 @@ class Facebook < ActiveRecord::Base
   end
 	#TODO sidekiq
 	def send_invitation user, uid
+		facebook = user.get_facebook
+		InviWorker.perform_async(user.id, facebook.uid, uid, facebook.oauth_token)
+=begin
     from_oauth_token = self.oauth_token
 
     id = "-#{self.uid}@chat.facebook.com"
@@ -128,6 +130,7 @@ class Facebook < ActiveRecord::Base
 		client.close
 
 		logger.info "SENDED message to #{to}"
+=end
 	end
 
 end

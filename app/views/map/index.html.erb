@@ -298,14 +298,13 @@ $('#info a').click(function (e) {
 
 	function invitation(uid){
 		$.ajax({
-			url: "/data/send_invitation",
+			url: "/data/send_invitation.json",
 			type: "POST",
 			data: {
 				uid: uid
 			},
 			error: function (xhr, ajaxOptions, thrownError) {
-        //alert(xhr.status);
-        //alert(thrownError);
+				alert("<%=t :facebookinvited%>")
       },
 			success: function(data) {
 				alert("<%=t :facebookinvited%>")

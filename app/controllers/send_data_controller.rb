@@ -53,7 +53,7 @@ class SendDataController < ApplicationController
 	
 	def send_invitation
 		@user.send_invitation(params[:uid])
-		render :text => "success"
+		render :json => {}
 	end
 
 	def facebook_post
