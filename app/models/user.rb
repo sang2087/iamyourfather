@@ -2,7 +2,7 @@ require 'rubyvis'
 require 'json'
 require 'rexml/document'
 class User < ActiveRecord::Base
-  attr_accessible :banner, :color, :facebook_uid, :ip, :point, :username, :ancestry, :node_cnt, :x, :y, :displayX, :displayY
+#attr_accessible :banner, :color, :facebook_uid, :ip, :point, :username, :ancestry, :node_cnt
 
 	APP_ID = '562260310492321'
   APP_SECRET = '9b209a9e006a2244f69419ee5a2b2355'

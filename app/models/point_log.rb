@@ -1,5 +1,5 @@
 class PointLog < ActiveRecord::Base
-  attr_accessible :point, :mytype, :user_id, :your_id
+#  attr_accessible :point, :mytype, :user_id, :your_id
 	belongs_to :user
 
 	def self.link_without_fb user
