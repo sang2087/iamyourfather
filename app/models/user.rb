@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
 		self.roots.each do |root|
 			self.set_tree_xy root
 		end
+		puts I18n.locale
 	end
 
 	def self.set_tree_xy root

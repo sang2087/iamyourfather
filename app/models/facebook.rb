@@ -75,8 +75,21 @@ class Facebook < ActiveRecord::Base
   def post_wall user
     fb_user = FbGraph::User.me(self.oauth_token)
 		name = "I-AM-YOUR-FATHER"
-		message = "#{user.parent.username} is #{user.username}'s father.\nif you make your son click this link."
-		description = "I-AM-YOUR-FATHER.\nMake your son.\nEnjoy this funny social game"	
+		if I18n.locale == 'ko' do
+			if user.depth.nil?
+				message = "제가 집안을 일으켰습니다.\n우리 집안에 참여하시려면 클릭하세요!"
+			else
+				message = "나의 아버지는 #{user.parent.username}이며, #{user.root.username}의 #{user.depth}대 손입니다.\n우리 집안에 참여하시려면 클릭하세요!"
+			end
+			description = "I-AM-YOUR-FATHER 내가 니 애비다.\nMake your son.\nEnjoy this funny social game"	
+		else
+			if user.depth.nil?
+				message = "#{user.parent.username} is #{user.username}'s father.\nif you make your son click this link."
+			else
+				message = "My parent is #{user.parent.username}. and I am #{user.depth.ordinalize} of #{user.root.username}'s father.\nif you want to join my family, click this link."
+			end
+			description = "I-AM-YOUR-FATHER.\nMake your son.\nEnjoy this funny social game"	
+		end
 		picture = "#{URL}img/thumb.png" 
 
 		begin 
@@ -104,7 +117,12 @@ class Facebook < ActiveRecord::Base
 		client = Jabber::Client.new Jabber::JID.new(id)
 		client.connect
 		client.auth_sasl(Jabber::SASL::XFacebookPlatform.new(client, APP_ID, from_oauth_token, APP_SECRET), nil)
-		body = "I wanna make family. Come here.\n#{URL}#{user.id}"
+		if I18n.locale == 'ko'
+			body = "당신을 우리 가족에 초대합니다. 아래 링크를 참고하세요!\n#{URL}#{user.id}"
+		else
+			body = "I wanna make family. Come here.\n#{URL}#{user.id}"
+		end
+		else
 		send_message = Jabber::Message.new to, body
 		client.send send_message
 		client.close
