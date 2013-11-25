@@ -187,7 +187,8 @@ body { padding:20px }
 	}
 
 	function friends_pagination(page_num){
-
+		if(page_num < 1 )
+			page_num = 1
 		var limit = 5
 		var start = limit * (page_num - 1) + 1
 		var cnt = parseInt(friends_cnt / friends_cnt_per_page + 0.99)

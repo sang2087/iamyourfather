@@ -22,6 +22,8 @@ class MapController < ApplicationController
 					a.node_cnt += 1
 					a.save
 				end
+
+				User.set_tree_xy newbie.root
 			end
 
 			newbie.link_in 
