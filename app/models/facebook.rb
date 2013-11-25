@@ -3,7 +3,7 @@ URL = "http://local.youthhogoo.com/"
 
 	APP_ID = '215886731905255'
  	APP_SECRET =	'96c1ecb73693ad1ce0f6d0c754450c75'
-  attr_accessible :gender, :link, :locale, :name, :uid
+#  attr_accessible :gender, :link, :locale, :name, :uid
 	def get_user 
 		return User.find(self.user_id)
 	end

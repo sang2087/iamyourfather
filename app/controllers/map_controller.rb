@@ -3,6 +3,7 @@ class MapController < ApplicationController
 		puts "@user map #{@user}"
 		name = params[:id] || "1" # 1 is the God
 		# need facebook login check
+		
 		father = User.find(name)
 
 		if session[:user_id].nil? # session(cookie) check
