@@ -14,14 +14,12 @@ class User < ActiveRecord::Base
 
 	def self.all_tree_set_xy
 		self.roots.each do |root|
+			root.rand_display_xy
 			self.set_tree_xy root
 		end
 	end
 
 	def self.set_tree_xy root
-		root.displayX = rand(CANVAS_WIDTH)-(CANVAS_WIDTH/2)
-		root.displayY = rand(CANVAS_HEIGHT)-(CANVAS_HEIGHT/2)
-		root.save!
 		User.node_tree root
 	end
 

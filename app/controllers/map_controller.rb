@@ -1,3 +1,4 @@
+#encoding : utf-8
 class MapController < ApplicationController
   def index
 		puts "@user map #{@user}"
@@ -32,9 +33,17 @@ class MapController < ApplicationController
 		
 		
 		@father = @user.parent
+		@founder = @user.root
+		if I18n.locale == "ko"
+			@founder_depth = "#{@user.depth}대손"
+		else
+			@founder_depth = @user.depth.ordinalize
+		end
+
 		if @father.nil?
 			@is_father = false
 			@father=@user
+			@founder=@user
 		else
 			@is_father = true
 		end

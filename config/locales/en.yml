@@ -15,11 +15,15 @@ en:
   language: 언어
   condition : condition
   child_count : Children Count
-  want:  do you want?
+  want_ind: Do you want Independance?
+  want_betray: Do you want Betray?
+  want_seize: Do you want Seize?
   information: Information
   you_cannot: You CANNOT
   edit: Edit
   your_father: Your Father 
+  your_founder: My Founder
+  depth: th
   banner_change: Banner title is changed
   point_deduct: Point will be deducted.
   dont_have_father: I don't have father. I am God.

@@ -7,10 +7,11 @@ class SendDataController < ApplicationController
 	def save_banner
 		text = params[:banner_text]
 		user = @user
-		user.banner= text
+		user.banner = text
 		user.save!
+		data={}
 
-		render :text => "complete" 
+		render :json => data 
 	end
 	def friends_list
 		facebook = @user.get_facebook
