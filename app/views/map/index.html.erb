@@ -7,7 +7,7 @@
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
 <style>
-body { padding:20px }
+@media all and (min-width:480px){ body { padding:20px }}
 </style>
 <script src="/audiojs/audio.min.js"></script>
 <script>
@@ -32,16 +32,16 @@ body { padding:20px }
 
 					<h2><%=t :iam %>: <%=@user.username-%></h2>
 					<%if @facebook_login%>
-						<%= link_to "Sign out", signout_path, id: "sign_out", class:"btn" %>
+						<%= link_to "Sign out", signout_path, id: "sign_out", class:"btn btn-primary btn-sm" %>
 					<%else%>
-						<%= link_to "Facebook Login", "/auth/facebook", id: "sign_in", class:"btn btn-primary" %>
+						<%= link_to "Facebook Login", "/auth/facebook", id: "sign_in", class:"btn btn-primary btn-sm" %>
 					<%end%>
 					 <hr>
 
 					<p><%=t :shareinfo %></p>
 					<input type="text" value="http://i-am-your-father.com/<%=@user_id-%>" style="width:100%"/>
 					<%if @facebook_login%>
-						<button type="button" onclick="facebook_post();" data-loading-text="Sharing..." class="btn btn-primary">
+						<button type="button" onclick="facebook_post();" data-loading-text="Sharing..." class="btn btn-primary btn-sm">
 							Facebook Share
 						</button>
 						<!--<a href="#" onclick="facebook_post();"><img src="/img/fbshare.png" border=0 ></a>-->
@@ -84,22 +84,22 @@ body { padding:20px }
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick='$("#dialog").hide()'>&times;</button>
 					<h4 class="modal-title" id="dialog_title">title</h4>	
 				</div>
-				<div class="modal-body" sytle="min-height:300px">
+				<div class="modal-body" style="min-height:150px">
 					<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
 						<img id="dialog_image" src="">
 					</div>
 					<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
 						<table>
 							<tr>
-								<th>Name :</th>
+								<th><strong>Name</strong></th>
 								<th><span id="dialog_name">Username</span></th>
 							</tr>
 							<tr>
-								<th>Banner :</th>
+								<th><strong>Banner</strong></th>
 								<th><span id="dialog_banner">Banner</span></th>
 							</tr>
 							<tr>
-								<th>Money :</th>
+								<th><strong>Money</strong></th>
 								<th><span id="dialog_point">Point</span></th>
 							</tr>
 							</table>
@@ -180,7 +180,7 @@ body { padding:20px }
 							+ "<td>Joined</td>\n";
 			}else{
 				html += "<td>-</td>\n"
-					+ '<td><a href="/auth/facebook" onclick="invitation('+friends_list[i]["uid"] + ')" class="btn">Invite</a>';
+					+ '<td><a href="/auth/facebook" onclick="invitation('+friends_list[i]["uid"] + ')" class="btn"><button type="button" class="btn btn-primary btn-xs">Invite</button></a>';
 			}
 
 			html += "</tr>\n"
@@ -260,11 +260,20 @@ body { padding:20px }
 		padding-bottom: 8px;
 		padding-top: 12px;
 	}
+@media all and (max-width:480px){
 	#dialog{
 		position: absolute;
-		left: 50px;
-		top: 50px;
+		left: 0;
+		top: 200px;
 	}
+}
+@media all and (min-width:480px){
+	#dialog{
+		position: absolute;
+		left: 20%;
+		top: 200px;
+	}
+}
 	.audiojs{
 		display:none;
 	}
