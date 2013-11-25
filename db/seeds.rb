@@ -84,5 +84,7 @@ User.all.each do |u|
 	u.node_cnt = u.descendant_ids.count + 1
 	u.save!
 end
+
+User.all_tree_set_xy
 puts "That's all!"
 

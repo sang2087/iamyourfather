@@ -49,6 +49,7 @@ $("#sigma-example-parent").bind("mouseup",function(){
 });
 
 $("#independance").click(function(){
+	$("#independance").addClass("active");
 	$.ajax({
 		url: "/data/user.json",
 		type: "POST",
@@ -71,7 +72,8 @@ function set_dialog_html(function_type, user, is_possible, limit_point, limit_no
 	$("#dialog_image").attr("src",user.picture);
 	var html 
 	if(function_type == "Information"){
-
+		html = ""
+		//html = "<button><%=t :binfo%></button><button><%=t :sinfo%></button>"
 	}else{
 		if(is_possible){
 			html += '<h3>Do you want independance?</h3>' 
@@ -94,10 +96,12 @@ function set_dialog_html(function_type, user, is_possible, limit_point, limit_no
 
 
 $("#betray").click(function(){
+		$("#betray").addClass("active");
 		function_type = BETRAY;
 		alert("<%=t :balert%>")
-		});
+});
 $("#seize").click(function(){
+		$("#seize").addClass("active");
 		function_type = SEIZE;
 		alert("<%=t :calert%>")
 });

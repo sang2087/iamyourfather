@@ -118,6 +118,7 @@ class User < ActiveRecord::Base
 				user.facebook_id = facebook.id
 				user.facebook_uid = auth.uid
 				user.username = auth.info.name
+				user.picture = auth.info.image
 				user.save!
 
 			else
@@ -191,7 +192,7 @@ class User < ActiveRecord::Base
 					end
 					xml.nodes do 
 						users.each do |user|
-							xml.node('id' => "#{user.id}", 'label' => "#{user.username}") do
+							xml.node('id' => "#{user.id}", 'label' => "#{user.username}(#{user.node_cnt})") do
 								xml.attvalues do 
 									if(user.id == user_id.to_i)
 										xml.attvalue('for' => "sign","value" => "me")
@@ -327,33 +328,4 @@ private
 	end
 
 end
-=begin
-<?xml version="1.0" encoding="UTF-8"?>
-<gexf xmlns:viz="http:///www.gexf.net/1.1draft/viz" version="1.1" xmlns="http://www.gexf.net/1.1draft">
-  <meta lastmodifieddate="2010-05-29+01:27">
-  </meta>
-  <graph defaultedgetype="directed" idtype="string" type="static">
-    <nodes>
-      <node id="0" label="Hello">
-        <viz:size value="20.142857"/>
-        <viz:color b="30" g="48" r="0"/>
-      </node>
-      <node id="1" label="Word111111111111111">
-        <viz:size value="20.142857"/>
-        <viz:color b="30" g="48" r="204" a="0.3"/>
-      </node>
-      <node id="2" label="Word">
-        <viz:size value="20.142857"/>
-        <viz:color b="30" g="48" r="204"/>
-      </node>
-      <node id="3" label="Word">
-        <viz:size value="20.142857"/>
-      </node>
-    </nodes>
-    <edges>
-      <edge id="0" source="0" target="1"/>
-      <edge id="1" source="2" target="1"/>
-    </edges>
-  </graph>
-</gexf>
-=end
+
