@@ -1,17 +1,37 @@
 require 'rubyvis'
 require 'json'
+require 'rexml/document'
 class User < ActiveRecord::Base
-  attr_accessible :banner, :color, :facebook_uid, :ip, :point, :username, :ancestry, :node_cnt
+  attr_accessible :banner, :color, :facebook_uid, :ip, :point, :username, :ancestry, :node_cnt, :x, :y, :displayX, :displayY
 
 	APP_ID = '562260310492321'
   APP_SECRET = '9b209a9e006a2244f69419ee5a2b2355'
+	CANVAS_WIDTH = 3200
+	CANVAS_HEIGHT = 3200
 
 	has_ancestry 
 	has_many :point_logs
-	def self.node_tree
-		users = User.find(1).subtree
-		files= User.json_tree(users)
-		puts files
+
+	def self.all_tree_set_xy
+		self.roots.each do |root|
+			self.set_tree_xy root
+		end
+	end
+
+	def self.set_tree_xy root
+		root.displayX = rand(CANVAS_WIDTH)-(CANVAS_WIDTH/2)
+		root.displayY = rand(CANVAS_HEIGHT)-(CANVAS_HEIGHT/2)
+		User.node_tree root
+	end
+
+	def self.node_tree root
+		puts "ROOT_ID#{root.id}"
+		count = root.children.size
+		if(count == 0)
+			return nil
+		end
+
+		files= User.json_tree(root.children)
 
 		vis = Rubyvis::Panel.new()
 				.width(800)
@@ -25,29 +45,55 @@ class User < ActiveRecord::Base
 			nodes(Rubyvis.dom(files).root(1).nodes()).
 			orient('radial').
 			depth(85).
-			breadth(12)
+			breadth(180/count)
 
-		#tree.link.add(Rubyvis::Line)
+#		tree.link.add(Rubyvis::Line)
 
 		tree.node.add(Rubyvis::Dot).
-		fill_style(lambda {|n| n.first_child ? "#aec7e8" : "#ff7f0e"}).
 		title(lambda {|n| n.node_name})
 
 		#tree.node_label.add(Rubyvis::Label).
 		#visible(lambda {|n| n.first_child})
 
-
 		vis.render
-		puts vis.to_svg
-	end
-	def self.json_tree(nodes)
-		if nodes.length == 0
-			return 1
+
+		str= vis.to_svg.to_s
+
+		doc = REXML::Document.new(str)
+		ids = Array.new
+		dots = Array.new
+		doc.elements.each('svg/g/g/a') do |ele|
+				id = (ele.attribute("xlink:title").to_s)[1..-1]
+				if id == ""
+					id = root.id
+				end
+				ids << id.to_i
 		end
+		doc.elements.each('svg/g/g/a/circle') do |ele|
+				x = (ele.attribute("cx").to_s).to_f
+				y = (ele.attribute("cy").to_s).to_f
+				dots << {:x => x, :y => y}
+		end
+
+		# print all events
+		ret =""
+		rootX = root.displayX
+		rootY = root.displayY
+		
+		ids.each_with_index do |id, i|
+			user=User.find(id)
+			user.cx = dots[i][:x]
+			user.cy = dots[i][:y]
+			user.displayX = rootX + dots[i][:x]
+			user.displayY = rootY + dots[i][:y]
+			user.save
+		end
+	end
+
+	def self.json_tree(nodes)
 		sub_node = Hash.new
 		nodes.each do |node|
-			puts node.inspect
-			sub_node[node["id"]] = json_tree(node.children)
+			sub_node["n#{node["id"]}"] = json_tree(node.children)
 		end
 		return sub_node
 	end
@@ -157,6 +203,7 @@ class User < ActiveRecord::Base
 								end
 								xml['viz'].size('value' => Math.log2(user.node_cnt + 1))
 								xml['viz'].color('r' => User.color_r(user.color), 'g' => User.color_g(user.color), 'b' => User.color_b(user.color))
+								xml['viz'].position('x' => user.displayX, 'y' => user.displayY,'z' => 0)
 							end
 						end
 					end

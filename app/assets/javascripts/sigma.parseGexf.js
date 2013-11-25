@@ -70,8 +70,11 @@ sigma.publicPrototype.parseGexf = function(gexfPath) {
       
       //viz
       var size = 1;
-      var x = 300 * nodesNodes.length * (0.5 - Math.random());
-      var y = 200 * nodesNodes.length * (0.5 - Math.random());
+			var x = 100 - 200*Math.random();
+			var y = 100 - 200*Math.random();
+
+      //var x = 300 * nodesNodes.length * (0.5 - Math.random());
+      //var y = 200 * nodesNodes.length * (0.5 - Math.random());
       var color;
 
       var poorBrowserXmlNsSupport = (nodeNode.getElementsByTagNameNS == null);

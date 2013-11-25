@@ -10,6 +10,11 @@ class CreateUsers < ActiveRecord::Migration
       t.string :banner,					:default => "hello world"
 			t.integer :node_cnt,			:default => 1
 
+			t.float :displayX,			:default => 0
+			t.float :displayY,			:default => 0
+			t.float :cx,						:default => 0
+			t.float :cy,						:default => 0
+
       t.timestamps
     end
   end

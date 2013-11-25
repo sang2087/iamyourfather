@@ -54,6 +54,10 @@ ActiveRecord::Schema.define(:version => 20131122191832) do
     t.string   "color",        :default => "255/255/255"
     t.string   "banner",       :default => "hello world"
     t.integer  "node_cnt",     :default => 1
+    t.float    "displayX",     :default => 0.0
+    t.float    "displayY",     :default => 0.0
+    t.float    "cx",           :default => 0.0
+    t.float    "cy",           :default => 0.0
     t.datetime "created_at",                              :null => false
     t.datetime "updated_at",                              :null => false
     t.string   "ancestry"

@@ -45,7 +45,7 @@ BaseData.create(:mytype => "PointLog",
 puts "base data end"
 
 ROOT_SIZE = 5
-SIZE = 30
+SIZE = 300
 
 1.upto(ROOT_SIZE) do |i|
 	User.create(:ip => "0.0.0.0",
