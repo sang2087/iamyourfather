@@ -39,7 +39,7 @@ body { padding:20px }
 					 <hr>
 
 					<p><%=t :shareinfo %></p>
-					<p><u>http://local.youthhogoo.com/<%=@user_id-%></u></p>
+					<input type="text" value="http://local.youthhogoo.com/<%=@user_id-%>" style="width:100%"/>
 					<%if @facebook_login%>
 						<a href="#" onclick="facebook_post();">share</a>
 					<%else%>
@@ -81,7 +81,7 @@ body { padding:20px }
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick='$("#dialog").hide()'>&times;</button>
 					<h4 class="modal-title" id="dialog_title">title</h4>	
 				</div>
-				<div class="modal-body">
+				<div class="modal-body" sytle="min-height:300px">
 					<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
 						<img id="dialog_image" src="">
 					</div>
