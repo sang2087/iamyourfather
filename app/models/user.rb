@@ -21,6 +21,7 @@ class User < ActiveRecord::Base
 	def self.set_tree_xy root
 		root.displayX = rand(CANVAS_WIDTH)-(CANVAS_WIDTH/2)
 		root.displayY = rand(CANVAS_HEIGHT)-(CANVAS_HEIGHT/2)
+		root.save!
 		User.node_tree root
 	end
 

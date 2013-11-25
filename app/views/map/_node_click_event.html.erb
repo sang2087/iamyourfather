@@ -49,6 +49,7 @@ $("#sigma-example-parent").bind("mouseup",function(){
 });
 
 $("#independance").click(function(){
+	remove_btn_class();
 	$("#independance").addClass("active");
 	$.ajax({
 		url: "/data/user.json",
@@ -91,16 +92,17 @@ function set_dialog_html(function_type, user, is_possible, limit_point, limit_no
 	}
 	$("#dialog_button").html(html)
 	$("#dialog").show();
-
 }
 
 
 $("#betray").click(function(){
+		remove_btn_class();
 		$("#betray").addClass("active");
 		function_type = BETRAY;
 		alert("<%=t :balert%>")
 });
 $("#seize").click(function(){
+		remove_btn_class();
 		$("#seize").addClass("active");
 		function_type = SEIZE;
 		alert("<%=t :calert%>")
