@@ -21,6 +21,8 @@
 			<div class="page-header">
 				<h1>:: I AM YOUR FATHER <small><%=t :subtitle %></small></h1>
 				<div class="fb-like" data-href="http://www.i-am-your-father.com" data-width="100%" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+				<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.i-am-your-father.com" data-hashtags="iamyourfather">Tweet</a>
+				<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 			</div>
 			<div class="sigma-parent" id="sigma-example-parent">
 				<div class="sigma-expand" id="sigma-example"></div>
@@ -48,7 +50,7 @@
 
 					 <h3><%=t :child_count %> : <%=@user.node_cnt%></h3>
 					<p><%=t :shareinfo %></p>
-					<input type="text" value="http://i-am-your-father.com/<%=@user_id-%>" style="width:100%"/>
+					<input type="text" value="http://i-am-your-father.com/<%=@user.id-%>" style="width:100%"/>
 					<%if @facebook_login%>
 						<button type="button" onclick="facebook_post();" data-loading-text="Sharing..." class="btn btn-primary btn-sm">
 							Facebook Share
