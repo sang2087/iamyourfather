@@ -87,10 +87,13 @@ class PointLog < ActiveRecord::Base
 
 		pl.point = point
 		user.point += point
+		puts "USER#{user}"
+		puts "color#{user.color}"
+		puts "point#{user.point}"
 
 		ret = ActiveRecord::Base.transaction do
-			pl.save!
-			user.save!
+			pl.save
+			user.save
 		end
 
 		ret

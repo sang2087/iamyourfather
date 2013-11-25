@@ -29,7 +29,15 @@ class MapController < ApplicationController
 			newbie.link_in 
 			@user = newbie
 		end
+		
+		
 		@father = @user.parent
+		if @father.nil?
+			@is_father = false
+			@father=@user
+		else
+			@is_father = true
+		end
 
 		@groups = User.get_groups || "null"
 
@@ -49,7 +57,7 @@ class MapController < ApplicationController
   end
 
   def seize
-		@user.seize params[:user_id]
+		@user.seize(params[:user_id])
 
 		render :text => "success"
   end

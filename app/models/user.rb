@@ -274,6 +274,8 @@ class User < ActiveRecord::Base
 		end
 
 		PointLog.betray self, youruser
+		User.set_tree_xy(self.root)
+
 	end
 
 	def seize youruser_id
@@ -301,12 +303,12 @@ class User < ActiveRecord::Base
 			descentdant.save!
 		end
 		PointLog.seize self, youruser
-
+		User.set_tree_xy(self.root)
 	end
 
 	def independance
 		self.parent = nil
-		self.color = "#{100 + rand(156)}/#{100 + rand(156)}/#{100 + rand(156)}",
+		self.color = "#{100 + rand(156)}/#{100 + rand(156)}/#{100 + rand(156)}"
 		self.save
 
 		self.descendants.each do |descentdant|
@@ -315,9 +317,15 @@ class User < ActiveRecord::Base
 		end
 		PointLog.independance self
 
+		self.rand_display_xy
 	end
 
 private
+	def rand_display_xy
+		self.displayX = rand(CANVAS_WIDTH)-(CANVAS_WIDTH/2)
+		self.displayY = rand(CANVAS_HEIGHT)-(CANVAS_HEIGHT/2)
+		self.save!
+	end
 	def self.color_r(color)
 		color.split("/")[0]
 	end

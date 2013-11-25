@@ -3,6 +3,15 @@ class SendDataController < ApplicationController
 		data = User.make_gexf session[:user_id]
 		render :xml => data 
 	end
+
+	def save_banner
+		text = params[:banner_text]
+		user = @user
+		user.banner= text
+		user.save!
+
+		render :text => "complete" 
+	end
 	def friends_list
 		facebook = @user.get_facebook
 

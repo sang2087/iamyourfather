@@ -21,6 +21,7 @@ $("#sigma-example-parent").bind("mouseup",function(){
 
 		}else if(function_type == SEIZE){
 			function_type = NORMAL;
+			alert(node_id)
 			$.ajax({
 				url: "/data/user.json",
 				type: "POST",

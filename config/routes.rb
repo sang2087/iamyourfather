@@ -2,8 +2,11 @@ Iamyourfather::Application.routes.draw do
 	
 	get "map/index"
 	post "map/seize"
+	get "map/seize"
 	post "map/independance"
+	get "map/independance"
 	post "map/betray"
+	get "map/betray"
 	get "sessions/destroy"
 
 	root :to => 'map#index'
@@ -23,4 +26,5 @@ Iamyourfather::Application.routes.draw do
   match "data/friends.json" => "send_data#friends_list", via: [:get, :post]
   match "data/send_invitation" => "send_data#send_invitation", via: [:get, :post]
 	match "data/facebook_post" => "send_data#facebook_post", via: [:get, :post]
+	match "data/save_banner" => "send_data#save_banner", via: [:get, :post]
 end

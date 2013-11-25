@@ -15,11 +15,14 @@ en:
   language: 언어
   condition : condition
   child_count : Children Count
-  want_ind: Do you want independance?
+  want:  do you want?
   information: Information
   you_cannot: You CANNOT
   edit: Edit
   your_father: Your Father 
+  banner_change: Banner title is changed
+  point_deduct: Point will be deducted.
+  dont_have_father: I don't have father. I am God.
 
   iinfo: "Independance - I wanna be Root"
   binfo: "Betray - move to other father"

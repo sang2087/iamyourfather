@@ -17,9 +17,12 @@ gem 'omniauth-facebook', '1.4.0'
 gem 'fb_graph'
 gem 'xmpp4r_facebook'
 
-gem 'sqlite3'
-#gem 'mysql2'
-
+group :deveopment do
+	gem 'sqlite3'
+end
+group :production do
+	gem 'mysql2'
+end
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
