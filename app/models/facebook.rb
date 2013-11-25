@@ -77,7 +77,7 @@ class Facebook < ActiveRecord::Base
 		name = "I-AM-YOUR-FATHER"
 		message = "#{user.parent.username} is #{user.username}'s father.\nif you make your son click this link."
 		description = "I-AM-YOUR-FATHER.\nMake your son.\nEnjoy this funny social game"	
-		picture = URL +"img/thumb.png" 
+		picture = "#{URL}img/thumb.png" 
 
 		begin 
 			fb_user.feed!(
