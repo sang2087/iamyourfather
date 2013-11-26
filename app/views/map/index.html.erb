@@ -59,7 +59,7 @@
 
 						<h3><%=t :child_count %> : <%=@user.node_cnt - 1%></h3>
 						<p><%=t :shareinfo %></p>
-						<input type="text" value="http://i-am-your-father.com/<%=@user.id-%>" style="width:100%"/>
+						<input type="text" id="share_url" value="http://i-am-your-father.com/<%=@user.id-%>" onclick="$('#share_url').select()" style="width:100%" READONLY/>
 						<%if @facebook_login%>
 							<button type="button" onclick="facebook_post();" data-loading-text="Sharing..." class="btn btn-primary btn-sm">
 								<%= t :facebook_share%>
@@ -151,6 +151,7 @@
 
 <script type="text/javascript">
 //$(function(){
+
 	var NORMAL = 0;
 	var BETRAY = 1;
 	var SEIZE = 2;
@@ -417,6 +418,7 @@
 		else if(function_type == "Seize")
 			return "<%= t :want_seize%>"
 	}
+
 //})
 </script>
 
