@@ -2,7 +2,7 @@
 class MapController < ApplicationController
   def index
 		puts "@user map #{@user}"
-		name = params[:id] || User.count.to_s # 1 is the God
+		name = params[:id] || (rand(User.count) + 1).to_s # 1 is the God
 		# need facebook login check
 		
 		father = User.find(name)
