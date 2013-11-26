@@ -24,8 +24,8 @@ BaseData.create(:mytype => "PointLog",
 
 BaseData.create(:mytype => "PointLog",
 								:code => 5,
-								:point => -50, #mulify your node_cnt
-								:node_cnt => 30,
+								:point => -100, #mulify your node_cnt
+								:node_cnt => 50,
 								:description => "seize")
 
 BaseData.create(:mytype => "PointLog",
@@ -40,20 +40,20 @@ BaseData.create(:mytype => "PointLog",
 
 BaseData.create(:mytype => "PointLog",
 								:code => 8,
-								:point => 50,
+								:point => 100,
 								:description => "Share Feed")
 puts "base data end"
 
 ROOT_SIZE = 1
-SIZE = 1
+SIZE = 300
 
+1.upto(ROOT_SIZE) do |i|
 	User.create(:ip => "0.0.0.0",
-							:username => "The God",
+							:username => "The God#{i}",
 							:point => 0,
 							:color => "#{100 + rand(156)}/#{100 + rand(156)}/#{100 + rand(156)}",
-							:banner => "I am the God",
+							:banner => "I am the God#{i}",
 							:node_cnt => 1)
-=begin
 end
 1.upto(SIZE) do |i|
 	User.create(:ip => "0.0.0.0",
@@ -85,7 +85,6 @@ User.all.each do |u|
 	u.save!
 end
 
-=end
-#User.all_tree_set_xy
+User.all_tree_set_xy
 puts "That's all!"
 
