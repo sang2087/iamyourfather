@@ -3,9 +3,9 @@ $("#sigma-example-parent").bind("mouseup",function(){
 	if(nodes != null){
 		if(function_type == NORMAL){
 			information_dialog(node_id);
-
 		}else if(function_type == BETRAY){
 			function_type = NORMAL;
+			betray_dialog(node_id)
 		}else if(function_type == SEIZE){
 			function_type = NORMAL;
 			seize_dialog(node_id)

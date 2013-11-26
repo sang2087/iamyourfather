@@ -24,8 +24,8 @@ BaseData.create(:mytype => "PointLog",
 
 BaseData.create(:mytype => "PointLog",
 								:code => 5,
-								:point => -100, #mulify your node_cnt
-								:node_cnt => 50,
+								:point => -50, #mulify your node_cnt
+								:node_cnt => 30,
 								:description => "seize")
 
 BaseData.create(:mytype => "PointLog",

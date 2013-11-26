@@ -231,7 +231,9 @@
 				user_id: node_id // if user_id == 0 then get session user
 			},
 			success: function(data) {
-				alert(function_type +" complete");
+				console.log("+"+function_type)
+				console.log(ment_set(function_type))
+				alert(ment_set(function_type) + " <%= t :complete%>");
 				location.reload(true);
 			}
 		});
@@ -400,22 +402,22 @@
 	}
 	function ment_set(function_type){
 		console.log(function_type);
-		if(function_type == "Information")
+		if(function_type.toLowerCase() == "information")
 			return "<%= t :information%>"
-		else if(function_type == "Independance")
+		else if(function_type.toLowerCase() == "independance")
 			return "<%= t :independance%>"
-		else if(function_type == "Betray")
+		else if(function_type.toLowerCase() == "betray")
 			return "<%= t :betray%>"
-		else if(function_type == "Seize")
+		else if(function_type.toLowerCase() == "seize")
 			return "<%= t :seize%>"
 	}
 	function want_ment_set(function_type){
 		console.log(function_type);
-		if(function_type == "Independance")
+		if(function_type.toLowerCase() == "independance")
 			return "<%= t :want_ind%>"
-		else if(function_type == "Betray")
+		else if(function_type.toLowerCase() == "betray")
 			return "<%= t :want_betray%>"
-		else if(function_type == "Seize")
+		else if(function_type.toLowerCase() == "seize")
 			return "<%= t :want_seize%>"
 	}
 

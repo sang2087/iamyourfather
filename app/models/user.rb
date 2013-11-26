@@ -253,8 +253,7 @@ class User < ActiveRecord::Base
 			ancestor.save!
 		end
 
-		youruser = User.find(youruser_id)
-		self.parent = youruser
+		self.parent_id = youruser_id
 		self.save
 
 		#새 조상들 node_cnt 추가
@@ -262,6 +261,7 @@ class User < ActiveRecord::Base
 			ancestor.node_cnt += n_cnt
 			ancestor.save!
 		end
+
 		self.color = self.root.color
 		self.save
 
@@ -312,6 +312,7 @@ class User < ActiveRecord::Base
 			descentdant.color = self.color
 			descentdant.save!
 		end
+		self.rand_display_xy
 
 		User.set_tree_xy(self)
 		PointLog.independance self

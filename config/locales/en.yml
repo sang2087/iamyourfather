@@ -25,7 +25,7 @@ en:
   depth: th
   banner_change: Banner title is changed
   point_deduct: Point will be deducted.
-  dont_have_father: I don't have father. I am God.
+  complete: Complete!
 
   facebook_share: Facebook Share
   sign_out: Sign Out
@@ -45,3 +45,5 @@ en:
   balert: "Select your new father in universe"
   calert: "Select people you want to make sons in universe"
   banner: Banner
+
+  dont_have_father: I don't have father. I am God.
