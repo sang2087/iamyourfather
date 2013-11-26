@@ -21,11 +21,7 @@ class User < ActiveRecord::Base
 	end
 
 	def self.set_tree_xy root
-		User.node_tree root
-	end
-
-	def self.node_tree root
-		puts "ROOT_ID#{root.id}"
+		logger.info "ROOT_ID#{root.id}"
 		count = root.children.size
 		if(count == 0)
 			return nil
@@ -316,9 +312,9 @@ class User < ActiveRecord::Base
 			descentdant.color = self.color
 			descentdant.save!
 		end
-		PointLog.independance self
 
-		self.rand_display_xy
+		User.set_tree_xy(self)
+		PointLog.independance self
 	end
 
 	def rand_display_xy
