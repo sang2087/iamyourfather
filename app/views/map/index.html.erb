@@ -154,9 +154,10 @@
 	</div>
 
 <script type="text/javascript">
-	const NORMAL = 0;
-	const BETRAY = 1;
-	const SEIZE = 2;
+$(function(){
+	var NORMAL = 0;
+	var BETRAY = 1;
+	var SEIZE = 2;
 
 	var node_id = null;
 	var nodes = null;
@@ -420,6 +421,7 @@ function want_ment_set(function_type){
 	else if(function_type == "Seize")
 		return "<%= t :want_seize%>"
 }
+});
 </script>
 
 <style type="text/css">
