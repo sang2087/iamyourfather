@@ -74,7 +74,7 @@ class Facebook < ActiveRecord::Base
   def post_wall user
     fb_user = FbGraph::User.me(self.oauth_token)
 		name = "I-AM-YOUR-FATHER"
-		if I18n.locale == 'ko' 
+		if I18n.locale.to_s == 'ko' 
 			if user.depth.nil?
 				message = "제가 집안을 일으켰습니다.\n우리 집안에 참여하시려면 클릭하세요!"
 			else
@@ -108,29 +108,7 @@ class Facebook < ActiveRecord::Base
 	#TODO sidekiq
 	def send_invitation user, uid
 		facebook = user.get_facebook
-		InviWorker.perform_async(user.id, facebook.uid, uid, facebook.oauth_token)
-=begin
-    from_oauth_token = self.oauth_token
-
-    id = "-#{self.uid}@chat.facebook.com"
-    to = "-#{uid}@chat.facebook.com"
-		logger.info "SEND message to #{to}"
-
-		client = Jabber::Client.new Jabber::JID.new(id)
-		client.connect
-		client.auth_sasl(Jabber::SASL::XFacebookPlatform.new(client, APP_ID, from_oauth_token, APP_SECRET), nil)
-		if I18n.locale == 'ko'
-			body = "당신을 우리 가족에 초대합니다. 아래 링크를 참고하세요!\n#{URL}#{user.id}"
-		else
-			body = "I wanna make family. Come here.\n#{URL}#{user.id}"
-		end
-		else
-		send_message = Jabber::Message.new to, body
-		client.send send_message
-		client.close
-
-		logger.info "SENDED message to #{to}"
-=end
+		InviWorker.perform_async(user.id, facebook.uid, uid, facebook.oauth_token, I18n.locale.to_s)
 	end
 
 end

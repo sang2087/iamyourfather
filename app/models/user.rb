@@ -177,11 +177,12 @@ class User < ActiveRecord::Base
 	end
 
 	def self.make_gexf user_id
-		users = User.find(:all, :order => "ancestry")
+		users = User.all.order("ancestry")
 		user = User.find(user_id)
 		unless user.get_facebook.nil?
 			friends_hash = User.find(user_id).get_facebook.check_friends
 		end
+
 		puts"friends_hash#{friends_hash}"
 		
 		builder = Nokogiri::XML::Builder.new(:encoding => 'UTF-8') do |xml|
@@ -192,7 +193,7 @@ class User < ActiveRecord::Base
 					end
 					xml.nodes do 
 						users.each do |user|
-							xml.node('id' => "#{user.id}", 'label' => "#{user.username}(#{user.node_cnt})") do
+							xml.node('id' => "#{user.id}", 'label' => "#{user.username}(#{user.node_cnt-1})") do
 								xml.attvalues do 
 									if(user.id == user_id.to_i)
 										xml.attvalue('for' => "sign","value" => "me")
@@ -221,6 +222,7 @@ class User < ActiveRecord::Base
 			end
 		end
 
+		puts "end make_gxef"
 		builder.to_xml
 	end
 
@@ -319,12 +321,12 @@ class User < ActiveRecord::Base
 		self.rand_display_xy
 	end
 
-private
 	def rand_display_xy
 		self.displayX = rand(CANVAS_WIDTH)-(CANVAS_WIDTH/2)
 		self.displayY = rand(CANVAS_HEIGHT)-(CANVAS_HEIGHT/2)
 		self.save!
 	end
+private
 	def self.color_r(color)
 		color.split("/")[0]
 	end

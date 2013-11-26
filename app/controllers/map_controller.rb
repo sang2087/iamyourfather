@@ -7,6 +7,7 @@ class MapController < ApplicationController
 		
 		father = User.find(name)
 
+		puts "1"
 		if session[:user_id].nil? # session(cookie) check
 			newbie = User.new(#:ip => request.remote_addr,
 												:username => "Baby", # need to random in sample
@@ -31,10 +32,10 @@ class MapController < ApplicationController
 			@user = newbie
 		end
 		
-		
 		@father = @user.parent
 		@founder = @user.root
-		if I18n.locale == "ko"
+		puts "i18n!#{I18n.locale}!"
+		if I18n.locale.to_s == 'ko'
 			@founder_depth = "#{@user.depth}대손"
 		else
 			@founder_depth = @user.depth.ordinalize

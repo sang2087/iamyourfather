@@ -50,14 +50,14 @@
 
 						<h3>
 							<%if @is_father%>
-								<%=t :your_founder-%> : <a href="#" onclick="information_dialog(<%=@founder.id%>);"><%=@father.username%></a>, <%=@founder_depth%><br>
+								<%=t :your_founder-%> : <a href="#" onclick="information_dialog(<%=@founder.id%>);"><%=@founder.username%></a>, <%=@founder_depth%><br>
 								<%=t :your_father-%> : <a href="#" onclick="information_dialog(<%=@father.id%>);"><%=@father.username%></a>
 							<%else%>
 								<%=t :dont_have_father%>
 							<%end%>
 						</h3>
 
-						<h3><%=t :child_count %> : <%=@user.node_cnt%></h3>
+						<h3><%=t :child_count %> : <%=@user.node_cnt - 1%></h3>
 						<p><%=t :shareinfo %></p>
 						<input type="text" value="http://i-am-your-father.com/<%=@user.id-%>" style="width:100%"/>
 						<%if @facebook_login%>
@@ -72,7 +72,7 @@
 				
 						<hr>
 						<h3><%=t :money %> : <%=t :mark %><%=@user.point-%><%= t :unit %></h3>
-						<h3><%=t :banner %> : <%= @user.banner%></h3> 
+						<h3><%=t :banner %> : 
 							<input type ="text" id="banner_text" value="<%=@user.banner%>">
 							<button id="banner_button" ><%=t :edit%></button>
 						</h3>
@@ -130,10 +130,6 @@
 								<th><span id="dialog_name">Username</span></th>
 							</tr>
 							<tr>
-								<th><strong><%=t :banner%></strong></th>
-								<th><span id="dialog_banner">Banner</span></th>
-							</tr>
-							<tr>
 								<th><strong><%=t :money%></strong></th>
 								<th><span id="dialog_point">Point</span></th>
 							</tr>
@@ -154,7 +150,7 @@
 	</div>
 
 <script type="text/javascript">
-$(function(){
+//$(function(){
 	var NORMAL = 0;
 	var BETRAY = 1;
 	var SEIZE = 2;
@@ -167,7 +163,7 @@ $(function(){
 	var original_friends_list = {}
 	var friends_cnt = 0
 	var original_friends_cnt = 0
-	var friends_cnt_per_page = 5
+	var friends_cnt_per_page = 7
 	var limit_page = 0;
 	var sigInst = null;
 
@@ -327,107 +323,109 @@ $(function(){
 		$("#betray").removeClass("active");
 		$("#seize").removeClass("active");
 	}
-function betray_dialog(node_id){
-	$.ajax({
-		url: "/data/user.json",
-		type: "POST",
-		data: {
-			user_id: node_id, // if user_id == 0 then get session user
-			code : 4
-		},
-		success: function(data) {
-			user = data.user
-			set_dialog_html("Betray", user, data.is_function_possible, data.limit_point, data.limit_node_cnt)
-		}
-	});
-}
-
-function seize_dialog(node_id){
-	$.ajax({
-		url: "/data/user.json",
-		type: "POST",
-		data: {
-			user_id: node_id, // if user_id == 0 then get session user
-			code : 5
-		},
-		success: function(data) {
-			user = data.user
-			set_dialog_html("Seize", user, data.is_function_possible, data.limit_point, data.limit_node_cnt)
-		}
-	});
-}
-
-
-function information_dialog(node_id){
-	$.ajax({
-		url: "/data/user.json",
-		type: "POST",
-		data: {
-			user_id: node_id, // if user_id == 0 then get session user
-			code : 4
-		},
-		success: function(data) {
-			user = data.user
-			set_dialog_html("Information", user, data.is_function_possible, data.limit_point, data.limit_node_cnt)
-		}
-	});
-}
-
-function set_dialog_html(function_type, user, is_possible, limit_point, limit_node_cnt){
-	$("#dialog_title").text(ment_set(function_type));
-	$("#dialog_name").text(user.username);
-	$("#dialog_banner").text(user.banner);
-	$("#dialog_point").text("<%= t :mark %>" + user.point +"<%= t :unit %>");
-	$("#dialog_node_cnt").text(user.node_cnt);
-	$("#dialog_image").attr("src",user.picture);
-	var html = ""
-	if(function_type == "Information"){
-		html += "<center><button onclick='betray_dialog(node_id)'><%=t :binfo%></button>  <button onclick='seize_dialog(node_id)'><%=t :sinfo%></button><center>"
-	}else{
-		if(is_possible){
-			html += '<h3>' + want_ment_set(function_type) + '</h3>' 
-						+	'<p>' + ment_set(function_type) + ' <%=t :condition%> :<br>'
-						+ '<%=t :money%> > '+ limit_point +'(<%=t :point_deduct%>)<br>'
-						+ '<%=t :child_count%> > '+ limit_node_cnt +'</p>'
-						+ '<button onclick=\'dialog_yes("' + function_type.toLowerCase() + '")\'>Yes</button>'
-						+ '<button onclick=\'dialog_no("'+ function_type.toLowerCase() + '")\'>No</button>';
-		}else{
-		html = '<h3><%=t :you_cannot%> ' + ment_set(function_type) + '!</h3>'
-						+ '<p>' + ment_set(function_type) + ' <%=t :condition%> :<br>'
-						+ '<%=t :money%> > '+ limit_point +'<br>'
-						+ '<%=t :child_count%> > '+ limit_node_cnt +'</p>';
-		}
+	function betray_dialog(node_id){
+		$.ajax({
+			url: "/data/user.json",
+			type: "POST",
+			data: {
+				user_id: node_id, // if user_id == 0 then get session user
+				code : 4
+			},
+			success: function(data) {
+				user = data.user
+				set_dialog_html("Betray", user, data.is_function_possible, data.limit_point, data.limit_node_cnt)
+			}
+		});
 	}
-	$("#dialog_button").html(html)
-	$("#dialog").show();
-}
-function ment_set(function_type){
-	console.log(function_type);
-	if(function_type == "Information")
-		return "<%= t :information%>"
-	else if(function_type == "Independance")
-		return "<%= t :independance%>"
-	else if(function_type == "Betray")
-		return "<%= t :betray%>"
-	else if(function_type == "Seize")
-		return "<%= t :seize%>"
-}
-function want_ment_set(function_type){
-	console.log(function_type);
-	if(function_type == "Independance")
-		return "<%= t :want_ind%>"
-	else if(function_type == "Betray")
-		return "<%= t :want_betray%>"
-	else if(function_type == "Seize")
-		return "<%= t :want_seize%>"
-}
-});
+
+	function seize_dialog(node_id){
+		$.ajax({
+			url: "/data/user.json",
+			type: "POST",
+			data: {
+				user_id: node_id, // if user_id == 0 then get session user
+				code : 5
+			},
+			success: function(data) {
+				user = data.user
+				set_dialog_html("Seize", user, data.is_function_possible, data.limit_point, data.limit_node_cnt)
+			}
+		});
+	}
+
+
+	function information_dialog(node_id){
+		$.ajax({
+			url: "/data/user.json",
+			type: "POST",
+			data: {
+				user_id: node_id, // if user_id == 0 then get session user
+				code : 4
+			},
+			success: function(data) {
+				user = data.user
+				set_dialog_html("Information", user, data.is_function_possible, data.limit_point, data.limit_node_cnt)
+			}
+		});
+	}
+
+	function set_dialog_html(function_type, user, is_possible, limit_point, limit_node_cnt){
+		$("#dialog_title").text(ment_set(function_type) + " - " + user.banner);
+		$("#dialog_name").text(user.username);
+		$("#dialog_point").text("<%= t :mark %>" + user.point +"<%= t :unit %>");
+		$("#dialog_node_cnt").text(user.node_cnt - 1);
+		$("#dialog_image").attr("src",user.picture);
+		var html = ""
+		if(function_type == "Information"){
+			if(node_id != <%=@user.id%>)
+				html += "<center><button onclick='betray_dialog(node_id)'><%=t :binfo%></button>  <button onclick='seize_dialog(node_id)'><%=t :sinfo%></button><center>"
+		}else{
+			if(is_possible){
+				html += '<h3>' + want_ment_set(function_type) + '</h3>' 
+							+	'<p>' + ment_set(function_type) + ' <%=t :condition%> :<br>'
+							+ '<%=t :money%> > '+ limit_point +'(<%=t :point_deduct%>)<br>'
+							+ '<%=t :child_count%> > '+ (limit_node_cnt - 1) +'</p>'
+							+ '<button onclick=\'dialog_yes("' + function_type.toLowerCase() + '")\'>Yes</button>'
+							+ '<button onclick=\'dialog_no("'+ function_type.toLowerCase() + '")\'>No</button>';
+			}else{
+			html = '<h3><%=t :you_cannot%> ' + ment_set(function_type) + '!</h3>'
+							+ '<p>' + ment_set(function_type) + ' <%=t :condition%> :<br>'
+							+ '<%=t :money%> > '+ limit_point +'<br>'
+							+ '<%=t :child_count%> > '+ (limit_node_cnt - 1) +'</p>';
+			}
+		}
+		$("#dialog_button").html(html)
+		$("#dialog").show();
+	}
+	function ment_set(function_type){
+		console.log(function_type);
+		if(function_type == "Information")
+			return "<%= t :information%>"
+		else if(function_type == "Independance")
+			return "<%= t :independance%>"
+		else if(function_type == "Betray")
+			return "<%= t :betray%>"
+		else if(function_type == "Seize")
+			return "<%= t :seize%>"
+	}
+	function want_ment_set(function_type){
+		console.log(function_type);
+		if(function_type == "Independance")
+			return "<%= t :want_ind%>"
+		else if(function_type == "Betray")
+			return "<%= t :want_betray%>"
+		else if(function_type == "Seize")
+			return "<%= t :want_seize%>"
+	}
+//})
 </script>
 
 <style type="text/css">
 	/* sigma.js context : */
-	.sigma-parent {
+	.add_border {
 		border:5px solid red;
+	}
+	.sigma-parent {
 		position: relative;
 		border-radius: 4px;
 		-moz-border-radius: 4px;
