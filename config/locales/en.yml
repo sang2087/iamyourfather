@@ -11,7 +11,6 @@ en:
   betray: Betray
   seize: Seize
   name: Name
-  state: State
   language: 언어
   condition : condition
   child_count : Children Count
@@ -27,6 +26,12 @@ en:
   banner_change: Banner title is changed
   point_deduct: Point will be deducted.
   dont_have_father: I don't have father. I am God.
+
+  facebook_share: Facebook Share
+  sign_out: Sign Out
+  sign_in: Facebook Login
+  invite: Invite
+  joined: Joined
 
   iinfo: "Independance - I wanna be Root"
   binfo: "Betray - move to other father"

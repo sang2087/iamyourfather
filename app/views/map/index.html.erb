@@ -42,9 +42,9 @@
 					<div class="tab-pane fade in active" id="info">
 						<h2><%=t :iam %>: <%=@user.username-%></h2>
 						<%if @facebook_login%>
-							<%= link_to "Sign out", signout_path, id: "sign_out", class:"btn btn-primary btn-sm" %>
+							<%= link_to "#{t :sign_out}", signout_path, id: "sign_out", class:"btn btn-primary btn-sm" %>
 						<%else%>
-							<%= link_to "Facebook Login", "/auth/facebook", id: "sign_in", class:"btn btn-primary btn-sm" %>
+							<%= link_to "#{t :sign_in}", "/auth/facebook", id: "sign_in", class:"btn btn-primary btn-sm" %>
 						<%end%>
 						<hr>
 
@@ -62,12 +62,12 @@
 						<input type="text" value="http://i-am-your-father.com/<%=@user.id-%>" style="width:100%"/>
 						<%if @facebook_login%>
 							<button type="button" onclick="facebook_post();" data-loading-text="Sharing..." class="btn btn-primary btn-sm">
-								Facebook Share
+								<%= t :facebook_share%>
 							</button>
 							<!--<a href="#" onclick="facebook_post();"><img src="/img/fbshare.png" border=0 ></a>-->
 						<%else%>
 							<!--<div class="fb-share-button" data-href="http://i-am-your-father.com/<%=@user.id%>" data-width="100" data-type="button_count"></div>-->
-							<a href="https://www.facebook.com/dialog/feed?app_id=215886731905255&display=popup&caption=I%20am%20Your%20Father&link=http://i-am-your-father.com/<%=@user.id%>&redirect_uri=http://i-am-your-father.com&picture=http://i-am-your-father.com/img/thumb.png&description=Enjoy%20Great%20Universe"><button class="btn btn-primary btn-sm">Facebook Share</button></a>
+							<a href="https://www.facebook.com/dialog/feed?app_id=215886731905255&display=popup&caption=I%20am%20Your%20Father&link=http://i-am-your-father.com/<%=@user.id%>&redirect_uri=http://i-am-your-father.com&picture=http://i-am-your-father.com/img/thumb.png&description=Enjoy%20Great%20Universe"><button class="btn btn-primary btn-sm"><%= t :facebook_share%></button></a>
 						<%end%>
 				
 						<hr>
@@ -94,7 +94,7 @@
 								<th>#</th>
 								<th><%=t :name %></th>
 								<th><%=t :money %></th>
-								<th><%=t :state %></th>
+								<th><%=t :invite %></th>
 							</tr>
 						</thead>
 						<tbody id="friends_list">
@@ -255,10 +255,10 @@
 			if(friends_list[i]["joined"] == true){
 				html += "<td>" + friends_list[i]["point"] + "</td>\n"
 				//TODO change this
-							+ "<td>Joined</td>\n";
+					+ "<td><%= t :joined%></td>\n";
 			}else{
 				html += "<td>-</td>\n"
-					+ '<td><a href="/auth/facebook" onclick="invitation('+friends_list[i]["uid"] + ')" class="btn"><button type="button" class="btn btn-primary btn-xs">Invite</button></a>';
+					+ '<td><a href="/auth/facebook" onclick="invitation('+friends_list[i]["uid"] + ')" class="btn"><button type="button" class="btn btn-primary btn-xs"><%=t :invite%></button></a>';
 			}
 
 			html += "</tr>\n"
