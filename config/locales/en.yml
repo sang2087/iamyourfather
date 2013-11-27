@@ -25,11 +25,13 @@ en:
   depth: th
   banner_change: Banner title is changed
   point_deduct: Point will be deducted.
+  noti: aaaaaaaaaaaaaaaaaaaa
   complete: Complete!
 
   facebook_share: Facebook Share
   sign_out: Sign Out
   sign_in: Facebook Login
+  tour: Tour
   invite: Invite
   joined: Joined
   info: Info

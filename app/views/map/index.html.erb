@@ -114,7 +114,7 @@
 			</div>
 		</div>
 	</div>
-	<div id="dialog">
+	<div id="dialog" class="dialog_style">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -139,17 +139,46 @@
 								<th><strong><%=t :child_count%></strong></th>
 								<th><span id="dialog_node_cnt">0</span></th>
 							</tr>
-
-							</table>
-							<hr>
-						</div>
-						<div id="dialog_button" class="row-fluid">
-						</div>
+						</table>
+					</div>
+				</div>
+				<div class="modal-footer" >
+					<div id="dialog_button" class="row-fluid">
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
+	<div id="noti" class="dialog_style">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick='$("#noti").hide()'>&times;</button>
+					<h4 class="modal-title" id="noti_title">title</h4>	
+				</div>
+				<div class="modal-body" style="min-height:150px">
+					<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+						<img id="noti_image" src="" style="width:100px;height:100px">
+					</div>
+					<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+						<span><%=t :noti%></span>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<div id="noti_button" class="row-fluid">
+						<%if @facebook_login%>
+							<%= link_to "#{t :tour}", "#", class:"btn btn-info btn-sm", onclick:"$('#noti').hide()" %>
+						<%else%>
+							<%= link_to "#{t :tour}", "#", class:"btn btn-info btn-sm", onclick:"$('#noti').hide()" %>
+							<%= link_to "#{t :sign_in}", "/auth/facebook", id: "sign_in", class:"btn btn-primary btn-sm" %>
+						<%end%>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
 <script type="text/javascript">
 //$(function(){
@@ -174,6 +203,7 @@
 		groups = <%=@groups%>;
 		//console.log(groups);
 		$("#dialog").hide();
+		$("#noti").show();
 		<%if @is_point_get_login%>
 			alert("<%=t :loginearn%> : <%=t :mark%><%=@login_point%><%=t :unit%>")
 		<%end%>
@@ -445,9 +475,6 @@
 
 <style type="text/css">
 	/* sigma.js context : */
-	.add_border {
-		border:5px solid red;
-	}
 	.sigma-parent {
 		position: relative;
 		border-radius: 4px;
@@ -469,14 +496,14 @@
 		padding-top: 12px;
 	}
 @media all and (max-width:480px){
-	#dialog{
+	.dialog_style{
 		position: absolute;
 		left: 0;
 		top: 200px;
 	}
 }
 @media all and (min-width:480px){
-	#dialog{
+	.dialog_style{
 		position: absolute;
 		left: 20%;
 		top: 200px;
