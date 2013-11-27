@@ -93,7 +93,6 @@
 							</tr>
 						</thead>
 						<tbody id="friends_list">
-
 						</tbody>
 					</table>
 					<center>
@@ -398,7 +397,7 @@
 		$("#dialog_title").text(ment_set(function_type) + " - " + user.banner);
 		$("#dialog_name").text(user.username);
 		$("#dialog_point").text("<%= t :mark %>" + user.point +"<%= t :unit %>");
-		$("#dialog_node_cnt").text(user.node_cnt - 1);
+		//$("#dialog_node_cnt").text(user.node_cnt - 1);
 		$("#dialog_image").attr("src",user.picture);
 		var html = ""
 		var my_id=<%=@user.id%>;
@@ -426,15 +425,15 @@
 			}else if(is_possible){
 				html += '<h3>' + want_ment_set(function_type) + '</h3>' 
 							+	'<p>' + ment_set(function_type) + ' <%=t :condition%> :<br>'
-							+ '<%=t :money%> > '+ limit_point +'(<%=t :point_deduct%>)<br>'
-							+ '<%=t :child_count%> > '+ (limit_node_cnt - 1) +'</p>'
+							+ '<%=t :money%> >= '+ limit_point +'(<%=t :point_deduct%>)<br>'
+							+ '<%=t :child_count%> >= '+ (limit_node_cnt ) +'</p>'
 							+ '<button onclick=\'dialog_yes("' + function_type.toLowerCase() + '")\'>Yes</button>'
 							+ '<button onclick=\'dialog_no("'+ function_type.toLowerCase() + '")\'>No</button>';
 			}else{
 				html += '<h3><%=t :you_cannot%> ' + ment_set(function_type) + '!</h3>'
 							+ '<p>' + ment_set(function_type) + ' <%=t :condition%> :<br>'
-							+ '<%=t :money%> > '+ limit_point +'<br>'
-							+ '<%=t :child_count%> > '+ (limit_node_cnt - 1) +'</p>';
+							+ '<%=t :money%> >= '+ limit_point +'<br>'
+							+ '<%=t :child_count%> >= '+ (limit_node_cnt ) +'</p>';
 			}
 		}
 		$("#dialog_button").html(html)

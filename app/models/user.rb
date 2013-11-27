@@ -245,6 +245,8 @@ class User < ActiveRecord::Base
 	end
 
 	def betray youruser_id
+		youruser = User.find(youruser_id)
+
 		n_cnt = self.node_cnt
 
 		#원래 조상들 node_cnt 제거
@@ -253,7 +255,7 @@ class User < ActiveRecord::Base
 			ancestor.save!
 		end
 
-		self.parent_id = youruser_id
+		self.parent = youruser
 		self.save
 
 		#새 조상들 node_cnt 추가
@@ -276,9 +278,8 @@ class User < ActiveRecord::Base
 	end
 
 	def seize youruser_id
-		
 		youruser = User.find(youruser_id)
-		n_cnt = youruser.node_cnt
+		n_cnt = youruser.node_cnt 
 
 		#seize 당하는 원래 조상들 node_cnt 제거
 		youruser.ancestors.each do |ancestor|
