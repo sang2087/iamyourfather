@@ -158,9 +158,6 @@
 					<h4 class="modal-title" id="noti_title">title</h4>	
 				</div>
 				<div class="modal-body" style="min-height:150px">
-					<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-						<img id="noti_image" src="" style="width:100px;height:100px">
-					</div>
 					<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
 						<span><%=t :noti%></span>
 					</div>
@@ -202,8 +199,10 @@
 	$(function(){
 		groups = <%=@groups%>;
 		//console.log(groups);
-		$("#dialog").hide();
-		$("#noti").show();
+		<%if @is_session_user.nil?%>
+			$("#noti").show();
+		<%end%>
+		
 		<%if @is_point_get_login%>
 			alert("<%=t :loginearn%> : <%=t :mark%><%=@login_point%><%=t :unit%>")
 		<%end%>
@@ -348,7 +347,6 @@
 					alert("<%=t :facebookshared%>");
 					document.location.reload(true)
 				}
-
 			}
 		});
 	}
@@ -481,7 +479,6 @@
 		-moz-border-radius: 4px;
 		-webkit-border-radius: 4px;
 		background: #222;
-		background-image: url('/img/background.gif');
 		height: 600px;
 	}
 	.sigma-expand {
@@ -500,13 +497,23 @@
 		position: absolute;
 		left: 0;
 		top: 200px;
+		display: none;
 	}
+	.sigma-parent{
+		background-image: none;
+	}
+
+
 }
 @media all and (min-width:480px){
 	.dialog_style{
 		position: absolute;
 		left: 20%;
 		top: 200px;
+		display: none;
+	}
+	.sigma-parent{
+		background-image: url('/img/background.gif');
 	}
 }
 	.audiojs{

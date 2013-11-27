@@ -7,7 +7,7 @@ class MapController < ApplicationController
 		
 		father = User.find(name)
 
-		puts "1"
+		@is_session_user = session[:user_id]
 		if session[:user_id].nil? # session(cookie) check
 			newbie = User.new(#:ip => request.remote_addr,
 												:username => "Baby", # need to random in sample
