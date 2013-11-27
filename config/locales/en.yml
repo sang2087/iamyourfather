@@ -34,6 +34,9 @@ en:
   joined: Joined
   info: Info
   facebook_friends: Facebook Friends
+  me_cant: Cannot seize or betray yourself
+  cant_ancestor_seize: Cannot seize your ancestors
+  cant_descendant_betray: Cannot move to your descendant
 
   iinfo: "Independance - I wanna be Root"
   binfo: "Betray - move to other father"

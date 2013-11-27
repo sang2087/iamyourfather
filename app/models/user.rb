@@ -6,8 +6,8 @@ class User < ActiveRecord::Base
 
 	APP_ID = '562260310492321'
   APP_SECRET = '9b209a9e006a2244f69419ee5a2b2355'
-	CANVAS_WIDTH = 3200
-	CANVAS_HEIGHT = 3200
+	CANVAS_WIDTH = 1600
+	CANVAS_HEIGHT = 1600
 
 	has_ancestry 
 	has_many :point_logs

@@ -9,11 +9,13 @@
 <style>
 @media all and (min-width:480px){ body { padding:20px }}
 </style>
+<!--
 <script src="/audiojs/audio.min.js"></script>
 <script>
 	audiojs.events.ready(function() {
 		var as = audiojs.createAll();
 	});
+-->
 </script>
 <div class="container-responsive">
 	<div class="row">
@@ -181,7 +183,6 @@
 		<%=render :partial => 'map/node_click_event'%>
 
 		init()
-
 		$("#friend_search").bind("keyup input paste",function(){
 			str = $("#friend_search").val().toLowerCase()
 			console.log(str);
@@ -379,11 +380,29 @@
 		$("#dialog_node_cnt").text(user.node_cnt - 1);
 		$("#dialog_image").attr("src",user.picture);
 		var html = ""
+		var my_id=<%=@user.id%>;
 		if(function_type == "Information"){
-			if(node_id != <%=@user.id%>)
-				html += "<center><button onclick='betray_dialog(node_id)'><%=t :binfo%></button>  <button onclick='seize_dialog(node_id)'><%=t :sinfo%></button><center>"
+			console.log("my_id" + my_id)
+			console.log("node_id" +node_id)
+			if(node_id != my_id){ //나이면 아무것도 안뜸
+				html += "<button onclick='betray_dialog(node_id)'><%=t :binfo%></button>  <button onclick='seize_dialog(node_id)'><%=t :sinfo%></button>"
+			}else{
+				html += "<%=t :cant_me%>"
+			}
 		}else{
-			if(is_possible){
+			ancestor_ids=<%=@ancestors%>
+			descendant_ids=<%=@descendants%>
+			console.log("ANC" + ancestor_ids)
+			console.log("DES" + descendant_ids)
+			console.log(function_type == "Seize")
+		 	console.log(ancestor_ids.indexOf(node_id)>=0)
+			if(node_id == my_id){
+				html += "<%=t :cant_me%>"
+			}else if(function_type == "Seize" && ancestor_ids.indexOf(node_id)>=0){
+				html += "<%=t :cant_ancestor_seize%>"
+			}else if(function_type == "Betray" && descendant_ids.indexOf(node_id)>=0){
+				html += "<%=t :cant_descendant_betray%>"
+			}else if(is_possible){
 				html += '<h3>' + want_ment_set(function_type) + '</h3>' 
 							+	'<p>' + ment_set(function_type) + ' <%=t :condition%> :<br>'
 							+ '<%=t :money%> > '+ limit_point +'(<%=t :point_deduct%>)<br>'
@@ -391,7 +410,7 @@
 							+ '<button onclick=\'dialog_yes("' + function_type.toLowerCase() + '")\'>Yes</button>'
 							+ '<button onclick=\'dialog_no("'+ function_type.toLowerCase() + '")\'>No</button>';
 			}else{
-			html = '<h3><%=t :you_cannot%> ' + ment_set(function_type) + '!</h3>'
+				html += '<h3><%=t :you_cannot%> ' + ment_set(function_type) + '!</h3>'
 							+ '<p>' + ment_set(function_type) + ' <%=t :condition%> :<br>'
 							+ '<%=t :money%> > '+ limit_point +'<br>'
 							+ '<%=t :child_count%> > '+ (limit_node_cnt - 1) +'</p>';

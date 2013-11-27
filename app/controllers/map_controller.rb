@@ -31,6 +31,8 @@ class MapController < ApplicationController
 			newbie.link_in 
 			@user = newbie
 		end
+		@ancestors = @user.ancestor_ids
+		@descendants = @user.descendant_ids
 		
 		@father = @user.parent
 		@founder = @user.root
