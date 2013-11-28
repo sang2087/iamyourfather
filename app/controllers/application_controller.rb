@@ -17,7 +17,6 @@ class ApplicationController < ActionController::Base
 	end
 
 	def check_facebook_login
-		@is_session_user = session[:user_id]
 		puts "session_user#{@is_session_user}"
 		facebook_login = false
 		logger.info "!!!!!!!#{session[:user_id]}"

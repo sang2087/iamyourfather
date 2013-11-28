@@ -7,7 +7,6 @@
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
 <style>
-@media all and (min-width:480px){ body { padding:20px }}
 </style>
 </script>
 <div class="container-responsive">
@@ -19,10 +18,12 @@
 				<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.i-am-your-father.com" data-hashtags="iamyourfather">Tweet</a>
 				<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 			</div>
+<%########################CANVAS#####################%>
 			<div class="sigma-parent" id="sigma-example-parent">
 				<div class="sigma-expand" id="sigma-example"></div>
 			</div>
 		</div>
+<%########################DASHBOARD#####################%>
 		<div class="col-xs-12 col-sm-4 col-md-4 col-lg-3" id="dashboard">
 			<div class="panel panel-<%=%w[info warning success danger].sample-%>" style="display:block;min-height:720px;">
 				<div class="panel-heading">Dashboard - <%=t :language %> : <a href="/?lang=ko">Kor</a> / <a href="/?lang=en">Eng</a></div>
@@ -34,25 +35,15 @@
 				</ul>
 				<!-- Tab panes -->
 				<div class="tab-content">
+<%########################INFO TAB#####################%>
 					<div class="tab-pane fade in active" id="info">
-						<h2><%=t :iam %>: <%=@user.username-%></h2>
+	<%########################FACEBOOK LOGIN#####################%>
 						<%if @facebook_login%>
 							<%= link_to "#{t :sign_out}", signout_path, id: "sign_out", class:"btn btn-primary btn-sm" %>
 						<%else%>
 							<%= link_to "#{t :sign_in}", "/auth/facebook", id: "sign_in", class:"btn btn-primary btn-sm" %>
 						<%end%>
-						<hr>
-
-						<h3>
-							<%if @is_father%>
-								<%=t :your_founder-%> : <a href="#" onclick="information_dialog(<%=@founder.id%>);"><%=@founder.username%></a>, <%=@founder_depth%><br>
-								<%=t :your_father-%> : <a href="#" onclick="information_dialog(<%=@father.id%>);"><%=@father.username%></a>
-							<%else%>
-								<%=t :dont_have_father%>
-							<%end%>
-						</h3>
-
-						<h3><%=t :child_count %> : <%=@user.node_cnt - 1%></h3>
+	<%########################FACEBOOK SHARE#####################%>
 						<p><%=t :shareinfo %></p>
 						<input type="text" id="share_url" value="http://i-am-your-father.com/<%=@user.id-%>" onclick="$('#share_url').select()" style="width:100%" READONLY/>
 						<%if @facebook_login%>
@@ -64,8 +55,23 @@
 							<!--<div class="fb-share-button" data-href="http://i-am-your-father.com/<%=@user.id%>" data-width="100" data-type="button_count"></div>-->
 							<a href="https://www.facebook.com/dialog/feed?app_id=215886731905255&display=popup&caption=I%20am%20Your%20Father&link=http://i-am-your-father.com/<%=@user.id%>&redirect_uri=http://i-am-your-father.com&picture=http://i-am-your-father.com/img/thumb.png&description=Enjoy%20Great%20Universe"><button class="btn btn-primary btn-sm"><%= t :facebook_share%></button></a>
 						<%end%>
-				
+
 						<hr>
+	<%########################FAMILY#####################%>
+						<h2><%=t :iam %>: <%=@user.username-%></h2>
+						<h3>
+							<%if @is_father%>
+								<%=t :your_founder-%> : <a href="#" onclick="information_dialog(<%=@founder.id%>);"><%=@founder.username%></a>, <%=@founder_depth%><br>
+								<%=t :your_father-%> : <a href="#" onclick="information_dialog(<%=@father.id%>);"><%=@father.username%></a>
+							<%else%>
+								<%=t :dont_have_father%>
+							<%end%>
+						</h3>
+
+						<h3><%=t :child_count %> : <%=@user.node_cnt - 1%></h3>
+						<hr>
+			
+	<%########################STATUS#####################%>
 						<h3><%=t :money %> : <%=t :mark %><%=@user.point-%><%= t :unit %></h3>
 						<h3><%=t :banner %> : 
 							<input type ="text" id="banner_text" value="<%=@user.banner%>">
@@ -73,11 +79,12 @@
 						</h3>
 						<hr>
 						<div class="list-group">
-							<a href="#" class="list-group-item" id="independance"><center><%=t :iinfo %></center></a>
-							<a href="#" class="list-group-item" id="betray"><center><%=t :binfo %></center></a>
-							<a href="#" class="list-group-item" id="seize"><center><%=t :sinfo %></center></a>
+							<a href="#" class="btn btn-info" id="independance"><center><%=t :iinfo %></center></a>
+							<a href="#" class="btn btn-info" id="betray"><center><%=t :binfo %></center></a>
+							<a href="#" class="btn btn-info" id="seize"><center><%=t :sinfo %></center></a>
 						</div>
 					</div>
+<%########################FACEBOOK FRIEND TAB#####################%>
 					<div class="tab-pane fade" id="facebook">
 					<h3>
 						<%=t :fblist %>
@@ -101,11 +108,11 @@
 					</center>
 				</div>
 				</div>
-
 				</div>
 			</div>
 		</div>
 	</div>
+
 	<div id="dialog" class="dialog_style">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -190,7 +197,6 @@
 
 	$(function(){
 		groups = <%=@groups%>;
-		//console.log(groups);
 		<%if @is_session_user.nil?%>
 			$("#noti").show();
 		<%end%>
@@ -484,30 +490,31 @@
 		padding-bottom: 8px;
 		padding-top: 12px;
 	}
-@media all and (max-width:480px){
-	.dialog_style{
-		position: absolute;
-		left: 0;
-		top: 200px;
-		display: none;
-	}
-	.sigma-parent{
-		background-image: none;
-	}
+	@media all and (max-width:480px){
+		.dialog_style{
+			position: absolute;
+			left: 0;
+			top: 200px;
+			display: none;
+		}
+		.sigma-parent{
+			background-image: none;
+		}
 
 
-}
-@media all and (min-width:480px){
-	.dialog_style{
-		position: absolute;
-		left: 20%;
-		top: 200px;
-		display: none;
 	}
-	.sigma-parent{
-		background-image: url('/img/background.gif');
+	@media all and (min-width:480px){
+		.dialog_style{
+			position: absolute;
+			left: 20%;
+			top: 200px;
+			display: none;
+		}
+		.sigma-parent{
+			background-image: url('/img/background.gif');
+		}
+		body { padding:20px }
 	}
-}
 	.audiojs{
 		display:none;
 	}
