@@ -21,6 +21,7 @@ Iamyourfather::Application.routes.draw do
 	get ':id' => 'map#index'
 
 	match "data/data.gexf" => "send_data#data", via: [:get, :post]
+	match "data/data.json" => "send_data#source", via: [:get, :post]
 	match "data/tree.svg" => "send_data#tree_svg", via: [:get, :post]
   match "data/user.json" => "send_data#get_user", via: [:get, :post]
   match "data/friends.json" => "send_data#friends_list", via: [:get, :post]

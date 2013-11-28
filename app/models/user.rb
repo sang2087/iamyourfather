@@ -86,10 +86,10 @@ class User < ActiveRecord::Base
 		end
 	end
 
-	def self.json_tree(nodes, original)
+	def self.json_tree(nodes)
 		sub_node = Hash.new
 		nodes.each do |node|
-			sub_node["n#{node.id}"] = json_tree(node.childrent)
+			sub_node["n#{node.id}"] = json_tree(node.children)
 		end
 		return sub_node
 	end
@@ -170,6 +170,44 @@ class User < ActiveRecord::Base
 			# 페북 로그인
 			PointLog.link_with_fb self	
 		end
+	end
+
+	def self.make_json user_id
+		users = User.all.order("ancestry")
+		user = User.find(user_id)
+		unless user.get_facebook.nil?
+			friends_hash = User.find(user_id).get_facebook.check_friends
+		end
+		json = Hash.new
+		json["nodes"] = Array.new
+		json["edges"] = Array.new
+		users.each do |u|
+			if (u.id == user_id.to_i)
+				mark = "me"
+			elsif (!friends_hash.nil? and !friends_hash["#{user.id}"].nil?)
+				mark = "friend"
+			else
+				mark = ""
+			end
+			json["nodes"] << {'id' => "#{u.id}",
+				'label' => "#{u.username}(#user.node_cnt-1})",
+				'for' => mark,
+				'size' => Math.log2(u.node_cnt + 1),
+				'r' => User.color_r(u.color),
+				'g' => User.color_g(u.color),
+				'b' => User.color_b(u.color),
+				'x' => u.displayX,
+				'y' => u.displayY,
+				'z' => 0}
+		end
+		cnt = 0
+		users.each do |u|
+			unless(u.parent_id.nil?)
+				cnt += 1
+				json["edges"] << {'id'=> "#{cnt}", 'sourceID' => "#{u.parent_id}", 'targetID' => "#{u.id}"}
+			end
+		end
+		return json
 	end
 
 	def self.make_gexf user_id

@@ -4,6 +4,11 @@ class SendDataController < ApplicationController
 		render :xml => data 
 	end
 
+	def source
+		data = User.make_json session[:user_id]
+		render :json => data
+	end
+
 	def save_banner
 		text = params[:banner_text]
 		user = @user
