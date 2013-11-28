@@ -85,17 +85,11 @@ class User < ActiveRecord::Base
 			user.save
 		end
 	end
-	def self.child_process
-		users = User.all
-		parents = Hash.new
-		users.each do |user|
-			parents[user.parent_id]["children"] << 
-		end
-	end
+
 	def self.json_tree(nodes, original)
 		sub_node = Hash.new
 		nodes.each do |node|
-			sub_node["n#{node["id"]}"] = json_tree(node[id]["children"])
+			sub_node["n#{node.id}"] = json_tree(node.childrent)
 		end
 		return sub_node
 	end
