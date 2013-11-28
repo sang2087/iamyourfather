@@ -13,21 +13,21 @@ class User < ActiveRecord::Base
 	has_many :point_logs
 
 	def self.all_tree_set_xy
-		self.roots.each do |root|
-			root.rand_display_xy
-			self.set_tree_xy root
+		children_list = User.children_list
+
+		children_list[nil].each do |root_id|
+			User.find(root_id).rand_display_xy
+			unless children_list[root_id].nil?
+				self.set_tree_xy User.find(root_id), children_list
+			end
 		end
-		puts I18n.locale
 	end
 
-	def self.set_tree_xy root
+	def self.set_tree_xy root, children_list
 		logger.info "ROOT_ID#{root.id}"
-		count = root.children.size
-		if(count == 0)
-			return nil
-		end
 
-		files= User.json_tree(root.children)
+		files= User.json_tree(children_list[root.id], children_list)
+		count=children_list[root.id].size
 
 		vis = Rubyvis::Panel.new()
 				.width(800)
@@ -39,7 +39,7 @@ class User < ActiveRecord::Base
 
 		tree = vis.add(Rubyvis::Layout::Tree).
 			nodes(Rubyvis.dom(files).root(1).nodes()).
-			orient('top').
+			orient('radial').
 			depth(85).
 			breadth(180/count)
 
@@ -85,13 +85,27 @@ class User < ActiveRecord::Base
 			user.save
 		end
 	end
-
-	def self.json_tree(nodes, original)
-		sub_node = Hash.new
-		nodes.each do |node|
-			sub_node["n#{node.id}"] = json_tree(node.childrent)
+	def self.children_list
+		users = User.all
+		parents = Hash.new
+		users.each do |user|
+			if parents[user.parent_id].nil? 
+				parents[user.parent_id] = Array.new
+			end
+			parents[user.parent_id].push(user.id)
 		end
-		return sub_node
+		parents
+	end
+	def self.json_tree(nodes, original)
+		puts nodes
+		sub_node = Hash.new
+		unless nodes.nil?
+			nodes.each do |id|
+				puts "id #{id} child #{original[id]}"
+				sub_node["n#{id}"] = json_tree(original[id], original)
+			end
+		end
+		sub_node
 	end
 	  
   def from_omniauth(auth)
