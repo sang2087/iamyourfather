@@ -31,6 +31,7 @@
 				<!-- Nav tabs -->
 				<ul class="nav nav-tabs">
 					<li class="active"><a href="#info" data-toggle="tab"><%=t :info%></a></li>
+					<li><a href="#rank" data-toggle="tab"><%=t :rank%></a></li>
 					<li><a href="#facebook" data-toggle="tab"><%=t :facebook_friends%></a></li>
 				</ul>
 				<!-- Tab panes -->
@@ -69,6 +70,8 @@
 						</h3>
 
 						<h3><%=t :child_count %> : <%=@user.node_cnt - 1%></h3>
+						<h3><%=t :rank_node_cnt %> : <%=@node_cnt_rank%></h3>
+						<h3><%=t :rank_point %> : <%=@point_rank%></h3>
 						<hr>
 			
 	<%########################STATUS#####################%>
@@ -86,27 +89,82 @@
 					</div>
 <%########################FACEBOOK FRIEND TAB#####################%>
 					<div class="tab-pane fade" id="facebook">
-					<h3>
-						<%=t :fblist %>
-					</h3>
+						<h3>
+							<%=t :fblist %>
+						</h3>
 						<input type="text" id="friend_search" placeholder="search">
-					<table class="table table-striped">
-						<thead>
-							<tr>
-								<th>#</th>
-								<th><%=t :name %></th>
-								<th><%=t :money %></th>
-								<th><%=t :invite %></th>
-							</tr>
-						</thead>
-						<tbody id="friends_list">
-						</tbody>
-					</table>
-					<center>
-						<ul id="friends_pagination" class="pagination">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th><%=t :name %></th>
+									<th><%=t :money %></th>
+									<th><%=t :invite %></th>
+								</tr>
+							</thead>
+							<tbody id="friends_list">
+							</tbody>
+						</table>
+						<center>
+							<ul id="friends_pagination" class="pagination">
+							</ul>
+						</center>
+					</div>
+<%########################RANK#####################%>
+					<div class="tab-pane fade" id="rank">
+						<h3>
+							<%=t :rank %>
+						</h3>
+						<ul class="nav nav-tabs">
+							<li class="active"><a href="#rank_node_cnt" data-toggle="tab"><%=t :child_count%></a></li>
+							<li><a href="#rank_point" data-toggle="tab"><%=t :money%></a></li>
+
 						</ul>
-					</center>
-				</div>
+										<!-- Tab panes -->
+						<div class="tab-content">
+							<div class="tab-pane fade in active" id="rank_node_cnt">
+								<table class="table table-striped ">
+									<thead>
+										<tr>
+											<th><%=t :rank%></th>
+											<th><%=t :name %></th>
+											<th><%=t :child_count %></th>
+										</tr>
+									</thead>
+									<tbody id="friends_list">
+										<%@all_rank_node_cnt.each do |u|%>
+											<tr>
+												<td><%=u[:rank]%></td>
+												<td><%=u[:name]%></td>
+												<td><%=u[:node_cnt]%></td>
+											</tr>
+										<%end%>
+									</tbody>
+								</table>
+							</div>
+							<div class="tab-pane fade " id="rank_point">
+								<table class="table table-striped">
+									<thead>
+										<tr>
+											<th><%=t :rank%></th>
+											<th><%=t :name %></th>
+											<th><%=t :money %></th>
+										</tr>
+									</thead>
+									<tbody id="friends_list">
+										<%@all_rank_point.each do |u|%>
+											<tr>
+												<td><%=u[:rank]%></td>
+												<td><%=u[:name]%></td>
+												<td><%=u[:point]%></td>
+											</tr>
+										<%end%>
+									</tbody>
+								</table>
+							</div>
+
+						</div>
+					</div>
 				</div>
 				</div>
 			</div>

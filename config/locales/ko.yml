@@ -51,3 +51,8 @@ ko:
   calert: "당신의 자식으로 삼을 사람을 화면에서 선택하세요"
   banner: 배너
   dont_have_father: 나는 Father가 없다. 내가 곧 신이다.
+
+  rank_node_cnt: 후손 수 순위
+  rank_point: 돈 순위
+  rank: 순위
+
