@@ -118,6 +118,7 @@ sigma.publicPrototype.parseGexf = function(gexfPath) {
       
       // Create Node
       var node = {label:label, size:size, x:x, y:y, attributes:[], color:color};  // The graph node
+			//console.log(node);
       
       // Attribute values
       var attvalueNodes = nodeNode.getElementsByTagName('attvalue');

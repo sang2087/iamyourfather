@@ -7,7 +7,9 @@ sigma.publicPrototype.parseJson = function(jsonPath,callback) {
 	jQuery.getJSON(jsonPath, function(data) {
 		for (i=0; i<data.nodes.length; i++){
 			var id=data.nodes[i].id;
+			//console.log(data.nodes[i]);
 			//window.NODE = data.nodes[i];//In the original, but not sure purpose
+			delete data.nodes[i]["id"];
 			sigmaInstance.addNode(id,data.nodes[i]);
 		}
 		for(j=0; j<data.edges.length; j++){

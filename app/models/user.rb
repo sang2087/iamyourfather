@@ -189,22 +189,29 @@ class User < ActiveRecord::Base
 			else
 				mark = ""
 			end
-			json["nodes"] << {'id' => "#{u.id}",
-				'label' => "#{u.username}(#user.node_cnt-1})",
-				'for' => mark,
-				'size' => Math.log2(u.node_cnt + 1),
-				'r' => User.color_r(u.color),
-				'g' => User.color_g(u.color),
-				'b' => User.color_b(u.color),
-				'x' => u.displayX,
-				'y' => u.displayY,
-				'z' => 0}
+			json["nodes"] << {
+				'id' => "#{u.id}",
+				'label' => "#{u.username}(#{user.node_cnt-1})",
+				'attributes' => [{
+					'attr' => "sign",
+					'val' => mark}],
+				'size' => Math.log2(u.node_cnt + 1).to_f,
+				'color' => "rgba(#{User.color_r(u.color)},#{User.color_g(u.color)},#{User.color_b(u.color)},1.0)",
+				'x' => u.displayX.to_f,
+				'y' => u.displayY.to_f,
+				}
 		end
 		cnt = 0
 		users.each do |u|
 			unless(u.parent_id.nil?)
 				cnt += 1
-				json["edges"] << {'id'=> "#{cnt}", 'sourceID' => "#{u.parent_id}", 'targetID' => "#{u.id}"}
+				json["edges"] << {
+					'id'=> "#{cnt}",
+					'sourceID' => "#{u.parent_id}",
+					'targetID' => "#{u.id}",
+					'attributes' => [],
+					'label' => nil
+				}
 			end
 		end
 		return json
