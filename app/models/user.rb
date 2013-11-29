@@ -23,8 +23,11 @@ class User < ActiveRecord::Base
 		end
 	end
 
-	def self.set_tree_xy root, children_list
+	def self.set_tree_xy root, children_list = nil
 		logger.info "ROOT_ID#{root.id}"
+		if(children_list.nil?)
+			children_list = User.children_list
+		end
 
 		files= User.json_tree(children_list[root.id], children_list)
 		count=children_list[root.id].size
@@ -337,6 +340,46 @@ class User < ActiveRecord::Base
 		self.displayX = rand(CANVAS_WIDTH)-(CANVAS_WIDTH/2)
 		self.displayY = rand(CANVAS_HEIGHT)-(CANVAS_HEIGHT/2)
 		self.save!
+	end
+	def my_rank type
+		rank = 0
+		rank_node_cnt = -1
+		same_rank = 1
+		User.order("#{type} DESC").all.each_with_index do |user , i|
+			if(rank_node_cnt == user.node_cnt)
+				same_rank = same_rank + 1
+			else
+				rank_node_cnt = user.node_cnt
+				rank = rank + same_rank
+			end
+			if(user == self)
+				break
+			end
+		end
+		rank
+	end
+	def self.all_rank type
+		rank = 0
+		rank_node_cnt = -1
+		same_rank = 1
+		rank_array = Array.new
+		User.order("#{type} DESC").all.each_with_index do |user , i|
+			if(rank_node_cnt == user.node_cnt)
+				same_rank = same_rank + 1
+			else
+				rank_node_cnt = user.node_cnt
+				rank = rank + same_rank
+				same_rank = 1
+			end
+			rank_array.push({ 
+					:id => user.id,
+					:name => user.username,
+					:node_cnt => user.node_cnt,
+					:point => user.point,
+					:rank => rank
+				})
+		end
+		rank_array
 	end
 private
 	def self.color_r(color)

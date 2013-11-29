@@ -25,7 +25,7 @@ class MapController < ApplicationController
 					a.save
 				end
 
-				User.set_tree_xy newbie.root
+				User.set_tree_xy newbie.root 
 			end
 
 			newbie.link_in 
