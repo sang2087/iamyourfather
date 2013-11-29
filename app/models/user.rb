@@ -189,6 +189,51 @@ class User < ActiveRecord::Base
 		end
 	end
 
+	def self.make_json user_id
+		users = User.all.order("ancestry")
+		user = User.find(user_id)
+		unless user.get_facebook.nil?
+			friends_hash = User.find(user_id).get_facebook.check_friends
+		end
+		json = Hash.new
+		json["nodes"] = Array.new
+		json["edges"] = Array.new
+		users.each do |u|
+			if (u.id == user_id.to_i)
+				mark = "me"
+			elsif (!friends_hash.nil? and !friends_hash["#{user.id}"].nil?)
+				mark = "friend"
+			else
+				mark = ""
+			end
+			json["nodes"] << {
+				'id' => "#{u.id}",
+				'label' => "#{u.username}(#{user.node_cnt-1})",
+				'attributes' => [{
+					'attr' => "sign",
+					'val' => mark}],
+				'size' => Math.log2(u.node_cnt + 1).to_f,
+				'color' => "rgba(#{User.color_r(u.color)},#{User.color_g(u.color)},#{User.color_b(u.color)},1.0)",
+				'x' => u.displayX.to_f,
+				'y' => u.displayY.to_f,
+				}
+		end
+		cnt = 0
+		users.each do |u|
+			unless(u.parent_id.nil?)
+				cnt += 1
+				json["edges"] << {
+					'id'=> "#{cnt}",
+					'sourceID' => "#{u.parent_id}",
+					'targetID' => "#{u.id}",
+					'attributes' => [],
+					'label' => nil
+				}
+			end
+		end
+		return json
+	end
+
 	def self.make_gexf user_id
 		users = User.all.order("ancestry")
 		user = User.find(user_id)
