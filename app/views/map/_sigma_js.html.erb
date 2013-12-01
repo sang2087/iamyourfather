@@ -1,29 +1,37 @@
-
-	function init() {
+//<script>
+	function init(type_option) {
 		// Instanciate sigma.js and customize rendering :
+		var labelThreshold = 6
+		if(type_option == 'family')
+			labelThreshold = 0
+
 		var sigInst = sigma.init(document.getElementById('sigma-example')).drawingProperties({
 			defaultLabelColor: '#fff',
 			defaultLabelSize: 14,
 			defaultLabelBGColor: '#fff',
 			defaultLabelHoverColor: '#000',
-			labelThreshold: 6,
+			labelThreshold: labelThreshold,
 			defaultEdgeType: 'line',
-			edgesSpeed: 100,
-			nodesSpeed: 100,
-			labelsSpeed: 100
+			edgesSpeed: 50,
+			nodesSpeed: 50,
+			labelsSpeed: 50
 		}).graphProperties({
 			minNodeSize: 1,
 			maxNodeSize: 10,
 			minEdgeSize: 2,
-			maxEdgeSize: 2
+			maxEdgeSize: 2,
+			sideMargin: 50
 		}).mouseProperties({
-			maxRatio: 50
+			maxRatio: 30
 		});
 
 	// Parse a GEXF encoded file to fill the graph
 	// (requires "sigma.parseGexf.js" to be included)
 	//sigInst.parseJson('data/data.json');
-	sigInst.parseGexf('data/data.gexf');
+	if(type_option == 'family')
+		sigInst.parseGexf('data/family_data.gexf');
+	else if(type_option == 'all')
+		sigInst.parseGexf('data/data.gexf');
 
 	// Bind events :
 		sigInst.bind('overnodes',function(event){

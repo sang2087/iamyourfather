@@ -12,11 +12,14 @@
 <div class="container-responsive">
 	<div class="row">
 		<div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
+<%########################HEADERS#####################%>
 			<div class="page-header">
 				<h1>:: I AM YOUR FATHER <small><%=t :subtitle %></small></h1>
 				<div class="fb-like" data-href="http://www.i-am-your-father.com" data-width="100%" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
 				<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.i-am-your-father.com" data-hashtags="iamyourfather">Tweet</a>
 				<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+				<a class="btn btn-primary active" id = "family_mode" onclick="family_mode();" href = "#"><%= t :family_mode%></a>
+				<a class="btn btn-primary" id = "all_mode" onclick="all_mode()" href = "#"><%= t :all_mode%></a>
 			</div>
 <%########################CANVAS#####################%>
 			<div class="sigma-parent" id="sigma-example-parent">
@@ -267,7 +270,8 @@
 		
 		<%=render :partial => 'map/node_click_event'%>
 
-		init()
+		init('family')
+
 		$("#friend_search").bind("keyup input paste",function(){
 			str = $("#friend_search").val().toLowerCase()
 			console.log(str);
@@ -523,6 +527,33 @@
 		else if(function_type.toLowerCase() == "seize")
 			return "<%= t :want_seize%>"
 	}
+	function family_mode(){
+		$(".sigma_edges_canvas").remove()
+		$(".sigma_nodes_canvas").remove()
+		$(".sigma_labels_canvas").remove()
+		$(".sigma_hover_canvas").remove()
+		$(".sigma_moniter_canvas").remove()
+		$(".sigma_mouse_canvas").remove()
+
+		$("#all_mode").removeClass("active")
+		$("#family_mode").addClass("active")
+		init('family')
+	}
+	function all_mode(){
+		$(".sigma_edges_canvas").remove()
+		$(".sigma_nodes_canvas").remove()
+		$(".sigma_labels_canvas").remove()
+		$(".sigma_hover_canvas").remove()
+		$(".sigma_moniter_canvas").remove()
+		$(".sigma_mouse_canvas").remove()
+
+
+
+		$("#family_mode").removeClass("active")
+		$("#all_mode").addClass("active")
+		init('all')
+	}
+
 
 //})
 </script>

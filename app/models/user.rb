@@ -6,8 +6,8 @@ class User < ActiveRecord::Base
 
 	APP_ID = '562260310492321'
   APP_SECRET = '9b209a9e006a2244f69419ee5a2b2355'
-	CANVAS_WIDTH = 1600
-	CANVAS_HEIGHT = 1600
+	CANVAS_WIDTH = 800
+	CANVAS_HEIGHT = 800
 
 	has_ancestry 
 	has_many :point_logs
@@ -18,12 +18,13 @@ class User < ActiveRecord::Base
 		children_list[nil].each do |root_id|
 			User.find(root_id).rand_display_xy
 			unless children_list[root_id].nil?
-				self.set_tree_xy User.find(root_id), children_list
+				self.set_tree_xy User.find(root_id), children_list, 'all'
+				self.set_tree_xy User.find(root_id), children_list, 'family'
 			end
 		end
 	end
 
-	def self.set_tree_xy root, children_list = nil
+	def self.set_tree_xy root, children_list = nil, type= 'all'
 		logger.info "ROOT_ID#{root.id}"
 		if(children_list.nil?)
 			children_list = User.children_list
@@ -39,12 +40,19 @@ class User < ActiveRecord::Base
 				.right(0)
 				.top(0)
 				.bottom(0)
-
-		tree = vis.add(Rubyvis::Layout::Tree).
-			nodes(Rubyvis.dom(files).root(1).nodes()).
-			orient('radial').
-			depth(85).
-			breadth(180/count)
+		if(type == 'all')
+			tree = vis.add(Rubyvis::Layout::Tree).
+				nodes(Rubyvis.dom(files).root(1).nodes()).
+				orient('radial').
+				depth(85).
+				breadth(180/count)
+		elsif(type == 'family')
+			tree = vis.add(Rubyvis::Layout::Tree).
+				nodes(Rubyvis.dom(files).root(1).nodes()).
+				orient('top').
+				depth(85).
+				breadth(180/count)
+		end
 
 #		tree.link.add(Rubyvis::Line)
 
@@ -75,19 +83,24 @@ class User < ActiveRecord::Base
 		end
 
 		# print all events
-		ret =""
 		rootX = root.displayX
 		rootY = root.displayY
-		
+
 		ids.each_with_index do |id, i|
 			user=User.find(id)
-			user.cx = dots[i][:x]
-			user.cy = dots[i][:y]
-			user.displayX = rootX + dots[i][:x]
-			user.displayY = rootY + dots[i][:y]
+			if(type=='all')
+				user.cx = dots[i][:x]
+				user.cy = dots[i][:y]
+				user.displayX = rootX + dots[i][:x]
+				user.displayY = rootY + dots[i][:y]
+			elsif(type == 'family')
+				user.fx = rootX+dots[i][:x]
+				user.fy = rootY+dots[i][:y]
+			end
 			user.save
 		end
 	end
+
 	def self.children_list
 		users = User.all
 		parents = Hash.new
@@ -233,10 +246,14 @@ class User < ActiveRecord::Base
 		end
 		return json
 	end
-
-	def self.make_gexf user_id
-		users = User.all.order("ancestry")
-		user = User.find(user_id)
+	def self.make_gexf user_id, type = 'all'
+		if(type == 'all')
+			users = User.all.order("ancestry")
+			user = User.find(user_id)
+		elsif type=='family'
+			user = User.find(user_id)
+			users = user.root.subtree.order("ancestry")
+		end
 		unless user.get_facebook.nil?
 			friends_hash = User.find(user_id).get_facebook.check_friends
 		end
@@ -248,6 +265,9 @@ class User < ActiveRecord::Base
 				xml.graph('defaultedgetype' => 'directed', 'idtype' => 'string', 'type' => 'static') do
 					xml.attributes("class" => "node", "mode" => "static") do
 						xml.attribute("id" => "sign", "title" => "Sign", "type" => "string")
+						if(type == 'family')
+							xml.attribute("id" => "picture", "title" => "Picture", "type" => "string")
+						end
 					end
 					xml.nodes do 
 						users.each do |user|
@@ -260,10 +280,19 @@ class User < ActiveRecord::Base
 									else
 										xml.attvalue('for' => "sign","value" => "")
 									end
+
+									if(type == 'family')
+										xml.attvalue('for' => "picture","value" => user.picture)
+									end
+
 								end
 								xml['viz'].size('value' => Math.log2(user.node_cnt + 1))
 								xml['viz'].color('r' => User.color_r(user.color), 'g' => User.color_g(user.color), 'b' => User.color_b(user.color))
-								xml['viz'].position('x' => user.displayX, 'y' => user.displayY,'z' => 0)
+								if(type == 'all')
+									xml['viz'].position('x' => user.displayX, 'y' => user.displayY,'z' => 0)
+								elsif(type == 'family')
+									xml['viz'].position('x' => user.fx, 'y' => user.fy,'z' => 0)
+								end
 							end
 						end
 					end
@@ -283,7 +312,6 @@ class User < ActiveRecord::Base
 		puts "end make_gxef"
 		builder.to_xml
 	end
-
 	def self.get_groups
 		roots = User.roots
 		roots_id = Array.new

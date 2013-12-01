@@ -1,9 +1,12 @@
 class SendDataController < ApplicationController
 	def data
-		data = User.make_gexf session[:user_id]
+		data = User.make_gexf session[:user_id], 'all'
 		render :xml => data 
 	end
-
+	def family_data
+		data = User.make_gexf session[:user_id], 'family'
+		render :xml => data 
+	end
 	def source
 		data = User.make_json session[:user_id]
 		render :json => data

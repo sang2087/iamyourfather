@@ -26,6 +26,7 @@ class MapController < ApplicationController
 				end
 
 				User.set_tree_xy newbie.root 
+				User.set_tree_xy newbie.root, nil, 'family'
 			end
 
 			newbie.link_in 

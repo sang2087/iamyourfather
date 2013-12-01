@@ -15,6 +15,9 @@ class CreateUsers < ActiveRecord::Migration
 			t.float :displayY,			:default => 0
 			t.float :cx,						:default => 0
 			t.float :cy,						:default => 0
+			t.float :fx,						:default => 0
+			t.float :fy,						:default => 0
+
 
       t.timestamps
     end
