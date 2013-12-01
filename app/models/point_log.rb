@@ -45,7 +45,6 @@ class PointLog < ActiveRecord::Base
 	end
 	
 	def self.seize user, your
-
 		code = 5
 		ret, limit_point, limit_node_cnt = PointLog.is_function_possible?(user, your, code)
 		if ret
@@ -106,23 +105,23 @@ class PointLog < ActiveRecord::Base
 		ret = false
 		case code
 		when 3
-			if(user.point + PointLog.deduct_point(code, nil) > 0 and user.node_cnt > bd.node_cnt)
+			if(user.point + PointLog.deduct_point(code, nil) >= 0 and user.node_cnt > bd.node_cnt)
 				ret = true
 			end
 			limit_point = bd.point
 			limit_node_cnt = bd.node_cnt
-		when 4
-			if (user.point + PointLog.deduct_point(code, your.node_cnt) > 0 and user.node_cnt > bd.node_cnt)
+		when 4,5
+			if (user.point + PointLog.deduct_point(code, your.node_cnt) >= 0 and your.node_cnt == 1)
 				ret = true
+				limit_point = (bd.point * your.node_cnt)
+				limit_node_cnt = 0
+			else
+			 	if (user.point + PointLog.deduct_point(code, your.node_cnt) >= 0 and user.node_cnt > bd.node_cnt)
+					ret = true
+				end
+				limit_point = (bd.point * your.node_cnt)
+				limit_node_cnt = bd.node_cnt
 			end
-			limit_point = (bd.point * your.node_cnt)
-			limit_node_cnt = bd.node_cnt
-		when 5
-			if (user.point + PointLog.deduct_point(code, your.node_cnt) > 0 and user.node_cnt > bd.node_cnt)
-				ret = true
-			end
-			limit_point = (bd.point * your.node_cnt)
-			limit_node_cnt = bd.node_cnt
 		end
 		puts "point!#{limit_point}"
 

@@ -52,3 +52,10 @@ en:
   banner: Banner
 
   dont_have_father: I don't have father. I am God.
+
+  rank_node_cnt: Descendants Number Rank
+  rank_point: Money Rank
+  rank: Rank
+
+  family_mode: Family Mode
+  all_mode: All Mode

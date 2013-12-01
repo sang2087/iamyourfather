@@ -59,6 +59,8 @@ ActiveRecord::Schema.define(version: 20131122191832) do
     t.float    "displayY",     default: 0.0
     t.float    "cx",           default: 0.0
     t.float    "cy",           default: 0.0
+    t.float    "fx",           default: 0.0
+    t.float    "fy",           default: 0.0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "ancestry"

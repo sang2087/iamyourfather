@@ -25,7 +25,8 @@ class MapController < ApplicationController
 					a.save
 				end
 
-				User.set_tree_xy newbie.root
+				User.set_tree_xy newbie.root 
+				User.set_tree_xy newbie.root, nil, 'family'
 			end
 
 			newbie.link_in 
@@ -59,6 +60,10 @@ class MapController < ApplicationController
 		puts "@is_point_get_login #{@is_point_get_login}"
 		session[:login_point] = false
 		@login_point = BaseData.where(:mytype=>"PointLog", :code=>7).first.point
+		@node_cnt_rank = @user.my_rank "node_cnt"
+		@point_rank = @user.my_rank "point"
+		@all_rank_node_cnt = User.all_rank "node_cnt"
+		@all_rank_point = User.all_rank "point"
 
   end
 
