@@ -416,13 +416,20 @@ class User < ActiveRecord::Base
 	end
 	def my_rank type
 		rank = 0
-		rank_node_cnt = -1
+		rank_type = -1
+		user_type = -2
 		same_rank = 1
 		User.order("#{type} DESC").all.each_with_index do |user , i|
-			if(rank_node_cnt == user.node_cnt)
+			if(type == 'node_cnt')
+				user_type = user.node_cnt
+			elsif(type == 'point')
+				user_type = user.point
+			end
+
+			if(rank_type == user_type)
 				same_rank = same_rank + 1
 			else
-				rank_node_cnt = user.node_cnt
+				rank_type = user_type
 				rank = rank + same_rank
 			end
 			if(user == self)
@@ -433,14 +440,20 @@ class User < ActiveRecord::Base
 	end
 	def self.all_rank type
 		rank = 0
-		rank_node_cnt = -1
+		rank_type = -1
+		user_type = -2
 		same_rank = 1
 		rank_array = Array.new
 		User.order("#{type} DESC").all.each_with_index do |user , i|
-			if(rank_node_cnt == user.node_cnt)
+			if(type == 'node_cnt')
+				user_type = user.node_cnt
+			elsif(type == 'point')
+				user_type = user.point
+			end
+			if(rank_type == user_type)
 				same_rank = same_rank + 1
 			else
-				rank_node_cnt = user.node_cnt
+				rank_type = user_type
 				rank = rank + same_rank
 				same_rank = 1
 			end
