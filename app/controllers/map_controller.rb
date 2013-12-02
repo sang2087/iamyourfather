@@ -2,10 +2,10 @@
 class MapController < ApplicationController
   def index
 		puts "@user map #{@user}"
-		name = params[:id] || (rand(User.count) + 1).to_s # 1 is the God
+		enter_id = params[:id] || (rand(User.count) + 1).to_s # 1 is the God
 		# need facebook login check
 		
-		father = User.find(name)
+		father = User.find(enter_id)
 
 		@is_session_user = session[:user_id]
 		if session[:user_id].nil? # session(cookie) check
@@ -13,12 +13,13 @@ class MapController < ApplicationController
 												:username => "Baby", # need to random in sample
 												:point => 0,
 												:color => father.color,
-												:banner => "Hello, World!",
+												:banner => "Hello",
 												:node_cnt => 1) # need to random in sample
 			newbie.parent = father
 			if newbie.save
 				session[:user_id] = newbie.id
 				newbie.username = "Baby-#{newbie.id}"
+				newbie.banner = "Baby-#{newbie.id}"
 				newbie.save!
 				newbie.ancestors.each do |a|
 					a.node_cnt += 1

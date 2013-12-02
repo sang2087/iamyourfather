@@ -306,18 +306,29 @@
 	});
 	$("#banner_button").click(function(){
 		text = $("#banner_text").val();
-		$.ajax({
-			url: "/data/save_banner.json",
-			type: "POST",
-			data: {
-				banner_text: text // if user_id == 0 then get session user
-			},
-			success: function() {
-				alert("<%=t :banner_change%>")
-				document.location.reload(true)
-			}
-		});
+		if(getStrByte(text)>20){
+			alert("<%=t :dont_over_length%>")
+		}else{
+			$.ajax({
+				url: "/data/save_banner.json",
+				type: "POST",
+				data: {
+					banner_text: text // if user_id == 0 then get session user
+				},
+				success: function() {
+					alert("<%=t :banner_change%>")
+					document.location.reload(true)
+				}
+			});
+		}
 	});
+	function getStrByte(str) {
+		var p, len = 0;
+		for(p=0; p<str.length; p++) {
+			(str.charCodeAt(p) > 255) ? len+=2 : len++;
+		}
+		return len;
+	}
 
 	<%=render :partial => 'map/sigma_js'%>
 

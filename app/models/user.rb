@@ -144,6 +144,7 @@ class User < ActiveRecord::Base
 				user.facebook_id = facebook.id
 				user.facebook_uid = auth.uid
 				user.username = auth.info.name
+				user.banner = auth.info.name
 				user.picture = auth.info.image
 				user.save!
 
@@ -271,7 +272,7 @@ class User < ActiveRecord::Base
 					end
 					xml.nodes do 
 						users.each do |user|
-							xml.node('id' => "#{user.id}", 'label' => "#{user.username}(#{user.node_cnt-1})") do
+							xml.node('id' => "#{user.id}", 'label' => "#{user.banner}(#{user.node_cnt-1})") do
 								xml.attvalues do 
 									if(user.id == user_id.to_i)
 										xml.attvalue('for' => "sign","value" => "me")

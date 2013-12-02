@@ -59,3 +59,4 @@ en:
 
   family_mode: Family Mode
   all_mode: All Mode
+  dont_over_length: Banner length have to under 20 characters.
