@@ -14,7 +14,7 @@
 		<div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
 <%########################HEADERS#####################%>
 			<div class="page-header">
-				<h1>:: I AM YOUR FATHER <small><%=t :subtitle %></small></h1>
+				<h1><span onclick='$("#noti").show()'>:: <%= t :title%></span> <small><%=t :subtitle %></small></h1>
 				<div class="fb-like" data-href="http://www.i-am-your-father.com" data-width="100%" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
 				<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.i-am-your-father.com" data-hashtags="iamyourfather">Tweet</a>
 				<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
@@ -24,6 +24,19 @@
 <%########################CANVAS#####################%>
 			<div class="sigma-parent" id="sigma-example-parent">
 				<div class="sigma-expand" id="sigma-example"></div>
+			</div>
+			<div>
+				<center>
+					<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+					<!-- iamyourfamily -->
+					<ins class="adsbygoogle"
+							 style="display:inline-block;width:970px;height:90px"
+							 data-ad-client="ca-pub-1261983873465389"
+							 data-ad-slot="8729541355"></ins>
+					<script>
+					(adsbygoogle = window.adsbygoogle || []).push({});
+					</script>
+				</center>
 			</div>
 		</div>
 <%########################DASHBOARD#####################%>
@@ -223,12 +236,24 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick='$("#noti").hide()'>&times;</button>
-					<h4 class="modal-title" id="noti_title">title</h4>	
+					<h4 class="modal-title" id="noti_title">I am your family</h4>	
 				</div>
 				<div class="modal-body" style="min-height:150px">
-					<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-						<span><%=t :noti%></span>
-					</div>
+						<p>
+						홀로 보내는 크리스마스만큼 시린 게 또 있을까요.<br>
+						어린 시절, 가족과 함께 보냈던 크리스마스는 따뜻하기만 했었지요.<br>
+						그것이 가족의 따뜻함 아닐까 합니다.<br>
+						이제 페이스북 친구를 넘어, 페이스북 가족이 되어봅시다.<br>
+						따뜻한 페이스북을 만들어봅시다.<br>
+						가족, 그건 너와 나를 이어주는 선 하나면 충분합니다.<br><br>
+
+						Make your family, I am your family.<br><br>
+
+						광고 수익 전액은 추운 겨울을 보내고 있을 소년, 소녀 가장들에게 가족의 온기가 되어 전달됩니다. 12월 25일, 기부 후 웹을 통해 공지하겠습니다.<br>
+
+						<strong>페이스북 로그인과, 많은 공유를 할수록, 소년, 소녀 가장에게 더욱 따뜻한 온기를 전할 수 있습니다.</strong><br>
+						</p>
+
 				</div>
 				<div class="modal-footer">
 					<div id="noti_button" class="row-fluid">
