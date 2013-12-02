@@ -71,12 +71,10 @@
 								<%=t :dont_have_father%>
 							<%end%>
 						</h3>
-
 						<h3><%=t :child_count %> : <%=@user.node_cnt - 1%></h3>
 						<h3><%=t :rank_node_cnt %> : <%=@node_cnt_rank%></h3>
 						<h3><%=t :rank_point %> : <%=@point_rank%></h3>
 						<hr>
-			
 	<%########################STATUS#####################%>
 						<h3><%=t :money %> : <%=t :mark %><%=@user.point-%><%= t :unit %></h3>
 						<h3><%=t :banner %> : 
@@ -121,51 +119,53 @@
 						<ul class="nav nav-tabs">
 							<li class="active"><a href="#rank_node_cnt" data-toggle="tab"><%=t :child_count%></a></li>
 							<li><a href="#rank_point" data-toggle="tab"><%=t :money%></a></li>
-
 						</ul>
 										<!-- Tab panes -->
 						<div class="tab-content">
 							<div class="tab-pane fade in active" id="rank_node_cnt">
-								<table class="table table-striped ">
-									<thead>
-										<tr>
-											<th><%=t :rank%></th>
-											<th><%=t :name %></th>
-											<th><%=t :child_count %></th>
-										</tr>
-									</thead>
-									<tbody id="friends_list">
-										<%@all_rank_node_cnt.each do |u|%>
+								<div class="rank_div">
+									<table class="table table-striped ">
+										<thead>
 											<tr>
-												<td><%=u[:rank]%></td>
-												<td><%=u[:name]%></td>
-												<td><%=u[:node_cnt] -1 %></td>
+												<th><%=t :rank%></th>
+												<th><%=t :name %></th>
+												<th><%=t :child_count %></th>
 											</tr>
-										<%end%>
-									</tbody>
-								</table>
+										</thead>
+										<tbody id="rank_node_cnt">
+											<%@all_rank_node_cnt.each do |u|%>
+												<tr>
+													<td><%=u[:rank]%></td>
+													<td><a href="#" onclick="information_dialog(<%=u[:id]%>)"><%=u[:name]%></a></td>
+													<td><%=u[:node_cnt] -1 %></td>
+												</tr>
+											<%end%>
+										</tbody>
+									</table>
+								</div>
 							</div>
 							<div class="tab-pane fade " id="rank_point">
-								<table class="table table-striped">
-									<thead>
-										<tr>
-											<th><%=t :rank%></th>
-											<th><%=t :name %></th>
-											<th><%=t :money %></th>
-										</tr>
-									</thead>
-									<tbody id="friends_list">
-										<%@all_rank_point.each do |u|%>
+								<div class="rank_div">
+									<table class="table table-striped">
+										<thead>
 											<tr>
-												<td><%=u[:rank]%></td>
-												<td><%=u[:name]%></td>
-												<td><%=u[:point]%></td>
+												<th><%=t :rank%></th>
+												<th><%=t :name %></th>
+												<th><%=t :money %></th>
 											</tr>
-										<%end%>
-									</tbody>
-								</table>
+										</thead>
+										<tbody id="rank_point">
+											<%@all_rank_point.each do |u|%>
+												<tr onclick="information_dialog(<%=u[:id]%>)">
+													<td><%=u[:rank]%></td>
+													<td><a href="#" onclick="information_dialog(<%=u[:id]%>)"><%=u[:name]%></a></td>
+													<td><%=u[:point]%></td>
+												</tr>
+											<%end%>
+										</tbody>
+									</table>
+								</div>
 							</div>
-
 						</div>
 					</div>
 				</div>
@@ -198,6 +198,14 @@
 							<tr>
 								<th><strong><%=t :child_count%></strong></th>
 								<th><span id="dialog_node_cnt">0</span></th>
+							</tr>
+							<tr>
+								<th><strong><%=t :rank_node_cnt%></strong></th>
+								<th><span id="dialog_rank_node_cnt">0</span></th>
+							</tr>
+							<tr>
+								<th><strong><%=t :rank_point%></strong></th>
+								<th><span id="dialog_rank_point">0</span></th>
 							</tr>
 						</table>
 					</div>
@@ -334,6 +342,7 @@
 		remove_btn_class();
 		$("#dialog").hide();
 	}
+
 	function friends_page(num){
 		var start = friends_cnt_per_page * (num - 1)
 		var end = friends_cnt_per_page * num ; 
@@ -425,7 +434,8 @@
 			},
 			success: function(data) {
 				user = data.user
-				set_dialog_html("Betray", user, data.is_function_possible, data.limit_point, data.limit_node_cnt)
+				rank = data.rank
+				set_dialog_html("Betray", user, data.is_function_possible, data.limit_point, data.limit_node_cnt, rank)
 			}
 		});
 	}
@@ -440,7 +450,8 @@
 			},
 			success: function(data) {
 				user = data.user
-				set_dialog_html("Seize", user, data.is_function_possible, data.limit_point, data.limit_node_cnt)
+				rank = data.rank
+				set_dialog_html("Seize", user, data.is_function_possible, data.limit_point, data.limit_node_cnt,rank)
 			}
 		});
 	}
@@ -456,16 +467,20 @@
 			},
 			success: function(data) {
 				user = data.user
-				set_dialog_html("Information", user, data.is_function_possible, data.limit_point, data.limit_node_cnt)
+				rank = data.rank
+				set_dialog_html("Information", user, data.is_function_possible, data.limit_point, data.limit_node_cnt, rank)
 			}
 		});
 	}
 
-	function set_dialog_html(function_type, user, is_possible, limit_point, limit_node_cnt){
+	function set_dialog_html(function_type, user, is_possible, limit_point, limit_node_cnt,rank){
+		console.log(rank)
 		$("#dialog_title").text(ment_set(function_type) + " - " + user.banner);
 		$("#dialog_name").text(user.username);
 		$("#dialog_point").text("<%= t :mark %>" + user.point +"<%= t :unit %>");
-		//$("#dialog_node_cnt").text(user.node_cnt - 1);
+		$("#dialog_node_cnt").text(user.node_cnt - 1);
+		$("#dialog_rank_node_cnt").text(rank["node_cnt_rank"]);
+		$("#dialog_rank_point").text(rank["point_rank"]);
 		$("#dialog_image").attr("src",user.picture);
 		var html = ""
 		var my_id=<%=@user.id%>;
@@ -482,8 +497,6 @@
 			descendant_ids=<%=@descendants%>
 			console.log("ANC" + ancestor_ids)
 			console.log("DES" + descendant_ids)
-			console.log(function_type == "Seize")
-		 	console.log(ancestor_ids.indexOf(node_id)>=0)
 			if(node_id == my_id){
 				html += "<%=t :cant_me%>"
 			}else if(function_type == "Seize" && ancestor_ids.indexOf(node_id)>=0){
@@ -614,6 +627,10 @@
 	.dialog_image{
 		width: 100px;
 		height: 100px;
+	}
+	.rank_div{
+		overflow:scroll;
+		height : 600px;
 	}
 	table, tr, td, th {
 		text-align:center;

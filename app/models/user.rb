@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
 		end
 	end
 
-	def self.set_tree_xy root, children_list = nil, type= 'all'
+	def self.set_tree_xy root, children_list = nil, type = 'all'
 		logger.info "ROOT_ID#{root.id}"
 		if(children_list.nil?)
 			children_list = User.children_list
@@ -363,7 +363,7 @@ class User < ActiveRecord::Base
 		end
 
 		PointLog.betray self, youruser
-		User.set_tree_xy(self.root)
+		User.set_tree_xy(self.root, nil, 'family')
 
 	end
 
@@ -391,7 +391,7 @@ class User < ActiveRecord::Base
 			descentdant.save!
 		end
 		PointLog.seize self, youruser
-		User.set_tree_xy(self.root)
+		User.set_tree_xy(self.root, nil, 'family')
 	end
 
 	def independance
@@ -405,7 +405,7 @@ class User < ActiveRecord::Base
 		end
 		self.rand_display_xy
 
-		User.set_tree_xy(self)
+		User.set_tree_xy(self.root, nil, 'family')
 		PointLog.independance self
 	end
 

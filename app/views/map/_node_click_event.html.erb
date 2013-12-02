@@ -25,7 +25,8 @@ $("#independance").click(function(){
 		},
 		success: function(data) {
 			user = data.user
-			set_dialog_html("Independance", user, data.is_function_possible, data.limit_point, data.limit_node_cnt)
+			rank = data.rank
+			set_dialog_html("Independance", user, data.is_function_possible, data.limit_point, data.limit_node_cnt, rank)
 		}
 	});
 
