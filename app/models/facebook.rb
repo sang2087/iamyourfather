@@ -1,6 +1,7 @@
 #encoding : utf-8
 class Facebook < ActiveRecord::Base
 	URL = "http://i-am-your-father.com/"
+	PAGE_ID = "469742759805428"
 
 #  attr_accessible :gender, :link, :locale, :name, :uid
 	def get_user 
@@ -74,11 +75,28 @@ class Facebook < ActiveRecord::Base
   def post_wall user
     fb_user = FbGraph::User.me(self.oauth_token)
 		name = "I-AM-YOUR-FATHER"
+		tags = Array.new
 		if I18n.locale.to_s == 'ko' 
 			if user.depth.nil?
 				message = "제가 집안을 일으켰습니다.\n우리 집안에 참여하시려면 클릭하세요!"
 			else
-				message = "나의 아버지는 #{user.parent.username}이며, #{user.root.username}의 #{user.depth}대 손입니다.\n우리 집안에 참여하시려면 클릭하세요!"
+				parent = user.parent
+				root = user.root
+				parent_facebook = parent.get_facebook
+				root_facebook = root.get_facebook
+
+				unless root_facebook.nil?
+					unless root_facebook.uid.nil?
+						tags.push(root_facebook.uid)
+					end
+				end
+				unless parent_facebook.nil?
+					unless parent_facebook.uid.nil?
+						tags.push(parent_facebook.uid)
+					end
+				end
+
+				message = "나의 아버지는 #{parent.username}이며, #{root.username}의 #{user.depth}대 손입니다.\n우리 집안에 참여하시려면 클릭하세요!"
 			end
 			description = "I-AM-YOUR-FATHER 내가 니 애비다.\nMake your son.\nEnjoy this funny social game"	
 		else
@@ -97,7 +115,9 @@ class Facebook < ActiveRecord::Base
 				:picture => picture,
 				:link => URL + "#{user.id}",
 				:name => name,
-				:description => description
+				:description => description,
+				:place => PAGE_ID,
+				:tags => tags
 			)
 		rescue Exception => e  
 			logger.info("ERROR !!! #{self.id} cannot feed")
