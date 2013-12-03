@@ -16,7 +16,8 @@
 		left: 0;
 		width: 318px;
 		height: 227px;
-		background: url('/img/header.gif');
+		background: url('/img/header.png');
+		background-size:318px 227px;
 		z-index:100;
 	}
 </style>
@@ -32,8 +33,8 @@
 					<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.iamyourfamily.com" data-hashtags="iamyourfamily">Tweet</a>
 					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 					<div class="btn-group">
-						<a class="btn btn-primary active" id = "family_mode" onclick="family_mode();" href = "#"><%= t :family_mode%></a>
-						<a class="btn btn-primary" id = "all_mode" onclick="all_mode()" href = "#"><%= t :all_mode%></a>
+						<a class="btn btn-danger active" id = "family_mode" onclick="family_mode();" href = "#"><%= t :family_mode%></a>
+						<a class="btn btn-danger" id = "all_mode" onclick="all_mode()" href = "#"><%= t :all_mode%></a>
 					</div>
 				</div>
 				<div class="clearfix"></div>
@@ -56,14 +57,12 @@
 				<script>
 					(adsbygoogle = window.adsbygoogle || []).push({});
 				</script>
-
-
 			</div>
 		</div>
 <%########################DASHBOARD#####################%>
 		<div class="col-xs-12 col-sm-4 col-md-4 col-lg-3" id="dashboard">
-			<div class="panel panel-<%=%w[info warning success danger].sample-%>" style="display:block;min-height:700px;">
-				<div class="panel-heading">Dashboard - <%=t :language %> : <a href="/?lang=ko">Kor</a> / <a href="/?lang=en">Eng</a></div>
+			<div class="panel panel-danger" style="display:block;min-height:700px;">
+				<div class="panel-heading">Dashboard - <%=t :language %> : <a href="/?lang=ko" style="color:white">Kor</a> / <a href="/?lang=en" style="color:white">Eng</a></div>
 				<div class="panel-body">
 				<!-- Nav tabs -->
 				<ul class="nav nav-tabs">
@@ -75,66 +74,74 @@
 				<div class="tab-content">
 <%########################INFO TAB#####################%>
 					<div class="tab-pane fade in active" id="info">
-	<%########################FACEBOOK LOGIN#####################%>
-						<%if @facebook_login%>
-							<%= link_to "#{t :sign_out}", signout_path, id: "sign_out", class:"btn btn-primary btn-sm" %>
-						<%else%>
-							<span class="tooltips" data-toggle="tooltip" data-placement="bottom" title="<%=t :sign_in_info %>"><%= link_to "#{t :sign_in}", "/auth/facebook", id: "sign_in", class:"btn btn-primary btn-sm"%></span>
-						<%end%>
-	<%########################FACEBOOK SHARE#####################%>
-						<p><%=t :shareinfo %></p>
-						<input type="text" id="share_url" value="http://iamyourfamily.com/<%=@user.id-%>" onclick="$('#share_url').select()" style="width:100%" READONLY/>
-						<%if @facebook_login%>
-							<button type="button" onclick="facebook_post();" class="tooltips btn btn-primary btn-sm" data-toggle="tooltip" data-placement="bottom" title="<%=t :facebook_share_info %>">
-								<%= t :facebook_share%>
-							</button>
-							<!--<a href="#" onclick="facebook_post();"><img src="/img/fbshare.png" border=0 ></a>-->
-						<%else%>
-							<!--<div class="fb-share-button" data-href="http://iamyourfamily.com/<%=@user.id%>" data-width="100" data-type="button_count"></div>-->
-							<a href="https://www.facebook.com/dialog/feed?app_id=215886731905255&display=popup&caption=I%20am%20Your%20Family&link=http://iamyourfamily.com/<%=@user.id%>&redirect_uri=http://iamyourfamily.com&picture=http://iamyourfamily.com/img/thumb.png&description=Enjoy%20Great%20Universe">
-								<button class="tooltips btn btn-primary btn-sm" data-toggle="tooltip" data-placement="bottom" title="<%=t :facebook_share_info %>">
-									<%= t :facebook_share%>
+	<%########################FACEBOOK #####################%>
+	<br>
+						<%=t :shareinfo %>
+						<input type="text" id="share_url" value="http://iamyourfamily.com/<%=@user.id-%>" onclick="$('#share_url').select()" style="margin-top:3px;margin-bottom:6px;width:100%" READONLY/>
+						<span style="float:right">
+							<%if @facebook_login%>
+								<%= link_to "#{t :sign_out}", signout_path, id: "sign_out", class:"btn btn-primary" %>
+							<%else%>
+								<span class="tooltips" data-toggle="tooltip" data-placement="bottom" title="<%=t :sign_in_info %>">
+									<%= link_to "/auth/facebook", id: "sign_in", class:"btn btn-primary" do %>
+										<img class="function_icon" src="/img/facebook.png"> <%=t :sign_in%> 
+									<%end%>
+									</span>
+							<%end%>
+							<%if @facebook_login%>
+								<button type="button" onclick="facebook_post();" class="tooltips btn btn-primary " data-toggle="tooltip" data-placement="bottom" title="<%=t :facebook_share_info %>">
+									<img class="function_icon" src="/img/facebook.png"> <%= t :facebook_share%>
 								</button>
-							</a>
-						<%end%>
-
+								<!--<a href="#" onclick="facebook_post();"><img src="/img/fbshare.png" border=0 ></a>-->
+							<%else%>
+								<!--<div class="fb-share-button" data-href="http://iamyourfamily.com/<%=@user.id%>" data-width="100" data-type="button_count"></div>-->
+								<a href="https://www.facebook.com/dialog/feed?app_id=215886731905255&display=popup&caption=I%20am%20Your%20Family&link=http://iamyourfamily.com/<%=@user.id%>&redirect_uri=http://iamyourfamily.com&picture=http://iamyourfamily.com/img/thumb.png&description=Enjoy%20Great%20Universe">
+									<button class="tooltips btn btn-primary " data-toggle="tooltip" data-placement="bottom" title="<%=t :facebook_share_info %>">
+				<img class="function_icon" src="/img/facebook.png"> <%= t :facebook_share%>
+									</button>
+								</a>
+							<%end%>
+						</span>
+						<div style="clear:both"></div>
 						<hr>
 	<%########################FAMILY#####################%>
-						<h3><%=t :iam %>: <%=@user.username-%></h2>
-						<p>
-							<%if @is_father%>
-								<%=t :your_founder-%> : <a href="#" onclick="information_dialog(<%=@founder.id%>);"><%=@founder.username%></a>, <%=@founder_depth%><br>
-								<%=t :your_father-%> : <a href="#" onclick="information_dialog(<%=@father.id%>);"><%=@father.username%></a>
-							<%else%>
-								<%=t :dont_have_father%>
-							<%end%><br>
-							<%=t :child_count %> : <%=@user.node_cnt - 1%>
-						</p>
-						<p><%=t :rank_node_cnt %> : <%=@node_cnt_rank%><br>
-							<%=t :rank_point %> : <%=@point_rank%></p>
-						<hr>
-	<%########################STATUS#####################%>
-						<p class="tooltips" data-toggle="tooltip" data-placement="bottom" title="<%=t :money_info %>">
-							<%=t :money %> : <%=t :mark %><%=@user.point-%><%= t :unit %>
-						</p>
-						<div>
-							<p class="tooltips" data-toggle="tooltip" data-placement="bottom" title="<%=t :banner_info %>">
-								<%=t :banner %> : 
+						<div style="font-size:18px">
+							<p><%=t :iam %>: <%=@user.username-%></p>
+							<p>
+								<%if @is_father%>
+									<%=t :your_founder-%> : <a href="#" onclick="information_dialog(<%=@founder.id%>);"><%=@founder.username%></a>, <%=@founder_depth%><br>
+									<%=t :your_father-%> : <a href="#" onclick="information_dialog(<%=@father.id%>);"><%=@father.username%></a>
+								<%else%>
+									<%=t :dont_have_father%>
+								<%end%><br>
+								<%=t :child_count %> : <%=@user.node_cnt - 1%>
 							</p>
-							<input type ="text" id="banner_text" style="width:100%"value="<%=@user.banner%>">
-							<button class="btn btn-info" id="banner_button" ><%=t :edit%></button>
+							<p><%=t :rank_node_cnt %> : <%=@node_cnt_rank%><br>
+								<%=t :rank_point %> : <%=@point_rank%></p>
+							<hr>
+		<%########################STATUS#####################%>
+							<p class="tooltips" data-toggle="tooltip" data-placement="bottom" title="<%=t :money_info %>">
+								<%=t :money %> : <%=t :mark %><%=@user.point-%><%= t :unit %>
+							</p>
+							<div>
+								<p class="tooltips" data-toggle="tooltip" data-placement="bottom" title="<%=t :banner_info %>">
+									<%=t :banner %> 
+								</p>
+								<input type ="text" style="width:73%" id="banner_text" value="<%=@user.banner%>">
+								<a href="#" class="btn btn-primary" style="float:right" id="banner_button"><%=t :edit%></a>
+							</div>
 						</div>
 						<hr>
-						<div class="btn-group">
-							<a href="#" class="tooltips btn btn-warning" id="independance" data-toggle="tooltip" data-placement="bottom" title="<%=t :iinfo %>">
+						<div class="btn-group" style="width:100%">
+							<a href="#" class="tooltips btn btn-warning function_button" id="independance" data-toggle="tooltip" data-placement="bottom" title="<%=t :iinfo %>">
 								<img src="/img/ind.gif" class="function_icon">
 								<%=t :independance%>
 							</a>
-							<a href="#" class="tooltips btn btn-warning" id="betray" data-toggle="tooltip" data-placement="bottom" title="<%=t :binfo %>">
+							<a href="#" class="tooltips btn btn-warning function_button" id="betray" data-toggle="tooltip" data-placement="bottom" title="<%=t :binfo %>">
 								<img src="/img/betray.gif" class="function_icon">
 								<%=t :betray %>
 							</a>
-							<a href="#" class="tooltips btn btn-warning" id="seize" data-toggle="tooltip" data-placement="bottom" title="<%=t :sinfo %>">
+							<a href="#" class="tooltips btn btn-warning function_button" id="seize" data-toggle="tooltip" data-placement="bottom" title="<%=t :sinfo %>">
 								<img src="/img/seize.gif" class="function_icon">
 								<%=t :seize %>
 							</a>
@@ -297,10 +304,10 @@
 				<div class="modal-footer">
 					<div id="noti_button" class="row-fluid">
 						<%if @facebook_login%>
-							<%= link_to "#{t :tour}", "#", class:"btn btn-info btn-sm", onclick:"$('#noti').hide()" %>
+							<%= link_to "#{t :tour}", "#", class:"btn btn-info ", onclick:"$('#noti').hide()" %>
 						<%else%>
-							<%= link_to "#{t :tour}", "#", class:"btn btn-info btn-sm", onclick:"$('#noti').hide()" %>
-							<%= link_to "#{t :sign_in}", "/auth/facebook", id: "sign_in", class:"btn btn-primary btn-sm" %>
+							<%= link_to "#{t :tour}", "#", class:"btn btn-info ", onclick:"$('#noti').hide()" %>
+							<%= link_to "#{t :sign_in}", "/auth/facebook", id: "sign_in", class:"btn btn-primary" %>
 						<%end%>
 					</div>
 				</div>
@@ -640,6 +647,7 @@
 
 		$("#family_mode").removeClass("active")
 		$("#all_mode").addClass("active")
+
 		init('all')
 	}
 
@@ -650,6 +658,13 @@
 <style type="text/css">
 	/* sigma.js context : */
 	.sigma-parent {
+			background-image: url('/img/s1.png'), url('/img/s2.png'), url('/img/s3.png');
+			-webkit-animation: snow 10s linear infinite;
+			-moz-animation: snow 10s linear infinite;
+			-ms-animation: snow 10s linear infinite;
+			animation: snow 10s linear infinite;
+
+
 		background-color:rgba(2,2,2,0.5);
 		position: relative;
 		margin-top:20px;
@@ -693,13 +708,8 @@
 			padding:20px
 
 	 	}
-		.over_div{
-			background-image: url('/img/s1.png'), url('/img/s2.png'), url('/img/s3.png');
-			-webkit-animation: snow 10s linear infinite;
-			-moz-animation: snow 10s linear infinite;
-			-ms-animation: snow 10s linear infinite;
-			animation: snow 10s linear infinite;
 
+		.over_div{
 		}
 		@keyframes snow {
 			0% {background-position: 0px 0px, 0px 0px, 0px 0px;}
@@ -735,14 +745,35 @@
 	}
 	.rank_div{
 		overflow:scroll;
-		height : 600px;
+		height : 470px;
 	}
 	table, tr, td, th {
 		text-align:center;
 	}
 	.function_icon{
-		height:15px;
-		width:15px;
+		height:20px;
+		width:20px;
+	}
+	.btn{
+		font-size:20px;
+		padding-top:3px;
+		padding-bottom:3px;
+
+	}
+	.nav-tabs>li>a {
+		font-size:16px;
+
+	}
+	.nav-tabs>li>a {
+		color:#b94a48;
+	}
+	
+	body {
+		color:#555;
+	}
+	.function_button {
+		width:33%;
+		font-size:25px;
 	}
 </style>
 <!--<audio src="/sound/starwars.mp3" preload="auto" autoplay="autoplay" loop="loop" style="width:0" /> -->

@@ -7,7 +7,7 @@ en:
   money_info: "If someone enter through this link, you will take donation point. You can donation with donation point."
   mark: ""
   unit: ""
-  fblist: Facebook Friend
+  fblist: FB Friends
   independance: New Family
   betray: Move
   seize: Adopt
@@ -29,17 +29,17 @@ en:
   noti: aaaaaaaaaaaaaaaaaaaa
   complete: Complete!
 
-  facebook_share: Facebook Share
+  facebook_share: Share
   facebook_share_info: You can invite many people to your descendants with facebook share.
   sign_out: Sign Out
-  sign_in: Facebook Login
+  sign_in: Login
   sign_in_info: "If you login facebook, you can send invitation message and share in facebook."
   tour: Tour
   invite: Invite
   invite_info: You will send invitation message through facebook.
   joined: Joined
   info: Info
-  facebook_friends: Facebook Friends
+  facebook_friends: FB Friends
   cant_me: Cannot seize or betray yourself
   cant_ancestor_seize: Cannot seize your ancestors
   cant_descendant_betray: Cannot move to your descendant

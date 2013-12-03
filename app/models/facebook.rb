@@ -74,11 +74,14 @@ class Facebook < ActiveRecord::Base
 
   def post_wall user
     fb_user = FbGraph::User.me(self.oauth_token)
-		name = "I-AM-YOUR-FATHER"
+		name = "I am your Family"
 		tags = Array.new
+
+
+
 		if I18n.locale.to_s == 'ko' 
 			if user.depth.nil?
-				message = "제가 집안을 일으켰습니다.\n우리 집안에 참여하시려면 클릭하세요!"
+				message = "제가 가정을 이뤘습니다.\n나의 가족이 되시려면 클릭하세요!"
 			else
 				parent = user.parent
 				root = user.root
@@ -95,17 +98,34 @@ class Facebook < ActiveRecord::Base
 						tags.push(parent_facebook.uid)
 					end
 				end
-
-				message = "나의 아버지는 #{parent.username}이며, #{root.username}의 #{user.depth}대 손입니다.\n우리 집안에 참여하시려면 클릭하세요!"
+						
+				message = "나의 부모는 #{parent.username}이며, #{root.username}의 #{user.depth}대손입니다.\n나의 기부 포인트는 #{user.point}입니다. 우리 가족에 참여하시려면 링크를 클릭하세요!"
 			end
-			description = "I-AM-YOUR-FATHER 내가 니 애비다.\nMake your son.\nEnjoy this funny social game"	
+			description = "I am your Family\n페이스북 친구를 넘어 페이스북 가족이 되어봅시다.\n링크에 들어오면 크리스마스에 소년 소녀 가장에게 기부가 됩니다."	
 		else
 			if user.depth.nil?
-				message = "#{user.parent.username} is #{user.username}'s father.\nif you make your son click this link."
+				message = "I make family.\nJoin my family by click this link!"
 			else
-				message = "My parent is #{user.parent.username}. and I am #{user.depth.ordinalize} of #{user.root.username}'s father.\nif you want to join my family, click this link."
+				parent = user.parent
+				root = user.root
+				parent_facebook = parent.get_facebook
+				root_facebook = root.get_facebook
+
+				unless root_facebook.nil?
+					unless root_facebook.uid.nil?
+						tags.push(root_facebook.uid)
+					end
+				end
+				unless parent_facebook.nil?
+					unless parent_facebook.uid.nil?
+						tags.push(parent_facebook.uid)
+					end
+				end
+					
+				message = "My parent is #{parent.username} and my founder is #{root.username}. My donation point is #{user.point}.\nif you want to join my family click this link."
 			end
-			description = "I-AM-YOUR-FATHER.\nMake your son.\nEnjoy this funny social game"	
+			description = "I am your Family\n페이스북 친구를 넘어 페이스북 가족이 되어봅시다.\n링크에 들어오면 크리스마스에 소년 소녀 가장에게 기부가 됩니다."	
+			description = "I am your Family.\nLet's be a family beyond facebook friends.\nIf you enter this link, you will donate to poor children."	
 		end
 		picture = "#{URL}img/thumb.png" 
 
