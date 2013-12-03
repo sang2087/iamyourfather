@@ -14,7 +14,7 @@
 		<div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
 <%########################HEADERS#####################%>
 			<div class="page-header">
-				<h1>:: I AM YOUR FATHER <small><%=t :subtitle %></small></h1>
+				<h1><span onclick='$("#noti").show()'>:: <%= t :title%></span> <small><%=t :subtitle %></small></h1>
 				<div class="fb-like" data-href="http://www.i-am-your-father.com" data-width="100%" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
 				<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.i-am-your-father.com" data-hashtags="iamyourfather">Tweet</a>
 				<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
@@ -24,6 +24,19 @@
 <%########################CANVAS#####################%>
 			<div class="sigma-parent" id="sigma-example-parent">
 				<div class="sigma-expand" id="sigma-example"></div>
+			</div>
+			<div>
+				<center>
+					<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+					<!-- iamyourfamily -->
+					<ins class="adsbygoogle"
+							 style="display:inline-block;width:970px;height:90px"
+							 data-ad-client="ca-pub-1261983873465389"
+							 data-ad-slot="8729541355"></ins>
+					<script>
+					(adsbygoogle = window.adsbygoogle || []).push({});
+					</script>
+				</center>
 			</div>
 		</div>
 <%########################DASHBOARD#####################%>
@@ -71,12 +84,10 @@
 								<%=t :dont_have_father%>
 							<%end%>
 						</h3>
-
 						<h3><%=t :child_count %> : <%=@user.node_cnt - 1%></h3>
 						<h3><%=t :rank_node_cnt %> : <%=@node_cnt_rank%></h3>
 						<h3><%=t :rank_point %> : <%=@point_rank%></h3>
 						<hr>
-			
 	<%########################STATUS#####################%>
 						<h3><%=t :money %> : <%=t :mark %><%=@user.point-%><%= t :unit %></h3>
 						<h3><%=t :banner %> : 
@@ -121,51 +132,53 @@
 						<ul class="nav nav-tabs">
 							<li class="active"><a href="#rank_node_cnt" data-toggle="tab"><%=t :child_count%></a></li>
 							<li><a href="#rank_point" data-toggle="tab"><%=t :money%></a></li>
-
 						</ul>
 										<!-- Tab panes -->
 						<div class="tab-content">
 							<div class="tab-pane fade in active" id="rank_node_cnt">
-								<table class="table table-striped ">
-									<thead>
-										<tr>
-											<th><%=t :rank%></th>
-											<th><%=t :name %></th>
-											<th><%=t :child_count %></th>
-										</tr>
-									</thead>
-									<tbody id="friends_list">
-										<%@all_rank_node_cnt.each do |u|%>
+								<div class="rank_div">
+									<table class="table table-striped ">
+										<thead>
 											<tr>
-												<td><%=u[:rank]%></td>
-												<td><%=u[:name]%></td>
-												<td><%=u[:node_cnt] -1 %></td>
+												<th><%=t :rank%></th>
+												<th><%=t :name %></th>
+												<th><%=t :child_count %></th>
 											</tr>
-										<%end%>
-									</tbody>
-								</table>
+										</thead>
+										<tbody id="rank_node_cnt">
+											<%@all_rank_node_cnt.each do |u|%>
+												<tr>
+													<td><%=u[:rank]%></td>
+													<td><a href="#" onclick="information_dialog(<%=u[:id]%>)"><%=u[:name]%></a></td>
+													<td><%=u[:node_cnt] -1 %></td>
+												</tr>
+											<%end%>
+										</tbody>
+									</table>
+								</div>
 							</div>
 							<div class="tab-pane fade " id="rank_point">
-								<table class="table table-striped">
-									<thead>
-										<tr>
-											<th><%=t :rank%></th>
-											<th><%=t :name %></th>
-											<th><%=t :money %></th>
-										</tr>
-									</thead>
-									<tbody id="friends_list">
-										<%@all_rank_point.each do |u|%>
+								<div class="rank_div">
+									<table class="table table-striped">
+										<thead>
 											<tr>
-												<td><%=u[:rank]%></td>
-												<td><%=u[:name]%></td>
-												<td><%=u[:point]%></td>
+												<th><%=t :rank%></th>
+												<th><%=t :name %></th>
+												<th><%=t :money %></th>
 											</tr>
-										<%end%>
-									</tbody>
-								</table>
+										</thead>
+										<tbody id="rank_point">
+											<%@all_rank_point.each do |u|%>
+												<tr onclick="information_dialog(<%=u[:id]%>)">
+													<td><%=u[:rank]%></td>
+													<td><a href="#" onclick="information_dialog(<%=u[:id]%>)"><%=u[:name]%></a></td>
+													<td><%=u[:point]%></td>
+												</tr>
+											<%end%>
+										</tbody>
+									</table>
+								</div>
 							</div>
-
 						</div>
 					</div>
 				</div>
@@ -199,6 +212,14 @@
 								<th><strong><%=t :child_count%></strong></th>
 								<th><span id="dialog_node_cnt">0</span></th>
 							</tr>
+							<tr>
+								<th><strong><%=t :rank_node_cnt%></strong></th>
+								<th><span id="dialog_rank_node_cnt">0</span></th>
+							</tr>
+							<tr>
+								<th><strong><%=t :rank_point%></strong></th>
+								<th><span id="dialog_rank_point">0</span></th>
+							</tr>
 						</table>
 					</div>
 				</div>
@@ -215,12 +236,24 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick='$("#noti").hide()'>&times;</button>
-					<h4 class="modal-title" id="noti_title">title</h4>	
+					<h4 class="modal-title" id="noti_title">I am your family</h4>	
 				</div>
 				<div class="modal-body" style="min-height:150px">
-					<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-						<span><%=t :noti%></span>
-					</div>
+						<p>
+						홀로 보내는 크리스마스만큼 시린 게 또 있을까요.<br>
+						어린 시절, 가족과 함께 보냈던 크리스마스는 따뜻하기만 했었지요.<br>
+						그것이 가족의 따뜻함 아닐까 합니다.<br>
+						이제 페이스북 친구를 넘어, 페이스북 가족이 되어봅시다.<br>
+						따뜻한 페이스북을 만들어봅시다.<br>
+						가족, 그건 너와 나를 이어주는 선 하나면 충분합니다.<br><br>
+
+						Make your family, I am your family.<br><br>
+
+						광고 수익 전액은 추운 겨울을 보내고 있을 소년, 소녀 가장들에게 가족의 온기가 되어 전달됩니다. 12월 25일, 기부 후 웹을 통해 공지하겠습니다.<br>
+
+						<strong>페이스북 로그인과, 많은 공유를 할수록, 소년, 소녀 가장에게 더욱 따뜻한 온기를 전할 수 있습니다.</strong><br>
+						</p>
+
 				</div>
 				<div class="modal-footer">
 					<div id="noti_button" class="row-fluid">
@@ -298,18 +331,29 @@
 	});
 	$("#banner_button").click(function(){
 		text = $("#banner_text").val();
-		$.ajax({
-			url: "/data/save_banner.json",
-			type: "POST",
-			data: {
-				banner_text: text // if user_id == 0 then get session user
-			},
-			success: function() {
-				alert("<%=t :banner_change%>")
-				document.location.reload(true)
-			}
-		});
+		if(getStrByte(text)>20){
+			alert("<%=t :dont_over_length%>")
+		}else{
+			$.ajax({
+				url: "/data/save_banner.json",
+				type: "POST",
+				data: {
+					banner_text: text // if user_id == 0 then get session user
+				},
+				success: function() {
+					alert("<%=t :banner_change%>")
+					document.location.reload(true)
+				}
+			});
+		}
 	});
+	function getStrByte(str) {
+		var p, len = 0;
+		for(p=0; p<str.length; p++) {
+			(str.charCodeAt(p) > 255) ? len+=2 : len++;
+		}
+		return len;
+	}
 
 	<%=render :partial => 'map/sigma_js'%>
 
@@ -334,6 +378,7 @@
 		remove_btn_class();
 		$("#dialog").hide();
 	}
+
 	function friends_page(num){
 		var start = friends_cnt_per_page * (num - 1)
 		var end = friends_cnt_per_page * num ; 
@@ -425,7 +470,8 @@
 			},
 			success: function(data) {
 				user = data.user
-				set_dialog_html("Betray", user, data.is_function_possible, data.limit_point, data.limit_node_cnt)
+				rank = data.rank
+				set_dialog_html("Betray", user, data.is_function_possible, data.limit_point, data.limit_node_cnt, rank)
 			}
 		});
 	}
@@ -440,7 +486,8 @@
 			},
 			success: function(data) {
 				user = data.user
-				set_dialog_html("Seize", user, data.is_function_possible, data.limit_point, data.limit_node_cnt)
+				rank = data.rank
+				set_dialog_html("Seize", user, data.is_function_possible, data.limit_point, data.limit_node_cnt,rank)
 			}
 		});
 	}
@@ -456,16 +503,20 @@
 			},
 			success: function(data) {
 				user = data.user
-				set_dialog_html("Information", user, data.is_function_possible, data.limit_point, data.limit_node_cnt)
+				rank = data.rank
+				set_dialog_html("Information", user, data.is_function_possible, data.limit_point, data.limit_node_cnt, rank)
 			}
 		});
 	}
 
-	function set_dialog_html(function_type, user, is_possible, limit_point, limit_node_cnt){
+	function set_dialog_html(function_type, user, is_possible, limit_point, limit_node_cnt,rank){
+		console.log(rank)
 		$("#dialog_title").text(ment_set(function_type) + " - " + user.banner);
 		$("#dialog_name").text(user.username);
 		$("#dialog_point").text("<%= t :mark %>" + user.point +"<%= t :unit %>");
-		//$("#dialog_node_cnt").text(user.node_cnt - 1);
+		$("#dialog_node_cnt").text(user.node_cnt - 1);
+		$("#dialog_rank_node_cnt").text(rank["node_cnt_rank"]);
+		$("#dialog_rank_point").text(rank["point_rank"]);
 		$("#dialog_image").attr("src",user.picture);
 		var html = ""
 		var my_id=<%=@user.id%>;
@@ -482,8 +533,6 @@
 			descendant_ids=<%=@descendants%>
 			console.log("ANC" + ancestor_ids)
 			console.log("DES" + descendant_ids)
-			console.log(function_type == "Seize")
-		 	console.log(ancestor_ids.indexOf(node_id)>=0)
 			if(node_id == my_id){
 				html += "<%=t :cant_me%>"
 			}else if(function_type == "Seize" && ancestor_ids.indexOf(node_id)>=0){
@@ -614,6 +663,10 @@
 	.dialog_image{
 		width: 100px;
 		height: 100px;
+	}
+	.rank_div{
+		overflow:scroll;
+		height : 600px;
 	}
 	table, tr, td, th {
 		text-align:center;

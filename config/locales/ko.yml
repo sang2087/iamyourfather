@@ -1,27 +1,27 @@
 ko:
-  title: I AM YOUR FATHER
+  title: I AM YOUR FAMILY
   subtitle: 테스트 중입니다
   iam: 이름
-  shareinfo: 더 많은 자식을 늘리려면 아래 링크를 공유하세요.
-  money: 돈
+  shareinfo: 더 많은 후손을 만들려면 아래 링크를 공유하세요.
+  money: 기부 포인트
   mark: ""
-  unit: 만원
+  unit: 포인트
   fblist: 친구 리스트
-  independance: 독립
-  betray: 배신
-  seize: 납치
+  independance: 새 가족
+  betray: 가족 이동
+  seize: 가족 입양
   name: 이름
   language: Language
-  child_count : 자식 수
+  child_count : 후손 수
   condition : 조건
-  want_ind: 독립하시겠습니까?
-  want_betray: 배신하시겠습니까?
-  want_seize: 납치하시겠습니까?
+  want_ind: 새 가족을 만드시겠습니까?
+  want_betray: 다른 가족으로 이동하시겠습니까?
+  want_seize: 다른 가족을 입양하시겠습니까?
   information: 정보창
-  you_cannot: 할 수 없습니다,
+  you_cannot: 할 수 없습니다
   edit: 수정
-  your_father: 당신의 Father
-  your_founder: 나의 시조 
+  your_father: 부모
+  your_founder: 시조 
   banner_change: 배너가 수정되었습니다.
   point_deduct: 포인트가 감소합니다.
   noti: 하하하하핳ㅎ하하하ㅏㅏ하ㅏㅎ하
@@ -35,26 +35,27 @@ ko:
   joined: 가입됨
   info: 정보
   facebook_friends: 페이스북 친구
-  cant_me: 자신을 배신 혹은 납치할 수 없습니다
-  cant_ancestor_seize: 조상을 자식으로 납치할 수 없습니다
-  cant_descendant_betray: 후손을 부모로 배신할 수 없습니다
+  cant_me: 자신으로 이동 혹은 자신을 입양할 수 없습니다
+  cant_ancestor_seize: 조상을 자식으로 입양할 수 없습니다
+  cant_descendant_betray: 후손을 부모로 삼을 수 없습니다
 
 
-  iinfo: "독립 - 새로운 집안을 형성합니다"
-  binfo: "배신 - 다른 부모의 자식으로 들어갑니다"
-  sinfo: "납치 - 나의 자식으로 가져욥니다"
-  loginearn: "로그인 하여 돈을 얻었습니다"
+  iinfo: "새 가족 - 당신을 시조로, 새 가족을 만듭니다."
+  binfo: "이동 - 다른 가족으로 이동합니다."
+  sinfo: "입양 - 다른 사람을 자식으로 입양합니다."
+  loginearn: "로그인 하여 하트를 얻었습니다"
   facebookinvited: "페이스북 초대를 완료하였습니다"
   needfblogin: "페이스북 로그인이 필요합니다"
   facebookshared: "페이스북에 공유하였습니다"
   balert: "당신이 따를 부모을 화면에서 선택하세요"
-  calert: "당신의 자식으로 삼을 사람을 화면에서 선택하세요"
+  calert: "입양할 사람을 화면에서 선택하세요"
   banner: 배너
-  dont_have_father: 나는 Father가 없다. 내가 곧 신이다.
+  dont_have_father: 당신이 가족을 만들었습니다. 당신이 시조입니다.
 
   rank_node_cnt: 후손 수 순위
-  rank_point: 돈 순위
+  rank_point: 하트 포인트 순위
   rank: 순위
 
   family_mode: 내 가족 보기
   all_mode: 전체 보기
+  dont_over_length: 한글은 10글자, 영어는 20글자를 넘을 수 없습니다
