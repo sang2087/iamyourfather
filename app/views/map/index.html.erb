@@ -98,11 +98,13 @@
 						<h3 class="tooltips" data-toggle="tooltip" data-placement="bottom" title="<%=t :money_info %>">
 							<%=t :money %> : <%=t :mark %><%=@user.point-%><%= t :unit %>
 						</h3>
-						<h3 class="tooltips" data-toggle="tooltip" data-placement="bottom" title="<%=t :banner_info %>">
-							<%=t :banner %> : 
-							<input type ="text" id="banner_text" value="<%=@user.banner%>">
-							<button id="banner_button" ><%=t :edit%></button>
-						</h3>
+						<div>
+							<h3 class="tooltips" data-toggle="tooltip" data-placement="bottom" title="<%=t :banner_info %>">
+								<%=t :banner %> : 
+							</h3>
+							<input type ="text" id="banner_text" style="width:100%"value="<%=@user.banner%>">
+							<button class="btn btn-info" id="banner_button" ><%=t :edit%></button>
+						</div>
 						<hr>
 						<div class="btn-group">
 							<a href="#" class="tooltips btn btn-warning" id="independance" data-toggle="tooltip" data-placement="bottom" title="<%=t :iinfo %>">
