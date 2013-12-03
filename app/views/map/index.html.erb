@@ -36,7 +36,7 @@
 						<a class="btn btn-primary" id = "all_mode" onclick="all_mode()" href = "#"><%= t :all_mode%></a>
 					</div>
 				</div>
-				<hr>
+				<br>
 <%########################CANVAS#####################%>
 			<div class="sigma-parent" id="sigma-example-parent">
 				<div class="sigma-expand" id="sigma-example"></div>
@@ -67,7 +67,7 @@
 		</div>
 <%########################DASHBOARD#####################%>
 		<div class="col-xs-12 col-sm-4 col-md-4 col-lg-3" id="dashboard">
-			<div class="panel panel-<%=%w[info warning success danger].sample-%>" style="display:block;min-height:720px;">
+			<div class="panel panel-<%=%w[info warning success danger].sample-%>" style="display:block;min-height:700px;">
 				<div class="panel-heading">Dashboard - <%=t :language %> : <a href="/?lang=ko">Kor</a> / <a href="/?lang=en">Eng</a></div>
 				<div class="panel-body">
 				<!-- Nav tabs -->
@@ -105,8 +105,8 @@
 
 						<hr>
 	<%########################FAMILY#####################%>
-						<h2><%=t :iam %>: <%=@user.username-%></h2>
-						<h3>
+						<h3><%=t :iam %>: <%=@user.username-%></h2>
+						<p>
 							<%if @is_father%>
 								<%=t :your_founder-%> : <a href="#" onclick="information_dialog(<%=@founder.id%>);"><%=@founder.username%></a>, <%=@founder_depth%><br>
 								<%=t :your_father-%> : <a href="#" onclick="information_dialog(<%=@father.id%>);"><%=@father.username%></a>
@@ -114,18 +114,18 @@
 								<%=t :dont_have_father%>
 							<%end%><br>
 							<%=t :child_count %> : <%=@user.node_cnt - 1%>
-						</h3>
-						<h3><%=t :rank_node_cnt %> : <%=@node_cnt_rank%><br>
-							<%=t :rank_point %> : <%=@point_rank%></h3>
+						</p>
+						<p><%=t :rank_node_cnt %> : <%=@node_cnt_rank%><br>
+							<%=t :rank_point %> : <%=@point_rank%></p>
 						<hr>
 	<%########################STATUS#####################%>
-						<h3 class="tooltips" data-toggle="tooltip" data-placement="bottom" title="<%=t :money_info %>">
+						<p class="tooltips" data-toggle="tooltip" data-placement="bottom" title="<%=t :money_info %>">
 							<%=t :money %> : <%=t :mark %><%=@user.point-%><%= t :unit %>
-						</h3>
+						</p>
 						<div>
-							<h3 class="tooltips" data-toggle="tooltip" data-placement="bottom" title="<%=t :banner_info %>">
+							<p class="tooltips" data-toggle="tooltip" data-placement="bottom" title="<%=t :banner_info %>">
 								<%=t :banner %> : 
-							</h3>
+							</p>
 							<input type ="text" id="banner_text" style="width:100%"value="<%=@user.banner%>">
 							<button class="btn btn-info" id="banner_button" ><%=t :edit%></button>
 						</div>
