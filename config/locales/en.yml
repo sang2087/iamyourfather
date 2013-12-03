@@ -3,8 +3,8 @@ en:
   subtitle: Expand your family! NOW testing...
   iam: Name
   shareinfo: If you want to have sons, share this link.
-  money: Money
-  mark: $
+  money: Point
+  mark: ""
   unit: ""
   fblist: Friend List
   independance: Independance
@@ -21,7 +21,7 @@ en:
   you_cannot: You CANNOT
   edit: Edit
   your_father: Your Father 
-  your_founder: My Founder
+  your_founder: Family Tree
   depth: th
   banner_change: Banner title is changed
   point_deduct: Point will be deducted.
@@ -43,7 +43,7 @@ en:
   iinfo: "Independance - I wanna be Root"
   binfo: "Betray - move to other father"
   sinfo: "Seize - make my sons"
-  loginearn: "You get money by login"
+  loginearn: "You get point by login"
   facebookinvited: "Facebook invitation completed"
   needfblogin: "You have to connect with Facebook"
   facebookshared: "Link is shared on Facebook"
@@ -54,7 +54,7 @@ en:
   dont_have_father: I don't have father. I am God.
 
   rank_node_cnt: Descendants Number Rank
-  rank_point: Money Rank
+  rank_point: Point Rank
   rank: Rank
 
   family_mode: Family Mode
