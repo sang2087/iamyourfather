@@ -18,10 +18,10 @@ ko:
   want_betray: 다른 가족으로 이동하시겠습니까?
   want_seize: 다른 가족을 입양하시겠습니까?
   information: 정보창
-  you_cannot: 할 수 없습니다,
+  you_cannot: 할 수 없습니다
   edit: 수정
   your_father: 부모
-  your_founder: 가장 
+  your_founder: 시조 
   banner_change: 배너가 수정되었습니다.
   point_deduct: 포인트가 감소합니다.
   noti: 하하하하핳ㅎ하하하ㅏㅏ하ㅏㅎ하
@@ -40,7 +40,7 @@ ko:
   cant_descendant_betray: 후손을 부모로 삼을 수 없습니다
 
 
-  iinfo: "새 가족 - 당신을 가장으로, 새 가족을 만듭니다."
+  iinfo: "새 가족 - 당신을 시조로, 새 가족을 만듭니다."
   binfo: "이동 - 다른 가족으로 이동합니다."
   sinfo: "입양 - 다른 사람을 자식으로 입양합니다."
   loginearn: "로그인 하여 하트를 얻었습니다"
@@ -50,7 +50,7 @@ ko:
   balert: "당신이 따를 부모을 화면에서 선택하세요"
   calert: "입양할 사람을 화면에서 선택하세요"
   banner: 배너
-  dont_have_father: 당신이 가족을 만들었습니다. 당신이 가장입니다.
+  dont_have_father: 당신이 가족을 만들었습니다. 당신이 시조입니다.
 
   rank_node_cnt: 후손 수 순위
   rank_point: 하트 포인트 순위
