@@ -20,3 +20,5 @@
  url('/fonts/KoreanDHNUSL.woff') format('woff'),
  url('/fonts/KoreanDHNUSL.ttf') format('truetype');
 }
+
+body { font-family: 'KoreanDHNUSL'; }
