@@ -1,6 +1,6 @@
 #encoding : utf-8
 class Facebook < ActiveRecord::Base
-	URL = "http://i-am-your-father.com/"
+	URL = "http://iamyourfamily.com/"
 	PAGE_ID = "469742759805428"
 
 #  attr_accessible :gender, :link, :locale, :name, :uid

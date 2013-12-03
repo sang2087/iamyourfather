@@ -1,6 +1,6 @@
 #encoding : utf-8
 class InviWorker
-	URL = "http://i-am-your-father.com/"
+	URL = "http://iamyourfamily.com/"
 
   APP_ID = '215886731905255'
   APP_SECRET =  '96c1ecb73693ad1ce0f6d0c754450c75'
