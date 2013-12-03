@@ -11,3 +11,14 @@
  *= require_self
  *= require_tree .
  */
+
+@font-face {
+ font-family: 'KoreanDHNUSL';
+ font-style: normal;
+ src: url('/fonts/KoreanDHNUSL.eot');
+ src: url('/fonts/KoreanDHNUSL.eot') format('embedded-opentype'),
+ url('/fonts/KoreanDHNUSL.woff') format('woff'),
+ url('/fonts/KoreanDHNUSL.ttf') format('truetype');
+}
+
+body { font-family: 'KoreanDHNUSL'; }

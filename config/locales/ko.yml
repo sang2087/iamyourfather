@@ -62,4 +62,4 @@ ko:
 
   family_mode: 내 가족
   all_mode: 전체
-  dont_over_length: 한글은 10글자, 영어는 20글자를 넘을 수 없습니다
+  dont_over_length: "한글은 10글자, 영어는 20글자를 넘을 수 없습니다"

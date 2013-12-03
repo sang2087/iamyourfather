@@ -28,18 +28,28 @@
 				<div class="sigma-expand" id="sigma-example"></div>
 			</div>
 			<div>
-				<center>
-					<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-					<!-- iamyourfamily -->
-					<ins class="adsbygoogle"
-							 style="display:inline-block;width:970px;height:90px"
-							 data-ad-client="ca-pub-1261983873465389"
-							 data-ad-slot="8729541355"></ins>
-					<script>
+				<style>
+					.iamyourfamily-res { width: 320px; height: 50px; }
+					@media(max-width: 800px) { .iamyourfamily-res { width: 320px; height: 50px; } }
+					@media(min-width: 800px) { .iamyourfamily-res { width: 728px; height: 90px; } }
+				</style>
+				<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+				<!-- iamyourfamily-res -->
+				<ins class="adsbygoogle iamyourfamily-res"
+						 style="display:inline-block"
+						 data-ad-client="ca-pub-1261983873465389"
+						 data-ad-slot="9970772151"></ins>
+				<script>
 					(adsbygoogle = window.adsbygoogle || []).push({});
-					</script>
-				</center>
+				</script>
+
+
 			</div>
+
+
+
+
+
 		</div>
 <%########################DASHBOARD#####################%>
 		<div class="col-xs-12 col-sm-4 col-md-4 col-lg-3" id="dashboard">
@@ -669,9 +679,34 @@
 			display: none;
 		}
 		.sigma-parent{
-			background-image: url('/img/background.gif');
+			background: #212121;
+			background-image: url('/img/s1.png'), url('/img/s2.png'), url('/img/s3.png');
+			-webkit-animation: snow 10s linear infinite;
+			-moz-animation: snow 10s linear infinite;
+			-ms-animation: snow 10s linear infinite;
+			animation: snow 10s linear infinite;
 		}
 		body { padding:20px }
+		@keyframes snow {
+			0% {background-position: 0px 0px, 0px 0px, 0px 0px;}
+			50% {background-position: 500px 500px, 100px 200px, -100px 150px;}
+			100% {background-position: 500px 1000px, 200px 400px, -100px 300px;}
+		}
+		@-moz-keyframes snow {
+			0% {background-position: 0px 0px, 0px 0px, 0px 0px;}
+			50% {background-position: 500px 500px, 100px 200px, -100px 150px;}
+			100% {background-position: 400px 1000px, 200px 400px, 100px 300px;}
+		}
+		@-webkit-keyframes snow {
+			0% {background-position: 0px 0px, 0px 0px, 0px 0px;}
+			50% {background-position: 500px 500px, 100px 200px, -100px 150px;}
+			100% {background-position: 500px 1000px, 200px 400px, -100px 300px;}
+		}
+		@-ms-keyframes snow {
+			0% {background-position: 0px 0px, 0px 0px, 0px 0px;}
+			50% {background-position: 500px 500px, 100px 200px, -100px 150px;}
+			100% {background-position: 500px 1000px, 200px 400px, -100px 300px;}
+		}
 	}
 	.audiojs{
 		display:none;
