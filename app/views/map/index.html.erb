@@ -7,22 +7,33 @@
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
 <style>
+	.headline {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 318px;
+		height: 227px;
+		background: url('/img/header.gif');
+		z-index:100;
+	}
 </style>
 </script>
+<div class="headline" onclick='$("#noti").show()'>
+</div>
 <div class="container-responsive">
 	<div class="row">
 		<div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
 <%########################HEADERS#####################%>
-			<div class="page-header">
-				<h1><span onclick='$("#noti").show()'>:: <%= t :title%></span></h1>
-				<div class="fb-like" data-href="http://www.iamyourfamily.com" data-width="100%" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
-				<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.iamyourfamily.com" data-hashtags="iamyourfamily">Tweet</a>
-				<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-				<div class="btn-group" style="position:absolute;right:10px" >
-					<a class="btn btn-primary active" id = "family_mode" onclick="family_mode();" href = "#"><%= t :family_mode%></a>
-					<a class="btn btn-primary" id = "all_mode" onclick="all_mode()" href = "#"><%= t :all_mode%></a>
+				<div style="position:absolute;right:10px" >
+					<div class="fb-like" data-href="http://www.iamyourfamily.com" data-width="100%" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+					<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.iamyourfamily.com" data-hashtags="iamyourfamily">Tweet</a>
+					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+					<div class="btn-group">
+						<a class="btn btn-primary active" id = "family_mode" onclick="family_mode();" href = "#"><%= t :family_mode%></a>
+						<a class="btn btn-primary" id = "all_mode" onclick="all_mode()" href = "#"><%= t :all_mode%></a>
+					</div>
 				</div>
-			</div>
+				<hr>
 <%########################CANVAS#####################%>
 			<div class="sigma-parent" id="sigma-example-parent">
 				<div class="sigma-expand" id="sigma-example"></div>
@@ -98,11 +109,11 @@
 								<%=t :your_father-%> : <a href="#" onclick="information_dialog(<%=@father.id%>);"><%=@father.username%></a>
 							<%else%>
 								<%=t :dont_have_father%>
-							<%end%>
+							<%end%><br>
+							<%=t :child_count %> : <%=@user.node_cnt - 1%>
 						</h3>
-						<h3><%=t :child_count %> : <%=@user.node_cnt - 1%></h3>
-						<h3><%=t :rank_node_cnt %> : <%=@node_cnt_rank%></h3>
-						<h3><%=t :rank_point %> : <%=@point_rank%></h3>
+						<h3><%=t :rank_node_cnt %> : <%=@node_cnt_rank%><br>
+							<%=t :rank_point %> : <%=@point_rank%></h3>
 						<hr>
 	<%########################STATUS#####################%>
 						<h3 class="tooltips" data-toggle="tooltip" data-placement="bottom" title="<%=t :money_info %>">
