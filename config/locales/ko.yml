@@ -1,23 +1,24 @@
 ko:
   title: I AM YOUR FAMILY
-  subtitle: 테스트 중입니다
+  subtitle:
   iam: 이름
   shareinfo: 더 많은 후손을 만들려면 아래 링크를 공유하세요.
-  money: 기부 포인트
+  money: 기부
+  money_info: 링크를 공유하여 많은 사람이 들어오면, 기부 포인트가 쌓입니다. 기부 포인트가 쌓이면 더 많은 기부를 할 수 있습니다.
   mark: ""
   unit: 포인트
   fblist: 친구 리스트
   independance: 새 가족
-  betray: 가족 이동
-  seize: 가족 입양
+  betray: 이동
+  seize: 입양
   name: 이름
   language: Language
   child_count : 후손 수
   condition : 조건
-  want_ind: 새 가족을 만드시겠습니까?
-  want_betray: 다른 가족으로 이동하시겠습니까?
-  want_seize: 다른 가족을 입양하시겠습니까?
-  information: 정보창
+  want_ind: 당신을 시조로 하여 새 가족을 만듭니다. 새 가족을 만드시겠습니까?
+  want_betray: 당신의 후손과 함께 다른 가족으로 이동을 할 수 있습니다. 다른 가족으로 이동하시겠습니까?
+  want_seize: 다른 가족을 당신의 가족으로 입양할 수 있습니다. 입양하시겠습니까?
+  information: 정보
   you_cannot: 할 수 없습니다
   edit: 수정
   your_father: 부모
@@ -28,34 +29,37 @@ ko:
   complete: 완료!
 
   facebook_share: 페이스북 공유
+  facebook_share_info: 페이스북 공유를 통해 더 많은 사람을 자신의 후손으로 만들어보세요.
   sign_out: 로그아웃
   sign_in: 페이스북 로그인
+  sign_in_info: 페이스북 로그인을 하면, 페이스북 친구 초대와 페이스북 공유가 가능합니다.
   tour: 둘러보기
-  invite: 초대하기
+  invite: 초대
+  invite_info: 페이스북을 통하여 초대 메시지를 보냅니다.
   joined: 가입됨
   info: 정보
   facebook_friends: 페이스북 친구
-  cant_me: 자신으로 이동 혹은 자신을 입양할 수 없습니다
-  cant_ancestor_seize: 조상을 자식으로 입양할 수 없습니다
-  cant_descendant_betray: 후손을 부모로 삼을 수 없습니다
+  cant_me: 자신으로 이동 혹은 자신을 입양할 수 없습니다.
+  cant_ancestor_seize: 조상을 자식으로 입양할 수 없습니다.
+  cant_descendant_betray: 후손을 부모로 삼을 수 없습니다.
 
-
-  iinfo: "새 가족 - 당신을 시조로, 새 가족을 만듭니다."
-  binfo: "이동 - 다른 가족으로 이동합니다."
-  sinfo: "입양 - 다른 사람을 자식으로 입양합니다."
-  loginearn: "로그인 하여 하트를 얻었습니다"
-  facebookinvited: "페이스북 초대를 완료하였습니다"
-  needfblogin: "페이스북 로그인이 필요합니다"
-  facebookshared: "페이스북에 공유하였습니다"
-  balert: "당신이 따를 부모을 화면에서 선택하세요"
-  calert: "입양할 사람을 화면에서 선택하세요"
+  iinfo: 새 가족 - 당신을 시조로, 새 가족을 만듭니다.
+  binfo: 이동 - 다른 가족으로 이동합니다.
+  sinfo: 입양 - 다른 사람을 자식으로 입양합니다.
+  loginearn: 로그인 하여 기부 포인트를 얻었습니다.
+  facebookinvited: 페이스북을 통하여 초대 메시지를 보냅니다.
+  needfblogin: 페이스북 로그인이 필요합니다.
+  facebookshared: 페이스북에 공유하였습니다.
+  balert: 당신이 따를 부모를 화면에서 선택하세요.
+  calert: 입양할 사람을 화면에서 선택하세요.
   banner: 배너
+  banner_info: 배너의 내용이 오른쪽 화면에 표시됩니다.
   dont_have_father: 당신이 가족을 만들었습니다. 당신이 시조입니다.
 
   rank_node_cnt: 후손 수 순위
-  rank_point: 하트 포인트 순위
+  rank_point: 기부 포인트 순위
   rank: 순위
 
-  family_mode: 내 가족 보기
-  all_mode: 전체 보기
+  family_mode: 내 가족
+  all_mode: 전체
   dont_over_length: 한글은 10글자, 영어는 20글자를 넘을 수 없습니다

@@ -8,7 +8,7 @@ sigma.publicPrototype.parseGexf = function(gexfPath) {
     new XMLHttpRequest() :
     new ActiveXObject('Microsoft.XMLHTTP');
 
-  gexfhttp.overrideMimeType('text/xml');
+//  gexfhttp.overrideMimeType('text/xml');
   gexfhttp.open('GET', gexfPath, false);
   gexfhttp.send();
   gexf = gexfhttp.responseXML;
