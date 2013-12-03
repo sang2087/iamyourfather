@@ -53,7 +53,7 @@ ko:
   balert: 당신이 따를 부모를 화면에서 선택하세요.
   calert: 입양할 사람을 화면에서 선택하세요.
   banner: 배너
-  banner_info: 배너의 내용이 오른쪽 화면에 표시됩니다.
+  banner_info: 배너의 내용이 왼쪽 화면에 표시됩니다.
   dont_have_father: 당신이 가족을 만들었습니다. 당신이 시조입니다.
 
   rank_node_cnt: 후손 수 순위

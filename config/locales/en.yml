@@ -1,23 +1,23 @@
 en:
   title: I am your Father
-  subtitle: Expand your family! NOW testing...
+  subtitle: 
   iam: Name
-  shareinfo: If you want to have sons, share this link.
-  money: Point
-  money_info: 링크를 공유하여 많은 사람이 들어오면, 기부 포인트가 쌓입니다. 기부 포인트가 쌓이면 더 많은 기부를 할 수 있습니다.
+  shareinfo: "If you want to have many descendants, share this link."
+  money: Donation
+  money_info: "If someone enter through this link, you will take donation point. You can donation with donation point."
   mark: ""
   unit: ""
-  fblist: Friend List
-  independance: Independance
-  betray: Betray
-  seize: Seize
+  fblist: Facebook Friend
+  independance: New Family
+  betray: Move
+  seize: Adopt
   name: Name
   language: 언어
-  condition : condition
-  child_count : Children Count
-  want_ind: Do you want Independance?
-  want_betray: Do you want Betray?
-  want_seize: Do you want Seize?
+  condition : Condition
+  child_count : Descendants Number
+  want_ind: You will make family as founder. Do you want to make new family?
+  want_betray: You will move to another parents. Do you want to move?
+  want_seize: You will adopt another people. Do you want to adopt?
   information: Information
   you_cannot: You CANNOT
   edit: Edit
@@ -30,13 +30,13 @@ en:
   complete: Complete!
 
   facebook_share: Facebook Share
-  facebook_share_info: 페이스북 공유를 통해 더 많은 사람을 자신의 후손으로 만들어보세요.
+  facebook_share_info: You can invite many people to your descendants with facebook share.
   sign_out: Sign Out
   sign_in: Facebook Login
-  sign_in_info: "페이스북 로그인을 하면, 페이스북 친구 초대와 페이스북 공유가 가능합니다."
+  sign_in_info: "If you login facebook, you can send invitation message and share in facebook."
   tour: Tour
   invite: Invite
-  invite_info: 페이스북을 통하여 초대 메시지를 보냅니다.
+  invite_info: You will send invitation message through facebook.
   joined: Joined
   info: Info
   facebook_friends: Facebook Friends
@@ -54,7 +54,7 @@ en:
   balert: "Select your new father in universe"
   calert: "Select people you want to make sons in universe"
   banner: Banner
-  banner_info: 배너의 내용이 오른쪽 화면에 표시됩니다.
+  banner_info: Banner content will appear the left screen.
 
   dont_have_father: I don't have father. I am God.
 
