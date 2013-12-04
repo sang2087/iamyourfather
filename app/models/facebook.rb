@@ -80,22 +80,27 @@ class Facebook < ActiveRecord::Base
 
 
 		if I18n.locale.to_s == 'ko' 
-			if user.depth.nil?
+			if user.depth.nil? or user.parent.nil?
 				message = "제가 가정을 이뤘습니다.\n나의 가족이 되시려면 클릭하세요!"
 			else
 				parent = user.parent
 				root = user.root
-				parent_facebook = parent.get_facebook
-				root_facebook = root.get_facebook
 
-				unless root_facebook.nil?
-					unless root_facebook.uid.nil?
-						tags.push(root_facebook.uid)
+				unless root.nil?
+					root_facebook = root.get_facebook
+					unless root_facebook.nil?
+						unless root_facebook.uid.nil?
+							tags.push(root_facebook.uid)
+						end
 					end
 				end
-				unless parent_facebook.nil?
-					unless parent_facebook.uid.nil?
-						tags.push(parent_facebook.uid)
+
+				unless parent.nil?
+					parent_facebook = parent.get_facebook
+					unless parent_facebook.nil?
+						unless parent_facebook.uid.nil?
+							tags.push(parent_facebook.uid)
+						end
 					end
 				end
 						
@@ -103,8 +108,8 @@ class Facebook < ActiveRecord::Base
 			end
 			description = "I am your Family\n페이스북 친구를 넘어 페이스북 가족이 되어봅시다.\n링크에 들어오면 크리스마스에 소년 소녀 가장에게 기부가 됩니다."	
 		else
-			if user.depth.nil?
-				message = "I make family.\nJoin my family by click this link!"
+			if user.depth.nil? or user.parent.nil?
+				message = "I make a family.\nJoin my family by click this link!"
 			else
 				parent = user.parent
 				root = user.root

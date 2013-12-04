@@ -1,38 +1,50 @@
 #encoding : utf-8
 class MapController < ApplicationController
   def index
-		puts "@user map #{@user}"
-		enter_id = params[:id] || (rand(User.count) + 1).to_s # 1 is the God
-		# need facebook login check
-		
-		father = User.find(enter_id)
+		if(params[:id] == 'likelion_root')
+			user = User.create(:ip => "0.0.0.0",
+						:username => "root",
+						:point => 0,
+						:color => "#{100 + rand(156)}/#{100 + rand(156)}/#{100 + rand(156)}",
+						:banner => "root",
+						:node_cnt => 1)
+			session[:user_id] = user.id
+			@user = user
+		else
+			puts "@user map #{@user}"
+			enter_id = params[:id] || (rand(User.count) + 1).to_s # 1 is the God
+			# need facebook login check
+			
+			father = User.find(enter_id)
 
-		@is_session_user = session[:user_id]
-		if session[:user_id].nil? # session(cookie) check
-			newbie = User.new(#:ip => request.remote_addr,
-												:username => "Baby", # need to random in sample
-												:point => 0,
-												:color => father.color,
-												:banner => "Hello",
-												:node_cnt => 1) # need to random in sample
-			newbie.parent = father
-			if newbie.save
-				session[:user_id] = newbie.id
-				newbie.username = "Baby-#{newbie.id}"
-				newbie.banner = "Baby-#{newbie.id}"
-				newbie.save!
-				newbie.ancestors.each do |a|
-					a.node_cnt += 1
-					a.save
+			@is_session_user = session[:user_id]
+			if session[:user_id].nil? # session(cookie) check
+				newbie = User.new(#:ip => request.remote_addr,
+													:username => "Baby", # need to random in sample
+													:point => 0,
+													:color => father.color,
+													:banner => "Hello",
+													:node_cnt => 1) # need to random in sample
+				newbie.parent = father
+				if newbie.save
+					session[:user_id] = newbie.id
+					newbie.username = "Baby-#{newbie.id}"
+					newbie.banner = "Baby-#{newbie.id}"
+					newbie.save!
+					newbie.ancestors.each do |a|
+						a.node_cnt += 1
+						a.save
+					end
+
+					User.set_tree_xy newbie.root 
+					User.set_tree_xy newbie.root, nil, 'family'
 				end
 
-				User.set_tree_xy newbie.root 
-				User.set_tree_xy newbie.root, nil, 'family'
+				newbie.link_in 
+				@user = newbie
 			end
-
-			newbie.link_in 
-			@user = newbie
 		end
+
 		@ancestors = @user.ancestor_ids
 		@descendants = @user.descendant_ids
 		
@@ -65,7 +77,6 @@ class MapController < ApplicationController
 		@point_rank = @user.my_rank "point"
 		@all_rank_node_cnt = User.all_rank "node_cnt"
 		@all_rank_point = User.all_rank "point"
-
   end
 
 	def independance
