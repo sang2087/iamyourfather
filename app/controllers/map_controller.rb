@@ -19,8 +19,7 @@ class MapController < ApplicationController
 			
 			father = User.find(enter_id)
 
-			@is_session_user = session[:user_id]
-			if session[:user_id].nil? # session(cookie) check
+			if session[:user_id].nil? or User.find(session[:user_id]).nil? # session(cookie) check
 				newbie = User.new(#:ip => request.remote_addr,
 													:username => "Baby", # need to random in sample
 													:point => 0,
@@ -47,6 +46,7 @@ class MapController < ApplicationController
 			end
 		end
 
+		@is_session_user = session[:user_id]
 		@ancestors = @user.ancestor_ids
 		@descendants = @user.descendant_ids
 		
