@@ -14,7 +14,7 @@ en:
   name: Name
   language: 언어
   condition : Condition
-  child_count : Descendants Number
+  child_count : Descendants
   want_ind: You will make family as founder. Do you want to make new family?
   want_betray: You will move to another parents. Do you want to move?
   want_seize: You will adopt another people. Do you want to adopt?
