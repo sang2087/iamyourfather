@@ -44,7 +44,7 @@ puts "base data end"
 ROOT_SIZE = 1
 SIZE = 300
 
-%w[Murcury Vinus Earth Mars Jupiter Saturn Uranus Neptune].each do |planet|
+%w[Mercury Vinus Earth Mars Jupiter Saturn Uranus Neptune].each do |planet|
 	User.create(:ip => "0.0.0.0",
 							:username => planet,
 							:point => 0,
