@@ -31,7 +31,13 @@ class User < ActiveRecord::Base
 		end
 
 		files= User.json_tree(children_list[root.id], children_list)
-		count=children_list[root.id].size
+
+		if children_list[root.id].nil?
+			count = 1
+		else
+			count = children_list[root.id].size
+		end
+
 
 		vis = Rubyvis::Panel.new()
 				.width(800)
@@ -365,7 +371,7 @@ class User < ActiveRecord::Base
 
 		PointLog.betray self, youruser
 		User.set_tree_xy(self.root, nil, 'family')
-
+		User.set_tree_xy(self.root, nil, 'all')
 	end
 
 	def seize youruser_id
@@ -393,6 +399,7 @@ class User < ActiveRecord::Base
 		end
 		PointLog.seize self, youruser
 		User.set_tree_xy(self.root, nil, 'family')
+		User.set_tree_xy(self.root, nil, 'all')
 	end
 
 	def independance
@@ -406,8 +413,10 @@ class User < ActiveRecord::Base
 		end
 		self.rand_display_xy
 
-		User.set_tree_xy(self.root, nil, 'family')
 		PointLog.independance self
+
+		User.set_tree_xy(self.root, nil, 'family')
+		User.set_tree_xy(self.root, nil, 'all')
 	end
 
 	def rand_display_xy

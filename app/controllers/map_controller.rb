@@ -9,6 +9,8 @@ class MapController < ApplicationController
 						:banner => "root",
 						:node_cnt => 1)
 			session[:user_id] = user.id
+			user.rand_display_xy
+
 			@user = user
 		else
 			puts "@user map #{@user}"
