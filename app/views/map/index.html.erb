@@ -98,7 +98,7 @@
 								<!--<a href="#" onclick="facebook_post();"><img src="/img/fbshare.png" border=0 ></a>-->
 							<%else%>
 								<!--<div class="fb-share-button" data-href="http://iamyourfamily.com/<%=@user.id%>" data-width="100" data-type="button_count"></div>-->
-								<a href="https://www.facebook.com/dialog/feed?app_id=215886731905255&display=popup&caption=I%20am%20Your%20Family&link=http://iamyourfamily.com/<%=@user.id%>&redirect_uri=http://iamyourfamily.com&picture=http://iamyourfamily.com/img/thumb.png&description=Enjoy%20Great%20Universe">
+								<a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2f%2Fiamyourfamily.com/<%=@user.id%>" target="_blank">
 									<button class="tooltips btn btn-primary " data-toggle="tooltip" data-placement="bottom" title="<%=t :facebook_share_info %>">
 				<img class="function_icon" src="/img/facebook.png"> <%= t :facebook_share%>
 									</button>
