@@ -12,7 +12,7 @@ BaseData.create(:mytype => "PointLog",
 
 BaseData.create(:mytype => "PointLog",
 								:code => 3,
-								:point => -300,
+								:point => -100,
 								:description => "independance")
 
 BaseData.create(:mytype => "PointLog",
@@ -22,12 +22,12 @@ BaseData.create(:mytype => "PointLog",
 
 BaseData.create(:mytype => "PointLog",
 								:code => 5,
-								:point => -50, #mulify your node_cnt
+								:point => -30, #mulify your node_cnt
 								:description => "seize")
 
 BaseData.create(:mytype => "PointLog",
 								:code => 6,
-								:point => 5,
+								:point => 10,
 								:description => "invitation message")
 
 BaseData.create(:mytype => "PointLog",
@@ -37,7 +37,7 @@ BaseData.create(:mytype => "PointLog",
 
 BaseData.create(:mytype => "PointLog",
 								:code => 8,
-								:point => 100,
+								:point => 30,
 								:description => "Share Feed")
 puts "base data end"
 
