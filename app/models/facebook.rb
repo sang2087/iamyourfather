@@ -71,17 +71,14 @@ class Facebook < ActiveRecord::Base
     return ret_hash
   end
 
-
   def post_wall user
     fb_user = FbGraph::User.me(self.oauth_token)
-		name = "I am your Family"
+		name = "I am your Family - 전 세계, 한 가족 되기!"
 		tags = Array.new
 
-
-
 		if I18n.locale.to_s == 'ko' 
-			if user.depth.nil? or user.parent.nil?
-				message = "제가 가정을 이뤘습니다.\n나의 가족이 되시려면 클릭하세요!"
+			if user.depth == 0 or user.parent.nil?
+				message = "제가 가정을 이뤘습니다.\n저의 가족이 되시려면 클릭하세요!\n\n저의 기부 포인트는 #{user.point}입니다.\n이 포인트는 올 겨울 가족이 필요한 이들에게 따뜻한 선물이 됩니다."
 			else
 				parent = user.parent
 				root = user.root
@@ -104,11 +101,11 @@ class Facebook < ActiveRecord::Base
 					end
 				end
 						
-				message = "나의 부모는 #{parent.username}이며, #{root.username}의 #{user.depth}대손입니다.\n나의 기부 포인트는 #{user.point}입니다. 우리 가족에 참여하시려면 링크를 클릭하세요!"
+				message = "부모는 #{parent.username}이며, #{root.username}의 #{user.depth}대손입니다.\n참 좋은 부모와 조상을 뒀지요?\n우리 가족에 참여하시려면 링크를 클릭하세요!\n\n저의 기부 포인트는 #{user.point}입니다.\n이 포인트는 올 겨울 가족이 필요한 이들에게 따뜻한 선물이 됩니다."
 			end
-			description = "I am your Family\n페이스북 친구를 넘어 페이스북 가족이 되어봅시다.\n링크에 들어오면 크리스마스에 소년 소녀 가장에게 기부가 됩니다."	
+			description = "I am your Family\n전 세계 한 가족 프로젝트! 페이스북 친구를 넘어 페이스북 가족으로!\n링크에 들어오면 크리스마스에 소년 소녀 가장에게 기부가 됩니다.\n어서와~~"	
 		else
-			if user.depth.nil? or user.parent.nil?
+			if user.depth==0 or user.parent.nil?
 				message = "I make a family.\nJoin my family by click this link!"
 			else
 				parent = user.parent
@@ -127,11 +124,11 @@ class Facebook < ActiveRecord::Base
 					end
 				end
 					
-				message = "My parent is #{parent.username} and my founder is #{root.username}. My donation point is #{user.point}.\nif you want to join my family click this link."
+				message = "My parent is #{parent.username} and my founder is #{root.username}. My donation point is #{user.point}.\nIf you want to join my family click this link."
 			end
-			description = "I am your Family\n페이스북 친구를 넘어 페이스북 가족이 되어봅시다.\n링크에 들어오면 크리스마스에 소년 소녀 가장에게 기부가 됩니다."	
 			description = "I am your Family.\nLet's be a family beyond facebook friends.\nIf you enter this link, you will donate to poor children."	
 		end
+
 		picture = "#{URL}img/thumb.png" 
 
 		begin 

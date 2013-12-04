@@ -44,9 +44,9 @@ BaseData.create(:mytype => "PointLog",
 								:description => "Share Feed")
 puts "base data end"
 
-ROOT_SIZE = 1
-SIZE = 300
-
+#ROOT_SIZE = 1
+#SIZE = 300
+=begin
 %w[Mercury Vinus Earth Mars Jupiter Saturn Uranus Neptune].each do |planet|
 	User.create(:ip => "0.0.0.0",
 							:username => planet,
@@ -55,6 +55,7 @@ SIZE = 300
 							:banner => "Welcome to #{planet}",
 							:node_cnt => 1)
 end
+=end
 
 =begin
 
@@ -89,6 +90,6 @@ User.all.each do |u|
 end
 =end
 
-User.all_tree_set_xy
+#User.all_tree_set_xy
 puts "That's all!"
 
