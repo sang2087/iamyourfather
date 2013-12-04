@@ -56,7 +56,7 @@ en:
   banner: Banner
   banner_info: Banner content will appear the left screen.
 
-  dont_have_father: I don't have father. I am God.
+  dont_have_father: "I don't have father. I am God."
 
   rank_node_cnt: Descendants Number Rank
   rank_point: Point Rank
@@ -65,3 +65,4 @@ en:
   family_mode: My Family
   all_mode: All
   dont_over_length: Banner length have to under 20 characters.
+  first_info: "Merry Christmas~!!<br><br>Make your family, I am your family.<br><br>All of AD profits will donate to young children head of a family in 25th, December.<br>We will info the result of donation through this website.<br><h4>Log in facebook and share your link as many as possible, You can send more warm heart to children.</h4>"
