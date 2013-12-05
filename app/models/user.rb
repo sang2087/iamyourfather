@@ -371,7 +371,7 @@ class User < ActiveRecord::Base
 
 		PointLog.betray self, youruser
 		User.set_tree_xy(self.root, nil, 'family')
-		User.set_tree_xy(self.root, nil, 'all')
+		User.set_tree_xy(self.root, User.children_list, 'all')
 	end
 
 	def seize youruser_id
@@ -399,7 +399,7 @@ class User < ActiveRecord::Base
 		end
 		PointLog.seize self, youruser
 		User.set_tree_xy(self.root, nil, 'family')
-		User.set_tree_xy(self.root, nil, 'all')
+		User.set_tree_xy(self.root, User.children_list, 'all')
 	end
 
 	def independance
@@ -416,7 +416,7 @@ class User < ActiveRecord::Base
 		PointLog.independance self
 
 		User.set_tree_xy(self.root, nil, 'family')
-		User.set_tree_xy(self.root, nil, 'all')
+		User.set_tree_xy(self.root, User.children_list, 'all')
 	end
 
 	def rand_display_xy
