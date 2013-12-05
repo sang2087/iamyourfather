@@ -72,6 +72,7 @@
 					<li class="active"><a href="#info" data-toggle="tab"><%=t :info%></a></li>
 					<li><a href="#rank" data-toggle="tab"><%=t :rank%></a></li>
 					<li><a href="#facebook" data-toggle="tab"><%=t :facebook_friends%></a></li>
+					<li><a href="#manual" data-toggle="tab" id="manual_btn">?</a></li>
 				</ul>
 				<!-- Tab panes -->
 				<div class="tab-content">
@@ -229,8 +230,36 @@
 									</table>
 								</div>
 							</div>
+						<!-- rank_point end -->
 						</div>
+						<!-- tab content end -->
 					</div>
+					<!-- rank tab end-->
+<%########################FACEBOOK FRIEND TAB#####################%>
+					<div class="tab-pane fade" id="manual">
+						<h3>
+							서비스 소개
+						</h3>
+						<p>온라인에서 피라미드 방식으로 기부해보자! 해서 만든 서비스입니다.<br>
+						많은 방문자가 모여 광고수익이 발생하면 이번 <u>크리스마스 때 기부</u>할 예정입니다.<br>
+						<u>당신의 위치는 빨간 화살표</u>로 표시되어 있습니다<br>
+						만약 페이스북 로그인을 하신다면 <u>페이스북 친구들은 파란색 화살표</u>로 표시됩니다<br>
+						배너를 수정하여 표시되는 이름을 변경할 수 있습니다<br>
+						이름옆의 괄호에는 자손의 수가 표시되어 있습니다<br>
+						원리는 간단합니다.<br>
+						사람들이 당신의 링크를 통해 들어오게 되면 여러분의 바로 밑(자손)에 들어오게 됩니다.<br>
+						여러분의 <u>자손이 늘어날 때마다 여러분에게 5포인트씩</u> 쌓이게 됩니다.<br>
+						포인트를 활용해 다른 자손들을 <u>"입양"</u>할 수 있습니다. 많이 입양할 수록 큰 포인트가 소요됩니다.<br>
+						전략적으로 성장가능성이 큰 자손을 데려오시면 더욱 유리해 집니다.<br>
+						각 집안의 최상단의 사람을 <u>시조</u>라 부릅니다.<br>
+						만약 자신이 시조가 되고 싶다면 <u>"새가족"</u> 버튼을 누르시면 됩니다.<br>
+						일정 조건만 충족 된다면 새 가족을 만들 수 있습니다.<br>
+						또한, 마음에 드는 집안으로 이동할 수도 있습니다. <u>"이동"</u> 버튼을 이용하시면 됩니다.<br>
+						이러한 활동을 하는데 포인트는 필수입니다.<br>
+						포인트를 얻기위해서는 <u>자신의 링크를 공유하여 자손을 늘리는 것</u>이 가장 좋은 방법이고,<br>
+						페이스북 로그인 또는 친구 초대시에도 포인트가 적립됩니다.</p>
+					</div>
+					<%######END#####%>
 				</div>
 				</div>
 			</div>
@@ -281,31 +310,67 @@
 		</div>
 	</div>
 
+	<div id="manual_info" class="dialog_style">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick='$("#manual_info").hide()'>&times;</button>
+					<h4 class="modal-title" id="noti_title">서비스 소개</h4>	
+				</div><!--modal-header END-->
+				<div class="modal-body" style="min-height:150px">
+						<p>온라인에서 피라미드 방식으로 기부해보자! 해서 만든 서비스입니다.<br>
+						많은 방문자가 모여 광고수익이 발생하면 이번 <u>크리스마스 때 기부</u>할 예정입니다.<br>
+						<u>당신의 위치는 빨간 화살표</u>로 표시되어 있습니다<br>
+						만약 페이스북 로그인을 하신다면 <u>페이스북 친구들은 파란색 화살표</u>로 표시됩니다<br>
+						배너를 수정하여 표시되는 이름을 변경할 수 있습니다<br>
+						이름옆의 괄호에는 자손의 수가 표시되어 있습니다<br>
+						원리는 간단합니다.<br>
+						사람들이 당신의 링크를 통해 들어오게 되면 여러분의 바로 밑(자손)에 들어오게 됩니다.<br>
+						여러분의 <u>자손이 늘어날 때마다 여러분에게 5포인트씩</u> 쌓이게 됩니다.<br>
+						포인트를 활용해 다른 자손들을 <u>"입양"</u>할 수 있습니다. 많이 입양할 수록 큰 포인트가 소요됩니다.<br>
+						전략적으로 성장가능성이 큰 자손을 데려오시면 더욱 유리해 집니다.<br>
+						각 집안의 최상단의 사람을 <u>시조</u>라 부릅니다.<br>
+						만약 자신이 시조가 되고 싶다면 <u>"새가족"</u> 버튼을 누르시면 됩니다.<br>
+						일정 조건만 충족 된다면 새 가족을 만들 수 있습니다.<br>
+						또한, 마음에 드는 집안으로 이동할 수도 있습니다. <u>"이동"</u> 버튼을 이용하시면 됩니다.<br>
+						이러한 활동을 하는데 포인트는 필수입니다.<br>
+						포인트를 얻기위해서는 <u>자신의 링크를 공유하여 자손을 늘리는 것</u>이 가장 좋은 방법이고,<br>
+						페이스북 로그인 또는 친구 초대시에도 포인트가 적립됩니다.</p>
+				</div><!-- modal-body END-->
+				<div class="modal-footer">
+					<div id="noti_button" class="row-fluid">
+							<%= link_to "CLOSE", "#", class:"btn btn-info ", onclick:"$('#manual_info').hide()" %>
+					</div><!--notibutton END-->
+				</div><!--modalfooter END-->
+			</div><!--modal content END-->
+		</div><!--modal dialog END-->
+	</div><!-- noti END-->
 	<div id="noti" class="dialog_style">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick='$("#noti").hide()'>&times;</button>
 					<h4 class="modal-title" id="noti_title">I am your family</h4>	
-				</div>
+				</div><!--modal-header END-->
 				<div class="modal-body" style="min-height:150px">
 						<p>
 						<%=t(:first_info).html_safe %>
 						</p>
-				</div>
+				</div><!-- modal-body END-->
 				<div class="modal-footer">
 					<div id="noti_button" class="row-fluid">
+							<a href="#" class="btn btn-info" onclick="$('#manual_info').show();$('#noti').hide();">설명</a>
 						<%if @facebook_login%>
 							<%= link_to "#{t :tour}", "#", class:"btn btn-info ", onclick:"$('#noti').hide()" %>
 						<%else%>
 							<%= link_to "#{t :tour}", "#", class:"btn btn-info ", onclick:"$('#noti').hide()" %>
 							<%= link_to "#{t :sign_in}", "/auth/facebook", id: "sign_in", class:"btn btn-primary" %>
 						<%end%>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+					</div><!--notibutton END-->
+				</div><!--modalfooter END-->
+			</div><!--modal content END-->
+		</div><!--modal dialog END-->
+	</div><!-- noti END-->
 </div>
 <div class="row">
 	<div class="col-xs-12 col-sm-12 col-md-12">
@@ -393,11 +458,11 @@
 
 		$("#friend_search").bind("keyup input paste",function(){
 			str = $("#friend_search").val().toLowerCase()
-			console.log(str);
+			//console.log(str);
 			if(str == ''){
-			console.log("empty");
+			//console.log("empty");
 				friends_list = original_friends_list
-				console.log(friends_list)
+				//console.log(friends_list)
 				friends_list_cnt = original_friends_list.length
 			}else{
 				var arr_temp = new Array;
@@ -451,8 +516,8 @@
 				user_id: node_id // if user_id == 0 then get session user
 			},
 			success: function(data) {
-				console.log("+"+function_type)
-				console.log(ment_set(function_type))
+				//console.log("+"+function_type)
+				//console.log(ment_set(function_type))
 				alert(ment_set(function_type) + " <%= t :complete%>");
 				location.reload(true);
 			}
@@ -610,8 +675,8 @@
 		var html = ""
 		var my_id=<%=@user.id%>;
 		if(function_type == "Information"){
-			console.log("my_id" + my_id)
-			console.log("node_id" +node_id)
+			//console.log("my_id" + my_id)
+			//console.log("node_id" +node_id)
 			if(node_id != my_id){ //나이면 아무것도 안뜸
 				html += "<button onclick='betray_dialog("+node_id+")'><%=t :binfo%></button>  <button onclick='seize_dialog("+ node_id+ ")'><%=t :sinfo%></button>"
 			}else{
@@ -620,8 +685,8 @@
 		}else{
 			ancestor_ids=<%=@ancestors%>
 			descendant_ids=<%=@descendants%>
-			console.log("ANC" + ancestor_ids)
-			console.log("DES" + descendant_ids)
+			//console.log("ANC" + ancestor_ids)
+			//console.log("DES" + descendant_ids)
 			if(node_id == my_id){
 				html += "<%=t :cant_me%>"
 			}else if(function_type == "Seize" && ancestor_ids.indexOf(node_id)>=0){
@@ -646,7 +711,7 @@
 		$("#dialog").show();
 	}
 	function ment_set(function_type){
-		console.log(function_type);
+		//console.log(function_type);
 		if(function_type.toLowerCase() == "information")
 			return "<%= t :information%>"
 		else if(function_type.toLowerCase() == "independance")
@@ -657,7 +722,7 @@
 			return "<%= t :seize%>"
 	}
 	function want_ment_set(function_type){
-		console.log(function_type);
+		//console.log(function_type);
 		if(function_type.toLowerCase() == "independance")
 			return "<%= t :want_ind%>"
 		else if(function_type.toLowerCase() == "betray")
@@ -730,7 +795,7 @@
 		.dialog_style{
 			position: absolute;
 			left: 0;
-			top: 200px;
+			top: 100px;
 			display: none;
 		}
 		.sigma-parent{
@@ -741,7 +806,7 @@
 		.dialog_style{
 			position: absolute;
 			left: 20%;
-			top: 200px;
+			top: 100px;
 			display: none;
 		}
 		.sigma-parent{
