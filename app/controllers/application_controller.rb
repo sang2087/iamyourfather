@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery
+#protect_from_forgery
 	before_filter :set_i18n_locale, :check_facebook_login
 
 	def set_i18n_locale

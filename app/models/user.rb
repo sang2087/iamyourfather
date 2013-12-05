@@ -51,7 +51,7 @@ class User < ActiveRecord::Base
 				nodes(Rubyvis.dom(files).root(1).nodes()).
 				orient('radial').
 				depth(85).
-				breadth(180/count)
+				breadth(360/count)
 		elsif(type == 'family')
 			tree = vis.add(Rubyvis::Layout::Tree).
 				nodes(Rubyvis.dom(files).root(1).nodes()).
@@ -420,8 +420,10 @@ class User < ActiveRecord::Base
 	end
 
 	def rand_display_xy
-		self.displayX = rand(CANVAS_WIDTH)-(CANVAS_WIDTH/2)
-		self.displayY = rand(CANVAS_HEIGHT)-(CANVAS_HEIGHT/2)
+		radian = (rand(360) + 1) * Math::PI / 180
+		r = 800
+		self.displayX = r * Math.cos(radian)
+		self.displayY = r * Math.sin(radian)
 		self.save!
 	end
 	def my_rank type
