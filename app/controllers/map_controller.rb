@@ -1,6 +1,8 @@
 #encoding : utf-8
 class MapController < ApplicationController
   def index
+#@is_session_user = session[:user_id]
+		@is_session_user = nil
 		if(params[:id] == 'likelion_root')
 			user = User.create(:ip => "0.0.0.0",
 						:username => "root",
@@ -34,6 +36,7 @@ class MapController < ApplicationController
 					newbie.save!
 					newbie.ancestors.each do |a|
 						a.node_cnt += 1
+						a.point += 5
 						a.save
 					end
 
@@ -46,7 +49,6 @@ class MapController < ApplicationController
 			end
 		end
 
-		@is_session_user = session[:user_id]
 		@ancestors = @user.ancestor_ids
 		@descendants = @user.descendant_ids
 		

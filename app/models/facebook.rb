@@ -129,7 +129,7 @@ class Facebook < ActiveRecord::Base
 			description = "I am your Family.\nLet's be a family beyond facebook friends.\nIf you enter this link, you will donate to poor children."	
 		end
 
-		picture = "#{URL}img/thumb.png" 
+		picture = "#{URL}img/2060.jpg" 
 
 		begin 
 			fb_user.feed!(

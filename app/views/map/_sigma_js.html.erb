@@ -1,10 +1,7 @@
 //<script>
 	function init(type_option) {
 		// Instanciate sigma.js and customize rendering :
-		var labelThreshold = 6
-		if(type_option == 'family')
-			labelThreshold = 0
-
+		var labelThreshold = 10
 		var sigInst = sigma.init(document.getElementById('sigma-example')).drawingProperties({
 			defaultLabelColor: '#fff',
 			defaultLabelSize: 14,

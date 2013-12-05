@@ -2,6 +2,7 @@ ko:
   title: I AM YOUR FAMILY
   subtitle:
   iam: 이름
+  my_info: 나의 상태
   shareinfo: 더 많은 후손을 만들려면 아래 링크를 공유하세요.
   money: 기부 포인트
   money_info: 링크를 공유하여 많은 사람이 들어오면, 기부 포인트가 쌓입니다. 기부 포인트가 쌓이면 더 많은 기부를 할 수 있습니다.
@@ -19,7 +20,7 @@ ko:
   want_betray: 당신의 후손과 함께 다른 가족으로 이동을 할 수 있습니다. 다른 가족으로 이동하시겠습니까?
   want_seize: 다른 가족을 당신의 가족으로 입양할 수 있습니다. 입양하시겠습니까?
   information: 정보
-  you_cannot: 기부 포인트 혹은 보유 후손 수가 부족하여, 할 수 없습니다.
+  you_cannot: "기부 포인트 혹은 보유 후손 수가 부족하여, 할 수 없습니다."
   edit: 수정
   your_father: 부모
   your_founder: 시조 
@@ -43,8 +44,8 @@ ko:
   cant_descendant_betray: 후손을 부모로 삼을 수 없습니다.
 
   iinfo: 새 가족 - 당신을 시조로, 새 가족을 만듭니다.
-  binfo: 이동 - 다른 가족으로 이동합니다. 후손이 없는 사람에게 쉽게 이동할 수 있습니다.
-  sinfo: 입양 - 다른 사람을 자식으로 입양합니다. 후손이 없는 사람은 쉽게 입양할 수 있습니다.
+  binfo: 이동 - 다른 가족으로 이동합니다.
+  sinfo: 입양 - 다른 사람을 자식으로 입양합니다.
   loginearn: 로그인 하여 기부 포인트를 얻었습니다.
   facebookinvited: 페이스북을 통하여 초대 메시지를 보냅니다.
   needfblogin: 페이스북 로그인이 필요합니다.

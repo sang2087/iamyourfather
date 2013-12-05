@@ -2,6 +2,7 @@ en:
   title: I AM YOUR FAMILY
   subtitle: 
   iam: Name
+  my_info: My Status
   shareinfo: "If you want to have many descendants, share this link."
   money: Donation Point
   money_info: "If someone enter through this link, you will take donation point. You can donation with donation point."
@@ -44,8 +45,8 @@ en:
   cant_descendant_betray: Cannot move to your descendant
 
   iinfo: "New Fammily - You can have new family"
-  binfo: "Move - Move to other family. You can easily move to father having no sons"
-  sinfo: "Adoption - Make my sons. You can easily adoption son having no sons"
+  binfo: "Move - Move to other family."
+  sinfo: "Adoption - Make my sons."
   loginearn: "You get point by login"
   facebookinvited: "Facebook invitation completed"
   needfblogin: "You have to connect with Facebook"
