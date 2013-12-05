@@ -1,5 +1,8 @@
 Iamyourfather::Application.routes.draw do
 	
+  get "errors/400"
+  get "errors/422"
+  get "errors/500"
 	get "map/index"
 	post "map/seize"
 	get "map/seize"
@@ -29,4 +32,5 @@ Iamyourfather::Application.routes.draw do
   match "data/send_invitation" => "send_data#send_invitation", via: [:get, :post]
 	match "data/facebook_post" => "send_data#facebook_post", via: [:get, :post]
 	match "data/save_banner" => "send_data#save_banner", via: [:get, :post]
+
 end
