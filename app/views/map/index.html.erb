@@ -595,7 +595,6 @@
 	}
 
 	function set_dialog_html(function_type, user, is_possible, limit_point, limit_node_cnt,rank){
-		console.log(rank)
 		$("#dialog_title").text(ment_set(function_type) + " - " + user.banner);
 		$("#dialog_name").text(user.username);
 		$("#dialog_point").text("<%= t :mark %>" + user.point +"<%= t :unit %>");
@@ -609,7 +608,7 @@
 			console.log("my_id" + my_id)
 			console.log("node_id" +node_id)
 			if(node_id != my_id){ //나이면 아무것도 안뜸
-				html += "<button onclick='betray_dialog(node_id)'><%=t :binfo%></button>  <button onclick='seize_dialog(node_id)'><%=t :sinfo%></button>"
+				html += "<button onclick='betray_dialog("+node_id+")'><%=t :binfo%></button>  <button onclick='seize_dialog("+ node_id+ ")'><%=t :sinfo%></button>"
 			}else{
 				html += "<%=t :cant_me%>"
 			}
