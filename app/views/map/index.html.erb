@@ -596,7 +596,11 @@
 	}
 
 	function set_dialog_html(function_type, user, is_possible, limit_point, limit_node_cnt,rank){
-		$("#dialog_title").text(ment_set(function_type) + " - " + user.banner);
+		if(user.facebook_uid == null){
+			$("#dialog_title").text(ment_set(function_type) + " - " + user.banner);
+		}else{
+			$("#dialog_title").html(ment_set(function_type) + " - <a href='http://facebook.com/" + user.facebook_uid+ "'> " + user.banner + "</a>");
+		}
 		$("#dialog_name").text(user.username);
 		$("#dialog_point").text("<%= t :mark %>" + user.point +"<%= t :unit %>");
 		$("#dialog_node_cnt").text(user.node_cnt - 1);
