@@ -39,9 +39,11 @@ class MapController < ApplicationController
 						a.point += 5
 						a.save
 					end
+					newbie_root = newbie.root
+					cl = User.children_list(newbie_root)
 
-					User.set_tree_xy newbie.root 
-					User.set_tree_xy newbie.root, nil, 'family'
+					User.set_tree_xy newbie_root, cl, 'all'
+					User.set_tree_xy newbie_root, cl, 'family'
 				end
 
 				newbie.link_in 

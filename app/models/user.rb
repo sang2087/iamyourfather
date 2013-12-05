@@ -107,8 +107,13 @@ class User < ActiveRecord::Base
 		end
 	end
 
-	def self.children_list
-		users = User.all
+	def self.children_list root = nil
+		if root.nil?
+			users = User.all
+		else
+			users = root.subtree
+		end
+
 		parents = Hash.new
 		users.each do |user|
 			if parents[user.parent_id].nil? 
@@ -116,6 +121,7 @@ class User < ActiveRecord::Base
 			end
 			parents[user.parent_id].push(user.id)
 		end
+
 		parents
 	end
 	def self.json_tree(nodes, original)
@@ -368,10 +374,11 @@ class User < ActiveRecord::Base
 			descentdant.color = self.color
 			descentdant.save!
 		end
+		self_root = self.root
 
 		PointLog.betray self, youruser
-		User.set_tree_xy(self.root, nil, 'family')
-		User.set_tree_xy(self.root, User.children_list, 'all')
+		User.set_tree_xy(self_root, nil, 'family')
+		User.set_tree_xy(self_root, User.children_list(self_root), 'all')
 	end
 
 	def seize youruser_id
@@ -398,8 +405,9 @@ class User < ActiveRecord::Base
 			descentdant.save!
 		end
 		PointLog.seize self, youruser
-		User.set_tree_xy(self.root, nil, 'family')
-		User.set_tree_xy(self.root, User.children_list, 'all')
+		self_root=self.root
+		User.set_tree_xy(self_root, nil, 'family')
+		User.set_tree_xy(self_root, User.children_list(self_root), 'all')
 	end
 
 	def independance
@@ -414,9 +422,10 @@ class User < ActiveRecord::Base
 		self.rand_display_xy
 
 		PointLog.independance self
+		self_root= self.root
 
-		User.set_tree_xy(self.root, nil, 'family')
-		User.set_tree_xy(self.root, User.children_list, 'all')
+		User.set_tree_xy(self_root, nil, 'family')
+		User.set_tree_xy(self_root, User.children_list(self_root), 'all')
 	end
 
 	def rand_display_xy
