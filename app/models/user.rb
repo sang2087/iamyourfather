@@ -12,19 +12,13 @@ class User < ActiveRecord::Base
 	has_ancestry 
 	has_many :point_logs
 
-=begin
 	def self.all_tree_set_xy
-		children_list = User.children_list
-
-		children_list[nil].each do |root_id|
-			User.find(root_id).rand_display_xy
-			unless children_list[root_id].nil?
-				self.set_tree_xy User.find(root_id), children_list, 'all'
-				self.set_tree_xy User.find(root_id), children_list, 'family'
+			roots = User.where('ancestry' => nil)
+			roots.each do |root|
+				root.rand_display_xy
 			end
 		end
 	end
-=end
 
 	def self.set_tree_xy root, children_list = nil, type = 'all'
 		logger.info "ROOT_ID#{root.id}"
