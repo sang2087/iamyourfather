@@ -17,7 +17,6 @@ class User < ActiveRecord::Base
 			roots.each do |root|
 				root.rand_display_xy
 			end
-		end
 	end
 
 	def self.set_tree_xy root, children_list = nil, type = 'all'
@@ -257,13 +256,15 @@ class User < ActiveRecord::Base
 			id_with_dot = set_tree_xy(root, User.children_list(root), type)
 		end
 		ids= Array.new
+		users = Array.new
+
 		if(type == 'all')
 			users = User.all
 		else
+			us = User.all
 			id_with_dot.each do |iwd|
-				ids << iwd[:id]
+				users << us[iwd[:id]-1]
 			end
-			users = User.where('id'=>ids)
 		end
 
 		users_with_id = Hash.new
