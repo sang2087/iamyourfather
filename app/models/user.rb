@@ -449,12 +449,13 @@ class User < ActiveRecord::Base
 		self.displayY = r * Math.sin(radian)
 		self.save!
 	end
-	def my_rank type
+	def my_rank users, type
 		rank = 0
 		rank_type = -1
 		user_type = -2
 		same_rank = 1
-		User.order("#{type} DESC").all.each_with_index do |user , i|
+		users.sort!{|x,y| y["#{type}"] <=> x["#{type}"] }
+		users.each_with_index do |user , i|
 			if(type == 'node_cnt')
 				user_type = user.node_cnt
 			elsif(type == 'point')
@@ -473,13 +474,14 @@ class User < ActiveRecord::Base
 		end
 		rank
 	end
-	def self.all_rank type
+	def self.all_rank users, type
 		rank = 0
 		rank_type = -1
 		user_type = -2
 		same_rank = 1
 		rank_array = Array.new
-		User.order("#{type} DESC").all.each_with_index do |user , i|
+		users.sort!{|x,y| y["#{type}"] <=> x["#{type}"] }
+		users.each_with_index do |user , i|
 			if(type == 'node_cnt')
 				user_type = user.node_cnt
 			elsif(type == 'point')

@@ -79,10 +79,12 @@ class MapController < ApplicationController
 		puts "@is_point_get_login #{@is_point_get_login}"
 		session[:login_point] = false
 		@login_point = BaseData.where(:mytype=>"PointLog", :code=>7).first.point
-		@node_cnt_rank = @user.my_rank "node_cnt"
-		@point_rank = @user.my_rank "point"
-		@all_rank_node_cnt = User.all_rank "node_cnt"
-		@all_rank_point = User.all_rank "point"
+		users=User.all
+		@node_cnt_rank = @user.my_rank users, "node_cnt"
+		@point_rank = @user.my_rank users, "point"
+		user=user
+		@all_rank_node_cnt = User.all_rank users, "node_cnt"
+		@all_rank_point = User.all_rank users, "point"
   end
 
 	def independance

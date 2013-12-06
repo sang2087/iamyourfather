@@ -45,9 +45,10 @@ class SendDataController < ApplicationController
 		if (3..5).include? params[:code].to_i
 			is_function_possible, limit_point, limit_node_cnt = PointLog.is_function_possible?(session_user, user, params[:code])
 		end
+		users = User.all
 		rank = {
-			:point_rank => user.my_rank('point'),
-			:node_cnt_rank => user.my_rank('node_cnt')
+			:point_rank => user.my_rank(users, 'point'),
+			:node_cnt_rank => user.my_rank(users, 'node_cnt')
 		}
 
 		data={
