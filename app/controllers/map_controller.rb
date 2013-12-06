@@ -42,8 +42,8 @@ class MapController < ApplicationController
 					newbie_root = newbie.root
 					cl = User.children_list(newbie_root)
 
-					User.set_tree_xy newbie_root, cl, 'all'
-					User.set_tree_xy newbie_root, cl, 'family'
+					#User.set_tree_xy newbie_root, cl, 'all'
+					#User.set_tree_xy newbie_root, cl, 'family'
 				end
 
 				newbie.link_in 

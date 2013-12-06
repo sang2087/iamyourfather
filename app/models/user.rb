@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
 	has_ancestry 
 	has_many :point_logs
 
+=begin
 	def self.all_tree_set_xy
 		children_list = User.children_list
 
@@ -23,6 +24,7 @@ class User < ActiveRecord::Base
 			end
 		end
 	end
+=end
 
 	def self.set_tree_xy root, children_list = nil, type = 'all'
 		logger.info "ROOT_ID#{root.id}"
@@ -73,38 +75,26 @@ class User < ActiveRecord::Base
 		str= vis.to_svg.to_s
 
 		doc = REXML::Document.new(str)
-		ids = Array.new
-		dots = Array.new
+		id_with_dot = Array.new
+		i=0
 		doc.elements.each('svg/g/g/a') do |ele|
+				id_with_dot[i]=Hash.new
 				id = (ele.attribute("xlink:title").to_s)[1..-1]
 				if id == ""
 					id = root.id
 				end
-				ids << id.to_i
+				id_with_dot[i][:id]= id.to_i
+				i=i+1
 		end
+		i=0
 		doc.elements.each('svg/g/g/a/circle') do |ele|
 				x = (ele.attribute("cx").to_s).to_f
 				y = (ele.attribute("cy").to_s).to_f
-				dots << {:x => x, :y => y}
+				id_with_dot[i][:x] = root.displayX+x
+				id_with_dot[i][:y] = root.displayY+y
+				i=i+1
 		end
-
-		# print all events
-		rootX = root.displayX
-		rootY = root.displayY
-
-		ids.each_with_index do |id, i|
-			user=User.find(id)
-			if(type=='all')
-				user.cx = dots[i][:x]
-				user.cy = dots[i][:y]
-				user.displayX = rootX + dots[i][:x]
-				user.displayY = rootY + dots[i][:y]
-			elsif(type == 'family')
-				user.fx = rootX+dots[i][:x]
-				user.fy = rootY+dots[i][:y]
-			end
-			user.save
-		end
+		id_with_dot
 	end
 
 	def self.children_list root = nil
@@ -259,7 +249,21 @@ class User < ActiveRecord::Base
 		end
 		return json
 	end
+
 	def self.make_gexf user_id, type = 'all'
+		user=User.find(user_id)
+		root=user.root
+		id_with_dot = Array.new
+		if(type == 'all')
+			roots = User.where('ancestry' => nil)
+			roots.each do |root|
+				id_with_dot += set_tree_xy(root, User.children_list(root), 'all')
+			end
+		elsif(type == 'family')
+			id_with_dot = set_tree_xy(root, User.children_list(root), type)
+		end
+		
+=begin
 		if(type == 'all')
 			users = User.all.order("ancestry")
 			user = User.find(user_id)
@@ -267,11 +271,14 @@ class User < ActiveRecord::Base
 			user = User.find(user_id)
 			users = user.root.subtree.order("ancestry")
 		end
+=end
+
 		unless user.get_facebook.nil?
-			friends_hash = User.find(user_id).get_facebook.check_friends
+			friends_hash = user.get_facebook.check_friends
 		end
 
 		puts"friends_hash#{friends_hash}"
+		users = Array.new
 		
 		builder = Nokogiri::XML::Builder.new(:encoding => 'UTF-8') do |xml|
 			xml.gexf('xmlns:viz' => 'http:///www.gexf.net/1.1draft/viz', 'version' => '1.1', 'xmlns' => 'http://www.gexf.net/1.1draft') do
@@ -282,8 +289,11 @@ class User < ActiveRecord::Base
 							xml.attribute("id" => "picture", "title" => "Picture", "type" => "string")
 						end
 					end
+
 					xml.nodes do 
-						users.each do |user|
+						id_with_dot.each do |iwd|
+							user = User.find(iwd[:id])
+							users << user
 							xml.node('id' => "#{user.id}", 'label' => "#{user.banner}(#{user.node_cnt-1})") do
 								xml.attvalues do 
 									if(user.id == user_id.to_i)
@@ -301,11 +311,7 @@ class User < ActiveRecord::Base
 								end
 								xml['viz'].size('value' => Math.log2(user.node_cnt + 1))
 								xml['viz'].color('r' => User.color_r(user.color), 'g' => User.color_g(user.color), 'b' => User.color_b(user.color))
-								if(type == 'all')
-									xml['viz'].position('x' => user.displayX, 'y' => user.displayY,'z' => 0)
-								elsif(type == 'family')
-									xml['viz'].position('x' => user.fx, 'y' => user.fy,'z' => 0)
-								end
+								xml['viz'].position('x' => iwd[:x], 'y' => iwd[:y],'z' => 0)
 							end
 						end
 					end
@@ -377,8 +383,8 @@ class User < ActiveRecord::Base
 		self_root = self.root
 
 		PointLog.betray self, youruser
-		User.set_tree_xy(self_root, nil, 'family')
-		User.set_tree_xy(self_root, User.children_list(self_root), 'all')
+		#User.set_tree_xy(self_root, nil, 'family')
+		#User.set_tree_xy(self_root, User.children_list(self_root), 'all')
 	end
 
 	def seize youruser_id
@@ -406,8 +412,8 @@ class User < ActiveRecord::Base
 		end
 		PointLog.seize self, youruser
 		self_root=self.root
-		User.set_tree_xy(self_root, nil, 'family')
-		User.set_tree_xy(self_root, User.children_list(self_root), 'all')
+		#User.set_tree_xy(self_root, nil, 'family')
+		#User.set_tree_xy(self_root, User.children_list(self_root), 'all')
 	end
 
 	def independance
@@ -424,8 +430,8 @@ class User < ActiveRecord::Base
 		PointLog.independance self
 		self_root= self.root
 
-		User.set_tree_xy(self_root, nil, 'family')
-		User.set_tree_xy(self_root, User.children_list(self_root), 'all')
+		#User.set_tree_xy(self_root, nil, 'family')
+		#User.set_tree_xy(self_root, User.children_list(self_root), 'all')
 	end
 
 	def rand_display_xy
