@@ -262,6 +262,20 @@ class User < ActiveRecord::Base
 		elsif(type == 'family')
 			id_with_dot = set_tree_xy(root, User.children_list(root), type)
 		end
+		ids= Array.new
+		if(type == 'all')
+			users = User.all
+		else
+			id_with_dot.each do |iwd|
+				ids << iwd[:id]
+			end
+			users = User.where('id'=>ids)
+		end
+
+		users_with_id = Hash.new
+		users.each do |user|
+			users_with_id["#{user.id}"] = user
+		end
 		
 =begin
 		if(type == 'all')
@@ -292,8 +306,7 @@ class User < ActiveRecord::Base
 
 					xml.nodes do 
 						id_with_dot.each do |iwd|
-							user = User.find(iwd[:id])
-							users << user
+							user = users_with_id["#{iwd[:id]}"]
 							xml.node('id' => "#{user.id}", 'label' => "#{user.banner}(#{user.node_cnt-1})") do
 								xml.attvalues do 
 									if(user.id == user_id.to_i)
@@ -317,10 +330,10 @@ class User < ActiveRecord::Base
 					end
 					xml.edges do 
 						cnt = 0
-						users.each do |user|
-							unless(user.parent_id.nil?)
+						users_with_id.each do |user|
+							unless(user[1].parent_id.nil?)
 								cnt += 1
-								xml.edge('id' => "#{cnt}", 'source' => "#{user.parent_id}", 'target' => "#{user.id}")
+								xml.edge('id' => "#{cnt}", 'source' => "#{user[1].parent_id}", 'target' => "#{user[1].id}")
 							end
 						end
 					end
